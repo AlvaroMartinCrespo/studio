@@ -1,0 +1,14 @@
+
+{
+  "navLinks": {
+    "home": "Inicio",
+    "projects": "Proyectos",
+    "blog": "Blog",
+    "about": "Sobre mí",
+    "contact": "Contacto"
+  },
+  "footer": {
+    "builtWith": "Construido con Next.js, Tailwind CSS y mucho ☕.",
+    "copyright": "© {year} Álvaro Martín Crespo. Todos los derechos reservados."
+  }
+}
