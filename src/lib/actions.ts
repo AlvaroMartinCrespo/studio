@@ -1,7 +1,6 @@
 'use server';
 
 import { z } from 'zod';
-import { profileFeedback, type ProfileFeedbackInput } from '@/ai/flows/profile-feedback-flow';
 import { initializeFirebase } from '@/firebase';
 import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { collection } from 'firebase/firestore';
@@ -54,45 +53,5 @@ export async function submitContactForm(
   } catch (error) {
     console.error('Contact form submission error:', error);
     return { message: 'An unexpected error occurred. Please try again later.', status: 'error' };
-  }
-}
-
-
-// Profile Feedback Schema
-const profileFeedbackSchema = z.object({
-  profile: z.string().min(50, 'Profile text must be at least 50 characters.'),
-  projects: z.string().min(50, 'Projects description must be at least 50 characters.'),
-});
-
-export type ProfileFeedbackState = {
-  feedback?: string;
-  message?: string;
-  status: 'success' | 'error' | 'idle';
-}
-
-export async function getProfileFeedback(
-  prevState: ProfileFeedbackState,
-  formData: FormData
-): Promise<ProfileFeedbackState> {
-  const validatedFields = profileFeedbackSchema.safeParse({
-    profile: formData.get('profile'),
-    projects: formData.get('projects'),
-  });
-
-  if (!validatedFields.success) {
-    const errorMessages = validatedFields.error.errors.map(e => e.message).join(' ');
-    return {
-      message: errorMessages,
-      status: 'error'
-    };
-  }
-
-  try {
-    const input: ProfileFeedbackInput = validatedFields.data;
-    const result = await profileFeedback(input);
-    return { feedback: result.feedback, status: 'success' };
-  } catch(error) {
-    console.error("AI Feedback Error:", error);
-    return { message: 'Failed to get feedback from AI. Please try again later.', status: 'error' };
   }
 }
