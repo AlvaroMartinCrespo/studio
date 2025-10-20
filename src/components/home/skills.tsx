@@ -1,6 +1,23 @@
-import { skills } from '@/lib/data';
-import { Progress } from '@/components/ui/progress';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import { Card, CardContent } from '@/components/ui/card';
+
+const skills = [
+  { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+  { name: 'HTML5', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg' },
+  { name: 'CSS3', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg' },
+  { name: 'JavaScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
+  { name: 'Tailwind CSS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
+  { name: 'Angular', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg' },
+  { name: 'PHP', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg' },
+  { name: 'Git', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg' },
+  { name: 'GitHub', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg' },
+];
 
 export function Skills() {
   return (
@@ -15,21 +32,30 @@ export function Skills() {
           </p>
         </div>
         
-        <Card>
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-              {skills.map((skill) => (
-                <div key={skill.name}>
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="font-medium text-sm">{skill.name}</span>
-                    <span className="text-sm text-muted-foreground">{skill.level}%</span>
-                  </div>
-                  <Progress value={skill.level} aria-label={`${skill.name} proficiency`} />
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto"
+        >
+          <CarouselContent>
+            {skills.map((skill) => (
+              <CarouselItem key={skill.name} className="basis-1/3 sm:basis-1/4 md:basis-1/5 lg:basis-1/6">
+                <div className="p-1">
+                  <Card className="transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+                    <CardContent className="flex flex-col items-center justify-center p-4 aspect-square">
+                      <img src={skill.logo} alt={`${skill.name} logo`} className="h-12 w-12" />
+                      <p className="mt-2 text-sm font-medium text-center">{skill.name}</p>
+                    </CardContent>
+                  </Card>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="hidden sm:flex" />
+          <CarouselNext className="hidden sm:flex" />
+        </Carousel>
       </div>
     </section>
   );
