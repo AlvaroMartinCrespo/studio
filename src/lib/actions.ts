@@ -2,6 +2,9 @@
 
 import { z } from 'zod';
 import { profileFeedback, type ProfileFeedbackInput } from '@/ai/flows/profile-feedback-flow';
+import { initializeFirebase } from '@/firebase';
+import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { collection } from 'firebase/firestore';
 
 // Contact Form Schema
 const contactFormSchema = z.object({
@@ -37,13 +40,16 @@ export async function submitContactForm(
       status: 'error',
     };
   }
-  
+
   try {
-    // Here you would typically send an email, save to a database, etc.
-    // For this example, we'll just log it to the console.
-    console.log('New contact form submission:');
-    console.log(validatedFields.data);
+    const { firestore } = initializeFirebase();
+    const submissionsCollection = collection(firestore, 'contact_form_submissions');
     
+    await addDocumentNonBlocking(submissionsCollection, {
+      ...validatedFields.data,
+      submissionDate: new Date().toISOString(),
+    });
+
     return { message: 'Thank you for your message! I will get back to you soon.', status: 'success' };
   } catch (error) {
     console.error('Contact form submission error:', error);
