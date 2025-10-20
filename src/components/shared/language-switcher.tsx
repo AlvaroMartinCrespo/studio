@@ -9,10 +9,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useEffect, useState } from 'react';
 
 export function LanguageSwitcher() {
   const pathName = usePathname();
   const router = useRouter();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const redirectedPathName = (locale: Locale) => {
     if (!pathName) return '/';
@@ -26,6 +32,10 @@ export function LanguageSwitcher() {
   };
 
   const currentLocale = pathName.split('/')[1] as Locale;
+
+  if (!isClient) {
+    return <div className="w-[80px] h-10 rounded-md bg-muted animate-pulse" />;
+  }
 
   return (
     <Select onValueChange={handleSwitch} defaultValue={currentLocale}>
