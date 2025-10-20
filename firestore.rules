@@ -1,0 +1,116 @@
+/**
+ * @file Firestore Security Rules
+ * @description This ruleset enforces a strict user-ownership model for user profiles, projects, and blog articles,
+ *              and restricts access to contact form submissions. It prioritizes security and data segregation.
+ *
+ * Data Structure:
+ * - User profiles, projects, and blog articles are nested under /users/{userId}.
+ * - Contact form submissions are stored in a top-level /contact_form_submissions collection.
+ *
+ * Key Security Decisions:
+ * - Users can only access their own profile data.
+ * - Users can only create, update, or delete their own projects and blog articles.
+ * - Contact form submissions are only writeable to signed in users and only readable by authorized backend services (simulated).
+ * - No public listing of user profiles, projects or blog articles.
+ *
+ * Denormalization for Authorization:
+ * - Projects and BlogArticles include a `userProfileId` field, which is automatically set to `request.auth.uid` on creation.
+ *   This enables ownership checks without additional `get()` calls.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Enforces user-ownership for UserProfile documents. Only the authenticated user can read or write their own profile.
+     * @path /users/{userId}/user_profile
+     * @allow (create) User with UID 'user123' creates their profile at /users/user123/user_profile.
+     * @allow (get, update, delete) User with UID 'user123' reads/updates/deletes their profile at /users/user123/user_profile.
+     * @deny (create) User with UID 'user456' attempts to create a profile at /users/user123/user_profile.
+     * @deny (get, update, delete) User with UID 'user456' attempts to read/update/delete the profile at /users/user123/user_profile.
+     * @principle Enforces document ownership for all operations.
+     */
+    match /users/{userId}/user_profile {
+      // Read Permissions
+      allow get: if isOwner(userId);
+      allow list: if false; // No listing of user profiles.
+
+      // Write Permissions
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isSignedIn() && isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow delete: if isSignedIn() && isExistingOwner(userId);
+    }
+
+    /**
+     * @description Enforces user-ownership for Project documents. Only the authenticated user can read or write their own projects.
+     * @path /users/{userId}/projects/{projectId}
+     * @allow (create) User with UID 'user123' creates a project at /users/user123/projects/projectXYZ.
+     * @allow (get, update, delete) User with UID 'user123' reads/updates/deletes their project at /users/user123/projects/projectXYZ.
+     * @deny (create) User with UID 'user456' attempts to create a project at /users/user123/projects/projectXYZ.
+     * @deny (get, update, delete) User with UID 'user456' attempts to read/update/delete the project at /users/user123/projects/projectXYZ.
+     * @principle Enforces document ownership for all operations.
+     */
+    match /users/{userId}/projects/{projectId} {
+      // Read Permissions
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+
+      // Write Permissions
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.userProfileId == userId;
+      allow update: if isSignedIn() && isExistingOwner(userId) && request.resource.data.userProfileId == resource.data.userProfileId;
+      allow delete: if isSignedIn() && isExistingOwner(userId);
+    }
+
+    /**
+     * @description Enforces user-ownership for BlogArticle documents. Only the authenticated user can read or write their own blog articles.
+     * @path /users/{userId}/blog_articles/{blogArticleId}
+     * @allow (create) User with UID 'user123' creates a blog article at /users/user123/blog_articles/articleABC.
+     * @allow (get, update, delete) User with UID 'user123' reads/updates/deletes their blog article at /users/user123/blog_articles/articleABC.
+     * @deny (create) User with UID 'user456' attempts to create a blog article at /users/user123/blog_articles/articleABC.
+     * @deny (get, update, delete) User with UID 'user456' attempts to read/update/delete the blog article at /users/user123/blog_articles/articleABC.
+     * @principle Enforces document ownership for all operations.
+     */
+    match /users/{userId}/blog_articles/{blogArticleId} {
+      // Read Permissions
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+
+      // Write Permissions
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.userProfileId == userId;
+      allow update: if isSignedIn() && isExistingOwner(userId) && request.resource.data.userProfileId == resource.data.userProfileId;
+      allow delete: if isSignedIn() && isExistingOwner(userId);
+    }
+
+    /**
+     * @description Restricts write access to the contact_form_submissions collection to signed-in users only.  Read access is denied to everyone,
+     *  simulating that it is only accessible to backend services.
+     * @path /contact_form_submissions/{contactFormSubmissionId}
+     * @allow (create) Any logged-in user can create a contact form submission.
+     * @deny (get, list, update, delete) No one can read, list, update, or delete contact form submissions through client-side rules.
+     * @principle Limits write access to authenticated users and restricts read access to backend.
+     */
+    match /contact_form_submissions/{contactFormSubmissionId} {
+      // Read Permissions - Denied
+      allow get: if false;
+      allow list: if false;
+
+      // Write Permissions - Only signed-in users can create. No updates or deletes.
+      allow create: if isSignedIn();
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+
+  // Helper Functions
+  function isSignedIn() {
+    return request.auth != null;
+  }
+
+  function isOwner(userId) {
+    return request.auth.uid == userId;
+  }
+
+  function isExistingOwner(userId) {
+    return isOwner(userId) && resource != null;
+  }
+}

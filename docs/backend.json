@@ -1,0 +1,302 @@
+{
+  "entities": {
+    "UserProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "UserProfile",
+      "type": "object",
+      "description": "Represents a user's profile, containing their personal and professional information.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the UserProfile entity."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "The user's first name."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The user's last name."
+        },
+        "title": {
+          "type": "string",
+          "description": "The user's professional title (e.g., Frontend Developer)."
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email address.",
+          "format": "email"
+        },
+        "bio": {
+          "type": "string",
+          "description": "A brief biography or summary of the user."
+        },
+        "profilePictureUrl": {
+          "type": "string",
+          "description": "URL of the user's profile picture.",
+          "format": "uri"
+        },
+        "githubUrl": {
+          "type": "string",
+          "description": "URL of the user's GitHub profile.",
+          "format": "uri"
+        },
+        "linkedinUrl": {
+          "type": "string",
+          "description": "URL of the user's LinkedIn profile.",
+          "format": "uri"
+        },
+        "xUrl": {
+          "type": "string",
+          "description": "URL of the user's X profile.",
+          "format": "uri"
+        },
+        "resumeUrl": {
+          "type": "string",
+          "description": "URL to download the user's resume/CV.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "firstName",
+        "lastName",
+        "email"
+      ]
+    },
+    "Project": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Project",
+      "type": "object",
+      "description": "Represents a project in the user's portfolio.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Project entity."
+        },
+        "userProfileId": {
+          "type": "string",
+          "description": "Reference to UserProfile. (Relationship: UserProfile 1:N Project)"
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the project."
+        },
+        "summary": {
+          "type": "string",
+          "description": "A brief summary of the project."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the project, including problem, solution, and results."
+        },
+        "techStack": {
+          "type": "array",
+          "description": "An array of technologies used in the project.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "liveDemoUrl": {
+          "type": "string",
+          "description": "URL of the live demo of the project.",
+          "format": "uri"
+        },
+        "repositoryUrl": {
+          "type": "string",
+          "description": "URL of the project's code repository (e.g., GitHub).",
+          "format": "uri"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the project's image or screenshot.",
+          "format": "uri"
+        },
+        "postmortem": {
+          "type": "string",
+          "description": "A postmortem or lessons learned section for the project."
+        }
+      },
+      "required": [
+        "id",
+        "userProfileId",
+        "title",
+        "summary",
+        "description"
+      ]
+    },
+    "BlogArticle": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "BlogArticle",
+      "type": "object",
+      "description": "Represents a blog article.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the BlogArticle entity."
+        },
+        "userProfileId": {
+          "type": "string",
+          "description": "Reference to UserProfile. (Relationship: UserProfile 1:N BlogArticle)"
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the blog article."
+        },
+        "content": {
+          "type": "string",
+          "description": "The full content of the blog article (e.g., Markdown or HTML)."
+        },
+        "publicationDate": {
+          "type": "string",
+          "description": "The date and time when the blog article was published.",
+          "format": "date-time"
+        },
+        "tags": {
+          "type": "array",
+          "description": "An array of tags associated with the blog article.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "slug": {
+          "type": "string",
+          "description": "URL-friendly slug for the blog article."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the article's image or screenshot.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "userProfileId",
+        "title",
+        "content",
+        "publicationDate",
+        "slug"
+      ]
+    },
+    "ContactFormSubmission": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ContactFormSubmission",
+      "type": "object",
+      "description": "Represents a submission from the contact form.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the ContactFormSubmission entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the person submitting the form."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the person submitting the form.",
+          "format": "email"
+        },
+        "message": {
+          "type": "string",
+          "description": "The message submitted through the contact form."
+        },
+        "submissionDate": {
+          "type": "string",
+          "description": "The date and time when the form was submitted.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "message",
+        "submissionDate"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}/user_profile",
+        "definition": {
+          "entityName": "UserProfile",
+          "schema": {
+            "$ref": "#/backend/entities/UserProfile"
+          },
+          "description": "Stores user profile information. Accessible only by the user. Uses path-based ownership for security.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/projects/{projectId}",
+        "definition": {
+          "entityName": "Project",
+          "schema": {
+            "$ref": "#/backend/entities/Project"
+          },
+          "description": "Stores projects owned by the user. The 'userProfileId' field is denormalized to enable authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "projectId",
+              "description": "The unique identifier of the project."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/blog_articles/{blogArticleId}",
+        "definition": {
+          "entityName": "BlogArticle",
+          "schema": {
+            "$ref": "#/backend/entities/BlogArticle"
+          },
+          "description": "Stores blog articles created by the user. The 'userProfileId' field is denormalized to enable authorization independence.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "blogArticleId",
+              "description": "The unique identifier of the blog article."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/contact_form_submissions/{contactFormSubmissionId}",
+        "definition": {
+          "entityName": "ContactFormSubmission",
+          "schema": {
+            "$ref": "#/backend/entities/ContactFormSubmission"
+          },
+          "description": "Stores contact form submissions. Write access should be restricted to authenticated users or the application backend.",
+          "params": [
+            {
+              "name": "contactFormSubmissionId",
+              "description": "The unique identifier of the contact form submission."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to follow best practices for security, scalability, and debuggability, focusing on authorization independence and clarity. User-owned data (UserProfile, Projects, BlogArticle) are stored under their respective user IDs, enabling straightforward security rules based on path ownership. ContactFormSubmissions are stored in a separate collection with security rules that limit write access. This segregation ensures that different data types with different security needs are not mixed in the same collection.\n\n**Authorization Independence (Denormalization):**\nFor `Projects` and `BlogArticle`, the `userProfileId` field is used to denote ownership. This design avoids the need for `get()` calls in security rules to verify ownership, as the `request.auth.uid` can be directly compared to the `userProfileId` within the document.\n\n**QAPs (Rules are not Filters):**\nThe design supports secure `list` operations. For example, listing projects is performed under the path `/users/{userId}/projects`. Security rules can easily allow listing projects where `request.auth.uid == userId`, preventing unauthorized access.\n\n**Contact Form Submissions:**\nThe `contact_form_submissions` collection stores contact form submissions. While the document includes all the submission data, security rules will control who can read and write to this collection (likely only the admin or backend services). The structure uses auto-generated IDs for each submission, ensuring uniqueness and preventing accidental overwrites.\n\nThis structure provides a clear separation of concerns, simplifies security rules, and enhances the overall maintainability and scalability of the application."
+  }
+}
