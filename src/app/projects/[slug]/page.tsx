@@ -9,10 +9,52 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Github, Tv, ArrowLeft } from 'lucide-react';
 import { useLoading } from '@/components/providers/loading-provider';
+import type { Metadata } from 'next';
 
 type Props = {
   params: { slug: string };
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const project = projects.find(p => p.slug === params.slug);
+
+  if (!project) {
+    return {
+      title: 'Proyecto no encontrado',
+    };
+  }
+
+  const siteUrl = 'https://devalvaro.vercel.app';
+
+  return {
+    title: project.title,
+    description: project.description,
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
+    openGraph: {
+      title: project.title,
+      description: project.description,
+      url: `${siteUrl}/projects/${project.slug}`,
+      type: 'article',
+      images: [
+        {
+          url: `${siteUrl}${project.image?.imageUrl}`,
+          width: 1200,
+          height: 675,
+          alt: project.title,
+        },
+      ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: project.title,
+        description: project.description,
+        images: [`${siteUrl}${project.image?.imageUrl}`],
+    }
+  };
+}
+
 
 export default function ProjectDetailPage({ params }: Props) {
   const { slug } = use(params);

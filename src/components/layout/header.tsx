@@ -62,6 +62,7 @@ export function Header({
           className
         )}
         onClick={handleClick}
+        aria-current={isActive ? 'page' : undefined}
       >
         {label}
       </Link>
@@ -80,7 +81,7 @@ export function Header({
         <div className="md:hidden flex-1 flex justify-start">
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" aria-label="Abrir menú de navegación">
                 <Menu className="h-5 w-5" />
                 <span className="sr-only">Open menu</span>
               </Button>
@@ -89,11 +90,13 @@ export function Header({
               <div className="py-4">
                 <Logo />
               </div>
-              <div className="flex flex-col space-y-4">
-                {navLinks.map(link => (
-                  <NavLink key={link.href} {...link} className="text-lg" />
-                ))}
-              </div>
+              <nav>
+                <div className="flex flex-col space-y-4">
+                  {navLinks.map(link => (
+                    <NavLink key={link.href} {...link} className="text-lg" />
+                  ))}
+                </div>
+              </nav>
             </SheetContent>
           </Sheet>
         </div>
@@ -103,7 +106,7 @@ export function Header({
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <nav className="hidden md:flex md:items-center md:gap-6">
+          <nav className="hidden md:flex md:items-center md:gap-6" aria-label="Navegación principal">
             {navLinks.map(link => (
               <NavLink key={link.href} {...link} />
             ))}

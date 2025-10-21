@@ -9,6 +9,8 @@ import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { LoadingProvider } from '@/components/providers/loading-provider';
 import { Analytics } from '@vercel/analytics/react';
 import { CookieConsent } from '@/components/layout/cookie-consent';
+import { profile } from '@/lib/data';
+import Script from 'next/script';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -25,7 +27,11 @@ const siteTitle = 'AMC - Álvaro Martín Crespo, Desarrollador Frontend';
 const siteDescription = 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend apasionado por crear experiencias web modernas y accesibles. Descubre mis proyectos, habilidades y contacta conmigo.';
 
 export const metadata: Metadata = {
-  title: siteTitle,
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: siteTitle,
+    template: `%s | ${profile.name}`,
+  },
   description: siteDescription,
   openGraph: {
     type: 'website',
@@ -34,7 +40,7 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [
       {
-        url: `${siteUrl}/images/portada.webp`,
+        url: `/images/portada.webp`,
         width: 1200,
         height: 630,
         alt: 'Imagen de portada del portfolio de Álvaro Martín Crespo',
@@ -46,6 +52,9 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: siteDescription,
     images: [`${siteUrl}/images/portada.webp`],
+  },
+  alternates: {
+    canonical: '/',
   },
 };
 
@@ -62,18 +71,51 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    mainEntity: {
+      '@type': 'Person',
+      name: profile.name,
+      alternateName: 'AMC',
+      url: siteUrl,
+      image: `${siteUrl}${profile.image?.imageUrl}`,
+      jobTitle: profile.title,
+      worksFor: {
+        '@type': 'Organization',
+        name: 'DSS Network',
+      },
+      sameAs: [
+        profile.socials.github,
+        profile.socials.linkedin,
+      ],
+      email: profile.contact.email,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Sevilla',
+        addressCountry: 'ES'
+      }
+    }
+  };
+
+
   return (
     <html lang="es" suppressHydrationWarning>
+      <head>
+          <Script
+            id="json-ld-profile"
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
+      </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-body`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <FirebaseClientProvider>
             <LoadingProvider>
               <Header navLinks={navLinks} />
               <main>{children}</main>
-              <Footer 
-                text="Desarrollador Frontend especializado en crear experiencias web modernas."
-                copyright="© 2025 Álvaro Martín Crespo. Todos los derechos reservados."
-              />
+              <Footer />
               <Toaster />
               <CookieConsent />
             </LoadingProvider>
