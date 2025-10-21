@@ -18,9 +18,33 @@ const spaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
 });
 
+const siteUrl = 'https://devalvaro.vercel.app';
+const siteTitle = 'AMC - Álvaro Martín Crespo, Desarrollador Frontend';
+const siteDescription = 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend apasionado por crear experiencias web modernas y accesibles. Descubre mis proyectos, habilidades y contacta conmigo.';
+
 export const metadata: Metadata = {
-  title: 'AMC - Álvaro Martín Crespo, Desarrollador Frontend',
-  description: 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend especializado en React, Next.js y Tailwind CSS.',
+  title: siteTitle,
+  description: siteDescription,
+  openGraph: {
+    type: 'website',
+    url: siteUrl,
+    title: siteTitle,
+    description: siteDescription,
+    images: [
+      {
+        url: `${siteUrl}/images/portada.webp`,
+        width: 1200,
+        height: 630,
+        alt: 'Imagen de portada del portfolio de Álvaro Martín Crespo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: siteTitle,
+    description: siteDescription,
+    images: [`${siteUrl}/images/portada.webp`],
+  },
 };
 
 const navLinks = [

@@ -1,6 +1,12 @@
 {
   "placeholderImages": [
     {
+      "id": "portada",
+      "description": "Imagen de portada del portfolio de Álvaro Martín Crespo",
+      "imageUrl": "/images/portada.webp",
+      "imageHint": "developer workspace"
+    },
+    {
       "id": "profile-picture",
       "description": "Professional photo of Álvaro Martín Crespo",
       "imageUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjA5NTE0NDV8MA&ixlib=rb-4.1.0&q=80&w=1080",
