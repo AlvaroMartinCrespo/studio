@@ -1,11 +1,24 @@
+'use client';
+
 import Link from 'next/link';
 import { projects } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { ProjectCard } from '@/components/projects/project-card';
 import { ArrowRight } from 'lucide-react';
+import { useLoading } from '../providers/loading-provider';
+import { usePathname } from 'next/navigation';
 
 export function FeaturedProjects() {
   const featuredProjects = projects.filter((p) => p.isFeatured).slice(0, 3);
+  const { setIsPageLoading } = useLoading();
+  const pathname = usePathname();
+  const href = '/projects';
+
+  const handleClick = () => {
+    if (pathname !== href) {
+      setIsPageLoading(true);
+    }
+  };
 
   return (
     <section className="py-16 md:py-24 bg-secondary/50 dark:bg-secondary/20">
@@ -27,7 +40,7 @@ export function FeaturedProjects() {
 
         <div className="mt-12 text-center">
           <Button asChild size="lg" variant="outline">
-            <Link href="/projects">
+            <Link href={href} onClick={handleClick}>
               Ver Todos los Proyectos
               <ArrowRight className="ml-2" />
             </Link>

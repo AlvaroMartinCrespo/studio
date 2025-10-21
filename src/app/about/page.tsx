@@ -1,16 +1,25 @@
+'use client';
+
 import Image from 'next/image';
 import { profile, skills } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { Download, Github, Linkedin } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
-
-export const metadata = {
-  title: 'Sobre mí | DevFolio',
-  description: `Conoce más sobre Álvaro Martín Crespo, su trayectoria profesional y sus habilidades técnicas.`,
-};
+import { useLoading } from '@/components/providers/loading-provider';
+import { usePathname } from 'next/navigation';
 
 export default function AboutPage() {
+  const { setIsPageLoading } = useLoading();
+  const pathname = usePathname();
+  const projectsHref = '/projects';
+
+  const handleProjectsClick = () => {
+    if (pathname !== projectsHref) {
+      setIsPageLoading(true);
+    }
+  };
+
   return (
     <div className="container py-16 md:py-24">
       <div className="max-w-4xl mx-auto">
@@ -67,7 +76,7 @@ export default function AboutPage() {
         <div className="mt-20">
           <h2 className="font-headline text-3xl font-bold text-center mb-10">Habilidades y Experiencia</h2>
           <div className="text-center">
-             <p className="text-muted-foreground mb-6">Estas son algunas de las tecnologías en las que soy competente. Para una demostración práctica, echa un vistazo a mi trabajo en la <Link href="/projects" className="text-primary hover:underline">página de proyectos</Link>.</p>
+             <p className="text-muted-foreground mb-6">Estas son algunas de las tecnologías en las que soy competente. Para una demostración práctica, echa un vistazo a mi trabajo en la <Link href={projectsHref} onClick={handleProjectsClick} className="text-primary hover:underline">página de proyectos</Link>.</p>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
             {skills.map(skill => (

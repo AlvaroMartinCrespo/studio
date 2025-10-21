@@ -1,9 +1,23 @@
+'use client';
+
 import { Github, Linkedin, KeyRound } from 'lucide-react';
 import { Logo } from '@/components/shared/logo';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useLoading } from '../providers/loading-provider';
+import { usePathname } from 'next/navigation';
 
 export function Footer({ text, copyright }: { text: string, copyright: string}) {
+  const { setIsPageLoading } = useLoading();
+  const pathname = usePathname();
+  const href = '/login';
+
+  const handleClick = () => {
+    if (pathname !== href) {
+      setIsPageLoading(true);
+    }
+  };
+
   return (
     <footer className="border-t">
       <div className="container py-8">
@@ -27,10 +41,10 @@ export function Footer({ text, copyright }: { text: string, copyright: string}) 
             </Button>
           </div>
         </div>
-        <div className="mt-8 text-center text-sm text-muted-foreground flex flex-col md:flex-row justify-between items-center gap-4">
-          <span>© 2025 Álvaro Martín Crespo. Todos los derechos reservados.</span>
+        <div className="mt-8 text-center text-sm text-muted-foreground flex flex-col justify-between items-center gap-4">
+          <span>{copyright}</span>
           <Button variant="link" size="sm" asChild className="text-muted-foreground">
-            <Link href="/login">
+            <Link href={href} onClick={handleClick}>
               <KeyRound className="mr-2 h-4 w-4" />
               Admin
             </Link>

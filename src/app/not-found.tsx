@@ -1,8 +1,27 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Home, Search } from 'lucide-react';
+import { useLoading } from '@/components/providers/loading-provider';
+import { usePathname } from 'next/navigation';
 
 export default function NotFound() {
+  const { setIsPageLoading } = useLoading();
+  const pathname = usePathname();
+
+  const handleHomeClick = () => {
+    if (pathname !== '/') {
+      setIsPageLoading(true);
+    }
+  };
+
+  const handleProjectsClick = () => {
+    if (pathname !== '/projects') {
+      setIsPageLoading(true);
+    }
+  };
+
   return (
     <div className="container flex min-h-[calc(100vh-10rem)] items-center justify-center text-center">
       <div className="space-y-6">
@@ -17,13 +36,13 @@ export default function NotFound() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild>
-            <Link href="/">
+            <Link href="/" onClick={handleHomeClick}>
               <Home className="mr-2" />
               Ir a la página de inicio
             </Link>
           </Button>
           <Button variant="outline" asChild>
-            <Link href="/projects">
+            <Link href="/projects" onClick={handleProjectsClick}>
               <Search className="mr-2" />
               Explorar proyectos
             </Link>

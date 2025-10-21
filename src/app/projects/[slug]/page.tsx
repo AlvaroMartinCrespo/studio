@@ -1,4 +1,6 @@
-import { notFound } from 'next/navigation';
+'use client';
+
+import { notFound, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { projects } from '@/lib/data';
@@ -6,40 +8,23 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Github, Tv } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { Metadata } from 'next';
+import { useLoading } from '@/components/providers/loading-provider';
 
 type Props = {
   params: { slug: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = projects.find(p => p.slug === params.slug);
-
-  if (!project) {
-    return {
-      title: 'Proyecto no encontrado',
-    };
-  }
-
-  return {
-    title: `${project.title} | Proyectos | DevFolio`,
-    description: project.description,
-     openGraph: {
-      title: `${project.title} | Proyectos | DevFolio`,
-      description: project.description,
-      images: [project.image?.imageUrl || ''],
-    },
-  };
-}
-
-export function generateStaticParams() {
-  return projects.map(project => ({
-    slug: project.slug,
-  }));
-}
-
 export default function ProjectDetailPage({ params }: Props) {
   const project = projects.find(p => p.slug === params.slug);
+  const { setIsPageLoading } = useLoading();
+  const pathname = usePathname();
+  const href = '/contact';
+
+  const handleClick = () => {
+    if (pathname !== href) {
+      setIsPageLoading(true);
+    }
+  };
 
   if (!project) {
     notFound();
@@ -120,7 +105,7 @@ export default function ProjectDetailPage({ params }: Props) {
 
           <div className="mt-12 text-center">
             <Button variant="link" asChild>
-                <Link href="/contact">
+                <Link href={href} onClick={handleClick}>
                     Contáctame para más detalles <ExternalLink className="ml-2 h-4 w-4"/>
                 </Link>
             </Button>
