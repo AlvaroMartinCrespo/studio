@@ -24,6 +24,9 @@ export function Header({
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Strip language prefix from pathname for active link checking
+  const activePathname = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/');
+
   const NavLink = ({
     href,
     label,
@@ -34,7 +37,7 @@ export function Header({
     className?: string;
   }) => {
     // Check if the current path is the exact href or a sub-route for active state
-    const isActive = href === '/' ? pathname === href : pathname.startsWith(href);
+    const isActive = href === '/' ? activePathname === href : activePathname.startsWith(href);
 
     return (
       <Link
