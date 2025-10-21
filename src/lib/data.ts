@@ -24,18 +24,15 @@ export const profile = {
 };
 
 export const skills = [
-  { name: 'HTML5', level: 95 },
-  { name: 'CSS3 & Sass', level: 90 },
-  { name: 'JavaScript (ES6+)', level: 95 },
-  { name: 'TypeScript', level: 90 },
-  { name: 'React', level: 95 },
-  { name: 'Next.js', level: 92 },
-  { name: 'Tailwind CSS', level: 98 },
-  { name: 'Node.js', level: 75 },
-  { name: 'Testing (Jest, RTL)', level: 80 },
-  { name: 'Git & GitHub', level: 95 },
-  { name: 'Figma', level: 70 },
-  { name: 'Storybook', level: 85 },
+  { name: 'HTML5', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg' },
+  { name: 'CSS3', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg' },
+  { name: 'JavaScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
+  { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+  { name: 'Angular', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angular/angular-original.svg' },
+  { name: 'PHP', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg' },
+  { name: 'Tailwind CSS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
+  { name: 'Git', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg' },
+  { name: 'GitHub', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg' },
 ];
 
 export const projects = [
