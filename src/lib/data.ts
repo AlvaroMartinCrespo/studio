@@ -1,3 +1,4 @@
+
 import { PlaceHolderImages, type ImagePlaceholder } from "./placeholder-images";
 import { Github, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 
@@ -55,6 +56,16 @@ export const projects = [
     image: getImage('project-lunar'),
     liveUrl: 'https://app-react-5d63e.web.app/',
     repoUrl: '#',
+  },
+  {
+    slug: 'howeb-hotel-booking',
+    title: 'Howeb',
+    isFeatured: true,
+    description: 'Es una pagina de reserva de hoteles, donde se pueden publicar anuncios de hoteles o de habitaciones para alquilar. Tiene sistema de usuarios, sistema de pagos, web responsive y esta hecho en laravel y sql.',
+    techStack: ['Laravel', 'SQL', 'Responsive Design'],
+    image: getImage('project-howeb'),
+    liveUrl: '#',
+    repoUrl: 'https://github.com/AlvaroMartinCrespo/howeb',
   }
 ];
 
