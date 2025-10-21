@@ -241,10 +241,6 @@
           "schema": {
             "$ref": "#/backend/entities/ContactFormSubmission"
           },
-          "allow": {
-             "read": "request.auth != null",
-             "create": "true"
-          },
           "description": "Stores contact form submissions. Only authenticated users can read. Anyone can create.",
           "params": [
             {
