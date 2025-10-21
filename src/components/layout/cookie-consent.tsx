@@ -53,7 +53,7 @@ export function CookieConsent() {
         </CardHeader>
         <CardContent>
           <Button onClick={handleAccept} className="w-full">
-            Entendido, aceptar
+            Entendido
           </Button>
         </CardContent>
       </Card>
