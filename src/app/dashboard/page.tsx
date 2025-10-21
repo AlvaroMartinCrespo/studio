@@ -5,7 +5,7 @@ import { useUser, useAuth, useFirestore, useCollection, useMemoFirebase } from '
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { collection, query, orderBy } from 'firebase/firestore';
+import { collection, query, orderBy, where } from 'firebase/firestore';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
@@ -26,24 +26,30 @@ export default function DashboardPage() {
   const firestore = useFirestore();
   const router = useRouter();
 
+  // The query is now dependent on `user.uid`.
+  // It will only be created (and run) when the user object is available.
   const submissionsQuery = useMemoFirebase(() => {
-    if (!firestore) return null;
+    if (!firestore || !user?.uid) return null; // IMPORTANT: Do not query if no user
     return query(collection(firestore, 'contact_form_submissions'), orderBy('submissionDate', 'desc'));
-  }, [firestore]);
+  }, [firestore, user?.uid]);
 
   const { data: submissions, isLoading: submissionsLoading, error } = useCollection<Submission>(submissionsQuery);
 
   useEffect(() => {
+    // If the initial user check is done and there's no user, redirect to login.
     if (!isUserLoading && !user) {
       router.push('/login');
     }
   }, [user, isUserLoading, router]);
 
   const handleLogout = async () => {
-    await auth.signOut();
+    if (auth) {
+        await auth.signOut();
+    }
     router.push('/login');
   };
 
+  // Show a loading spinner while the initial user authentication is in progress.
   if (isUserLoading || !user) {
     return (
       <div className="flex justify-center items-center min-h-[calc(100vh-10rem)]">
@@ -52,6 +58,7 @@ export default function DashboardPage() {
     );
   }
 
+  // At this point, `user` is guaranteed to be non-null.
   return (
     <div className="container py-16 md:py-24">
       <div className="flex justify-between items-center mb-8">
@@ -71,7 +78,7 @@ export default function DashboardPage() {
           <CardDescription>Aquí están los mensajes enviados a través del formulario de contacto.</CardDescription>
         </CardHeader>
         <CardContent>
-          {submissionsLoading && (
+          {(submissionsLoading) && (
              <div className="flex justify-center items-center py-10">
                 <Loader2 className="h-8 w-8 animate-spin text-primary" />
              </div>
