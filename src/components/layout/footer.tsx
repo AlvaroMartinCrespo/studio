@@ -1,6 +1,8 @@
-import { Github, Linkedin, Twitter } from 'lucide-react';
+
+import { Github, Linkedin, Twitter, KeyRound } from 'lucide-react';
 import { Logo } from '@/components/shared/logo';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export function Footer({ text, copyright }: { text: string, copyright: string}) {
   return (
@@ -31,8 +33,14 @@ export function Footer({ text, copyright }: { text: string, copyright: string}) 
             </Button>
           </div>
         </div>
-        <div className="mt-8 text-center text-sm text-muted-foreground">
-          {copyright}
+        <div className="mt-8 text-center text-sm text-muted-foreground flex justify-between items-center">
+          <span>{copyright}</span>
+          <Button variant="link" size="sm" asChild className="text-muted-foreground">
+            <Link href="/login">
+              <KeyRound className="mr-2 h-4 w-4" />
+              Admin
+            </Link>
+          </Button>
         </div>
       </div>
     </footer>
