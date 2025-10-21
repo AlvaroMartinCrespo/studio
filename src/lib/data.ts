@@ -7,7 +7,7 @@ export const profile = {
   name: "Álvaro Martín Crespo",
   title: "Desarrollador Frontend",
   bio: "Construyo aplicaciones web escalables y mantenibles con un enfoque en la experiencia de usuario y el rendimiento. Mi especialidad es el ecosistema de React, particularmente con Next.js y Tailwind CSS, donde transformo problemas complejos en soluciones elegantes para el mundo real.",
-  image: getImage('profile-picture'),
+  image: getImage('portada'),
   cvUrl: "/placeholder-cv.pdf",
   socials: {
     github: "https://github.com/AlvaroMartinCrespo",
@@ -15,7 +15,6 @@ export const profile = {
   },
   contact: {
     email: "alvaro.martin.crespo.00@gmail.com",
-    phone: "+34 660 12 12 45",
     address: "Sevilla, España"
   },
   contactLinks: [
