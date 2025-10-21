@@ -177,80 +177,11 @@
     ]
   },
   "firestore": {
-    "structure": [
-      {
-        "path": "/users/{userId}",
-        "definition": {
-          "entityName": "UserProfile",
-          "schema": {
-            "$ref": "#/backend/entities/UserProfile"
-          },
-          "description": "Stores user profile information. The 'userId' parameter identifies the user.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
-            }
-          ]
-        }
+    "/contact_form_submissions/{contactFormSubmissionId}": {
+      "schema": {
+        "$ref": "#/entities/ContactFormSubmission"
       },
-      {
-        "path": "/users/{userId}/projects/{projectId}",
-        "definition": {
-          "entityName": "Project",
-          "schema": {
-            "$ref": "#/backend/entities/Project"
-          },
-          "description": "Stores projects associated with a specific user.  The 'userId' parameter identifies the user, and 'projectId' identifies the project.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
-            },
-            {
-              "name": "projectId",
-              "description": "The unique identifier of the project."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/users/{userId}/blog_posts/{blogPostId}",
-        "definition": {
-          "entityName": "BlogPost",
-          "schema": {
-            "$ref": "#/backend/entities/BlogPost"
-          },
-          "description": "Stores blog posts created by a specific user. The 'userId' parameter identifies the user, and 'blogPostId' identifies the blog post.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
-            },
-            {
-              "name": "blogPostId",
-              "description": "The unique identifier of the blog post."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/contact_form_submissions/{contactFormSubmissionId}",
-        "definition": {
-          "entityName": "ContactFormSubmission",
-          "schema": {
-            "$ref": "#/backend/entities/ContactFormSubmission"
-          },
-          "description": "Stores contact form submissions. Only authenticated users can read. Anyone can create.",
-          "params": [
-            {
-              "name": "contactFormSubmissionId",
-              "description": "The unique identifier of the contact form submission."
-            }
-          ]
-        }
-      }
-    ],
-    "reasoning": "The Firestore structure is designed to store user profiles, projects, blog posts, and contact form submissions.  The structure prioritizes authorization independence, clarity, and security. User-owned data such as projects and blog posts are stored under the `/users/{userId}` collection to simplify ownership-based security rules. Contact form submissions are stored in a dedicated `/contact_form_submissions` collection. There is no user ownership. This supports listing contact form submissions without needing to validate user access. Authorization Independence is achieved because no `get()` calls are required in the rules. Rules are not filters since access is granted to the contact form submissions collection based on the request."
+      "description": "Stores contact form submissions from users."
+    }
   }
 }
