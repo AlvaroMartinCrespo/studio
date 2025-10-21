@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { profile, skills } from '@/lib/data';
 import { Button } from '@/components/ui/button';
-import { Download, Github, Linkedin, Twitter } from 'lucide-react';
+import { Download, Github, Linkedin } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 
@@ -40,11 +40,6 @@ export default function AboutPage() {
               <Button variant="outline" size="icon" asChild>
                 <a href={profile.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                   <Linkedin />
-                </a>
-              </Button>
-              <Button variant="outline" size="icon" asChild>
-                <a href={profile.socials.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter/X">
-                  <Twitter />
                 </a>
               </Button>
             </div>

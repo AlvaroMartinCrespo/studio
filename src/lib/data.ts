@@ -10,9 +10,8 @@ export const profile = {
   image: getImage('profile-picture'),
   cvUrl: "/placeholder-cv.pdf",
   socials: {
-    github: "https://github.com/tu",
-    linkedin: "https://linkedin.com/in/tu",
-    twitter: "https://x.com/tu",
+    github: "https://github.com/AlvaroMartinCrespo",
+    linkedin: "https://www.linkedin.com/in/alvaromartincrespo/",
   },
   contact: {
     email: "tu.email@example.com",

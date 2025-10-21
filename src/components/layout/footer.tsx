@@ -1,4 +1,4 @@
-import { Github, Linkedin, Twitter, KeyRound } from 'lucide-react';
+import { Github, Linkedin, KeyRound } from 'lucide-react';
 import { Logo } from '@/components/shared/logo';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -16,18 +16,13 @@ export function Footer({ text, copyright }: { text: string, copyright: string}) 
           </div>
           <div className="flex items-center space-x-2">
             <Button variant="ghost" size="icon" asChild>
-              <a href="https://github.com/tu" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <a href="https://github.com/AlvaroMartinCrespo" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                 <Github className="h-5 w-5" />
               </a>
             </Button>
             <Button variant="ghost" size="icon" asChild>
-              <a href="https://linkedin.com/in/tu" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/in/alvaromartincrespo/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <Linkedin className="h-5 w-5" />
-              </a>
-            </Button>
-            <Button variant="ghost" size="icon" asChild>
-              <a href="https://x.com/tu" target="_blank" rel="noopener noreferrer" aria-label="Twitter/X">
-                <Twitter className="h-5 w-5" />
               </a>
             </Button>
           </div>
