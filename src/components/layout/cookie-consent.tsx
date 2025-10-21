@@ -47,7 +47,7 @@ export function CookieConsent() {
           <div>
             <CardTitle>Tu privacidad es importante</CardTitle>
             <CardDescription className="mt-1">
-              Este sitio web utiliza analíticas de Vercel para recopilar datos de uso de forma anónima y así mejorar la experiencia. Este servicio no utiliza cookies de seguimiento. Al continuar, aceptas esta recopilación de datos.
+              Utilizamos analíticas anónimas para mejorar el sitio. Al continuar, aceptas su uso.
             </CardDescription>
           </div>
         </CardHeader>
