@@ -14,6 +14,7 @@ import { CookieConsent } from '@/components/layout/cookie-consent';
 import { profile } from '@/lib/data';
 import Script from 'next/script';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
+import { PageLoader } from '@/components/layout/page-loader';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -72,6 +73,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
+          <link rel="preload" href="/images/portada.webp" as="image"/>
           <Script
             id="json-ld-profile"
             type="application/ld+json"

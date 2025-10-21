@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -72,11 +73,6 @@ export function ContactForm() {
             requestResourceData: submissionData,
         });
         errorEmitter.emit('permission-error', permissionError);
-        toast({
-            variant: "destructive",
-            title: 'Error al enviar',
-            description: 'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.',
-        });
       })
       .finally(() => {
         setIsPending(false);
