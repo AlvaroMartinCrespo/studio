@@ -13,28 +13,10 @@
       "imageHint": "professional portrait"
     },
     {
-      "id": "project-e-commerce",
-      "description": "Screenshot of an e-commerce platform",
-      "imageUrl": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3ZWIlMjBhcHBsaWNhdGlvbnxlbnwwfHx8fDE3NjA5NzAyMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "web application"
-    },
-    {
-      "id": "project-dashboard",
-      "description": "Screenshot of a data analytics dashboard",
-      "imageUrl": "https://images.unsplash.com/photo-1748439146117-31978164865d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkYXNoYm9hcmQlMjBjaGFydHxlbnwwfHx8fDE3NjA4NzYyODB8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "dashboard chart"
-    },
-    {
-      "id": "project-saas",
-      "description": "Screenshot of a SaaS application interface",
-      "imageUrl": "https://images.unsplash.com/photo-1641567535859-c58187ac4954?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxTYWFTJTIwaW50ZXJmYWNlfGVufDB8fHx8MTc2MDk3MzU0MXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "SaaS interface"
-    },
-    {
-      "id": "project-mobile",
-      "description": "Screenshot of a mobile application",
-      "imageUrl": "https://images.unsplash.com/photo-1480694313141-fce5e697ee25?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtb2JpbGUlMjBhcHB8ZW58MHx8fHwxNzYwOTU3Mzc0fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "mobile app"
+      "id": "project-tablao-flamenco",
+      "description": "Screenshot of Tablao Flamenco Las Setas website",
+      "imageUrl": "/projects/web1.webp",
+      "imageHint": "flamenco website"
     },
     {
       "id": "blog-post-1",
@@ -45,7 +27,7 @@
     {
       "id": "blog-post-2",
       "description": "Banner for a blog post about Tailwind CSS patterns",
-      "imageUrl": "https://images.unsplash.com/photo-1716885315455-0ccd835aa616?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkZXNpZ24lMjBhYnN0cmFjdHxlbnwwfHx8fDE3NjA5NzM1NDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1716885315455-0ccd835aa616?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkZXNpZ24lMjBhYnN0cmFjdHxlbnwwfHx8fDE3NjA5NzM1NDF8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "design abstract"
     },
     {

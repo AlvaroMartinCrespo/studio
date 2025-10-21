@@ -37,64 +37,25 @@ export const skills = [
 
 export const projects = [
   {
-    slug: 'e-commerce-platform',
-    title: 'Plataforma E-commerce',
+    slug: 'tablao-flamenco-las-setas',
+    title: 'Tablao Flamenco Las Setas',
     isFeatured: true,
-    description: 'Una plataforma de e-commerce completa con SSR, un robusto catálogo de productos y una experiencia de pago fluida.',
-    problem: 'El cliente necesitaba migrar su tienda física tradicional a una plataforma online moderna, rápida y escalable para aumentar su alcance de mercado.',
-    solution: 'Desarrollé un sitio de e-commerce de alto rendimiento usando Next.js para SSR/SSG, lo que resultó en un excelente SEO y cargas de página rápidas. Se integró con Stripe para los pagos y un CMS headless para una fácil gestión de productos.',
-    result: 'Se logró un aumento del 40% en las ventas durante el primer trimestre. La puntuación de rendimiento de Lighthouse mejoró de 55 a 98. La tasa de rebote se redujo en un 30%.',
-    techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Stripe API', 'GraphQL'],
-    image: getImage('project-e-commerce'),
+    description: 'Página web para un tablao flamenco, uno de mis primeros proyectos en la empresa DSS Network.',
+    problem: 'El tablao necesitaba una presencia online profesional para atraer turistas y clientes locales, permitiendo la consulta de espectáculos y la reserva de entradas.',
+    solution: 'Desarrollé un sitio web completo utilizando HTML, CSS y PHP. La web se centró en un diseño visualmente atractivo, con una galería de imágenes y un sistema sencillo para mostrar la programación de eventos.',
+    result: 'El proyecto permitió al cliente digitalizar su oferta, aumentando la visibilidad del tablao y facilitando el acceso a la información para potenciales clientes, lo que derivó en un incremento de las reservas.',
+    techStack: ['HTML', 'CSS', 'PHP'],
+    image: getImage('project-tablao-flamenco'),
     liveUrl: '#',
     repoUrl: '#',
-    codeSnippet: `export async function getStaticProps({ params }) {
-  const { slug } = params;
-  const product = await getProductBySlug(slug);
-  return {
-    props: { product },
-    revalidate: 60, // Re-generate the page every 60 seconds
-  };
-}`,
-  },
-  {
-    slug: 'analytics-dashboard',
-    title: 'Panel de Analíticas',
-    isFeatured: true,
-    description: 'Un panel de análisis de datos en tiempo real para un producto SaaS, que proporciona a los usuarios información procesable.',
-    problem: 'Los usuarios carecían de visibilidad sobre sus datos, lo que dificultaba el seguimiento de métricas clave y la toma de decisiones informadas.',
-    solution: 'Construí un panel responsive con gráficos dinámicos y visualizaciones de datos usando Recharts y React. Implementé WebSockets para actualizaciones de datos en tiempo real y proporcioné opciones para filtrar por rango de fechas personalizado.',
-    result: 'Aumentó la participación del usuario en un 25%. Los tickets de soporte al cliente relacionados con consultas de datos disminuyeron en un 50%.',
-    techStack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Recharts', 'WebSockets'],
-    image: getImage('project-dashboard'),
-    liveUrl: '#',
-    repoUrl: '#',
-  },
-  {
-    slug: 'saas-landing-page',
-    title: 'Landing Page para SaaS',
-    isFeatured: true,
-    description: 'Una landing page de alta conversión para un producto SaaS B2B, optimizada para la generación de leads.',
-    problem: 'La landing page existente tenía una alta tasa de rebote y una baja tasa de conversión debido a un diseño deficiente y tiempos de carga lentos.',
-    solution: 'Rediseñé la landing page por completo con un enfoque en un mensaje claro y una propuesta de valor sólida. Usé Next.js para la generación estática, optimicé las imágenes con `next/image` y realicé pruebas A/B con diferentes copys para los CTA.',
-    result: 'La tasa de conversión aumentó en un 200%. El tiempo de carga de la página disminuyó en un 70%.',
-    techStack: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
-    image: getImage('project-saas'),
-    liveUrl: '#',
-    repoUrl: '#',
-  },
-    {
-    slug: 'mobile-banking-app',
-    title: 'Concepto de App de Banca Móvil',
-    isFeatured: false,
-    description: 'Un diseño conceptual y prototipo para una aplicación moderna de banca móvil.',
-    problem: 'Las aplicaciones bancarias tradicionales suelen estar sobrecargadas y ser difíciles de navegar. El objetivo era diseñar una aplicación centrada en el usuario que simplificara la gestión de las finanzas personales.',
-    solution: 'Diseñé una interfaz limpia e intuitiva en Figma, centrándome en una estética minimalista y un fácil acceso a tareas bancarias comunes como transferencias y consulta de saldo. Construí un prototipo clicable para demostrar los flujos de usuario.',
-    result: 'Feedback positivo en las sesiones de prueba con usuarios, con una tasa de finalización de tareas del 95%. El concepto de diseño fue adoptado posteriormente para un proyecto real.',
-    techStack: ['Figma', 'React Native (concepto)', 'Storybook'],
-    image: getImage('project-mobile'),
-    liveUrl: '#',
-    repoUrl: '#',
+    codeSnippet: `<?php
+    // Ejemplo de cómo se podría manejar la carga de eventos
+    function get_shows() {
+        // Conectar a la base de datos y obtener los espectáculos
+        $shows = $db->query("SELECT * FROM shows WHERE date >= CURDATE() ORDER BY date ASC");
+        return $shows;
+    }
+?>`,
   },
 ];
 
