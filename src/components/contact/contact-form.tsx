@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-
-import { submitContactForm } from '@/lib/actions';
+import { addDoc, collection } from 'firebase/firestore';
+import { useFirestore } from '@/firebase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -17,7 +17,6 @@ const formSchema = z.object({
   name: z.string().min(2, { message: 'El nombre debe tener al menos 2 caracteres.' }),
   email: z.string().email({ message: 'Por favor, introduce un email válido.' }),
   message: z.string().min(10, { message: 'El mensaje debe tener al menos 10 caracteres.' }),
-  honeypot: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -25,6 +24,7 @@ type FormValues = z.infer<typeof formSchema>;
 export function ContactForm() {
   const [isPending, setIsPending] = useState(false);
   const { toast } = useToast();
+  const firestore = useFirestore();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -32,33 +32,40 @@ export function ContactForm() {
       name: '',
       email: '',
       message: '',
-      honeypot: '',
     },
   });
 
   const onSubmit = async (values: FormValues) => {
     setIsPending(true);
 
-    const formData = new FormData();
-    Object.entries(values).forEach(([key, value]) => {
-      if (value) {
-        formData.append(key, value as string);
-      }
-    });
-    
-    const result = await submitContactForm({ message: '', status: 'idle' }, formData);
-    
-    if (result.status === 'success') {
+    if (!firestore) {
+      toast({
+        variant: 'destructive',
+        title: 'Error de base de datos',
+        description: 'No se pudo conectar con la base de datos.',
+      });
+      setIsPending(false);
+      return;
+    }
+
+    try {
+      const submissionsCollection = collection(firestore, 'contact_form_submissions');
+      await addDoc(submissionsCollection, {
+        ...values,
+        submissionDate: new Date().toISOString(),
+      });
+      
       toast({
         title: '¡Mensaje Enviado!',
-        description: result.message,
+        description: 'Gracias por tu mensaje. Te responderé pronto.',
       });
       form.reset();
-    } else if (result.status === 'error') {
+    } catch (error) {
+      console.error('Error submitting form:', error);
       toast({
         variant: "destructive",
         title: 'Error al enviar',
-        description: result.message,
+        description: 'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.',
       });
     }
 
@@ -107,18 +114,6 @@ export function ContactForm() {
                 <Textarea placeholder="¿En qué puedo ayudarte?" rows={6} {...field} />
               </FormControl>
               <FormMessage />
-            </FormItem>
-          )}
-        />
-        {/* Honeypot field */}
-        <FormField
-          control={form.control}
-          name="honeypot"
-          render={({ field }) => (
-            <FormItem className="hidden">
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
             </FormItem>
           )}
         />
