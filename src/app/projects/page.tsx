@@ -1,8 +1,10 @@
-import { ProjectGrid } from '@/components/projects/project-grid';
 
-export const metadata = {
-  title: 'Proyectos | DevFolio',
-  description: 'Un escaparate de proyectos de Álvaro Martín Crespo, que demuestran habilidades en el desarrollo frontend.',
+import { ProjectGrid } from '@/components/projects/project-grid';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Proyectos',
+  description: 'Un escaparate de proyectos de Álvaro Martín Crespo, que demuestran habilidades en el desarrollo frontend y backend.',
 };
 
 export default function ProjectsPage() {

@@ -1,8 +1,10 @@
+
 import { blogPosts } from '@/lib/data';
 import { BlogCard } from '@/components/blog/blog-card';
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Blog | AMC',
+export const metadata: Metadata = {
+  title: 'Blog',
   description: 'Un espacio personal para compartir ideas, reflexiones y proyectos de Álvaro Martín Crespo.',
 };
 

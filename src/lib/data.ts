@@ -45,7 +45,7 @@ export const projects = [
     techStack: ['HTML', 'CSS', 'PHP'],
     image: getImage('project-tablao-flamenco'),
     liveUrl: 'https://tablaoflamencolassetas.com/',
-    repoUrl: '#',
+    repoUrl: 'https://github.com/AlvaroMartinCrespo',
   },
   {
     slug: 'lunar-red-social',
@@ -55,7 +55,7 @@ export const projects = [
     techStack: ['React', 'Firebase', 'Responsive Design'],
     image: getImage('project-lunar'),
     liveUrl: 'https://app-react-5d63e.web.app/',
-    repoUrl: '#',
+    repoUrl: 'https://github.com/AlvaroMartinCrespo',
   },
   {
     slug: 'howeb-hotel-booking',
@@ -64,7 +64,7 @@ export const projects = [
     description: 'Es una pagina de reserva de hoteles, donde se pueden publicar anuncios de hoteles o de habitaciones para alquilar. Tiene sistema de usuarios, sistema de pagos, web responsive y esta hecho en laravel y sql.',
     techStack: ['Laravel', 'SQL', 'Responsive Design'],
     image: getImage('project-howeb'),
-    liveUrl: '#',
+    liveUrl: 'https://github.com/AlvaroMartinCrespo/howeb',
     repoUrl: 'https://github.com/AlvaroMartinCrespo/howeb',
   },
   {
@@ -74,7 +74,7 @@ export const projects = [
     description: 'Es una aplicación sencilla realizada con React y Tailwind, en la que me lanzo a probar como funcionan las APIs, es una aplicación donde intruduces el lugar y te dice el tiempo, y grados, en tiempo real.',
     techStack: ['React', 'Tailwind CSS', 'API Rest'],
     image: getImage('project-weather-app'),
-    liveUrl: '#',
+    liveUrl: 'https://github.com/AlvaroMartinCrespo/weather-api',
     repoUrl: 'https://github.com/AlvaroMartinCrespo/weather-api',
   },
   {
@@ -84,7 +84,7 @@ export const projects = [
     description: 'Aplicación en la que puedes guardar tu rutina de gimnasio, con un calendario y puedes verlo cuando quieras, repeticiones y pesos. También tiene una pestaña de perfil y una pestaña de ranking para ver qué persona hace más ejercicio.',
     techStack: ['React', 'Supabase', 'Tailwind CSS'],
     image: getImage('project-gym-app'),
-    liveUrl: '#',
+    liveUrl: 'https://github.com/AlvaroMartinCrespo/gym-project',
     repoUrl: 'https://github.com/AlvaroMartinCrespo/gym-project',
   }
 ];

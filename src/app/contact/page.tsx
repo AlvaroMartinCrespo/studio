@@ -1,10 +1,15 @@
-'use client';
 
 import { ContactForm } from '@/components/contact/contact-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { profile } from '@/lib/data';
 import Link from 'next/link';
 import Script from 'next/script';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Contacto',
+  description: '¿Tienes un proyecto, una pregunta o quieres saludar? Ponte en contacto con Álvaro Martín Crespo.',
+};
 
 export default function ContactPage() {
 

@@ -1,11 +1,16 @@
-'use client';
 
 import Image from 'next/image';
 import { profile, skills } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { Download, Github, Linkedin, Briefcase, Code, Coffee } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Sobre mí',
+  description: 'Conoce más sobre la trayectoria profesional, habilidades y filosofía de desarrollo de Álvaro Martín Crespo.',
+};
+
 
 export default function AboutPage() {
   return (
@@ -23,8 +28,8 @@ export default function AboutPage() {
               <Image
                 src={profile.image.imageUrl}
                 alt={profile.image.description}
-                width={250}
-                height={250}
+                width={200}
+                height={200}
                 className="rounded-full object-cover border-4 border-primary/20 shadow-xl mb-6"
                 data-ai-hint={profile.image.imageHint}
               />
