@@ -13,6 +13,7 @@ import { useAuth, useUser } from '@/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { FirebaseClientProvider } from '@/firebase/client-provider';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Por favor, introduce un email válido.' }),
@@ -21,7 +22,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function LoginPage() {
+function LoginContent() {
   const auth = useAuth();
   const { user, isUserLoading } = useUser();
   const router = useRouter();
@@ -61,7 +62,7 @@ export default function LoginPage() {
       toast({
         variant: 'destructive',
         title: 'Error al iniciar sesión',
-        description: error.message || 'Ha ocurrido un error. Por favor, inténtalo de nuevo.',
+        description: 'Email o contraseña incorrectos. Por favor, inténtalo de nuevo.',
       });
     }
   };
@@ -73,7 +74,6 @@ export default function LoginPage() {
         </div>
     );
   }
-
 
   return (
     <div className="container flex items-center justify-center py-24">
@@ -127,4 +127,12 @@ export default function LoginPage() {
       </Card>
     </div>
   );
+}
+
+export default function LoginPage() {
+    return (
+        <FirebaseClientProvider>
+            <LoginContent />
+        </FirebaseClientProvider>
+    )
 }
