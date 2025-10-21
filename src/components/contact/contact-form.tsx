@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -23,7 +23,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export function ContactForm() {
-  const [state, formAction, isPending] = useActionState(submitContactForm, { message: '', status: 'idle' });
+  const [isPending, setIsPending] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
@@ -36,35 +36,40 @@ export function ContactForm() {
     },
   });
 
-  useEffect(() => {
-    if (state.status === 'success' && state.message) {
+  const onSubmit = async (values: FormValues) => {
+    setIsPending(true);
+
+    const formData = new FormData();
+    Object.entries(values).forEach(([key, value]) => {
+      if (value) {
+        formData.append(key, value as string);
+      }
+    });
+    
+    // Server action is called directly
+    const result = await submitContactForm({ message: '', status: 'idle' }, formData);
+    
+    if (result.status === 'success') {
       toast({
         title: '¡Mensaje Enviado!',
-        description: state.message,
+        description: result.message,
       });
       form.reset();
-    }
-    if (state.status === 'error' && state.message) {
-       toast({
+    } else if (result.status === 'error') {
+      toast({
         variant: "destructive",
         title: 'Error al enviar',
-        description: state.message,
+        description: result.message,
       });
     }
-  }, [state, toast, form]);
+
+    setIsPending(false);
+  };
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(data => {
-            const formData = new FormData();
-            Object.entries(data).forEach(([key, value]) => {
-                if (value) {
-                    formData.append(key, value);
-                }
-            });
-            formAction(formData);
-        })}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6"
       >
         <FormField
