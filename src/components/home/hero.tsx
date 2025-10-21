@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { profile } from '@/lib/data';
 import { Button } from '@/components/ui/button';
-import { Download, Send } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { useLoading } from '../providers/loading-provider';
 import { usePathname } from 'next/navigation';
 
@@ -20,41 +20,39 @@ export function Hero() {
   };
 
   return (
-    <section className="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center text-center text-white overflow-hidden">
-      {profile.image && (
-        <Image
-          src={profile.image.imageUrl}
-          alt={profile.image.description}
-          fill
-          priority
-          className="object-cover z-0"
-          data-ai-hint={profile.image.imageHint}
-        />
-      )}
-      <div className="absolute inset-0 bg-black/60 z-10" />
-      <div className="container relative z-20 flex flex-col items-center">
-        <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-4 text-shadow-lg">
-          {profile.name}
-        </h1>
-        <p className="text-lg md:text-xl text-primary font-medium mb-6 text-shadow">
-          {profile.title}
-        </p>
-        <p className="max-w-2xl text-gray-200 mb-8 text-shadow">
-          {profile.bio}
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Button asChild size="lg">
-            <Link href={projectsHref} onClick={handleClick}>
-              Ver Mi Trabajo
-              <Send className="ml-2" />
-            </Link>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="bg-transparent text-white border-white hover:bg-white hover:text-black">
-            <a href={profile.cvUrl} download>
-              Descargar CV
-              <Download className="ml-2" />
-            </a>
-          </Button>
+    <section className="py-16 md:py-24">
+      <div className="container grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="order-2 md:order-1">
+          <p className="text-lg md:text-xl text-primary font-medium mb-4">
+            {profile.title}
+          </p>
+          <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-6">
+            {profile.name}
+          </h1>
+          <p className="max-w-xl text-muted-foreground mb-8">
+            {profile.bio}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button asChild size="lg">
+              <Link href={projectsHref} onClick={handleClick}>
+                Ver Mi Trabajo
+                <Send className="ml-2" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+        <div className="order-1 md:order-2">
+          {profile.image && (
+            <Image
+              src="/images/portada.webp"
+              alt="Imagen de portada del portfolio de Álvaro Martín Crespo"
+              width={600}
+              height={400}
+              priority
+              className="rounded-2xl shadow-xl object-cover w-full h-auto"
+              data-ai-hint="developer workspace"
+            />
+          )}
         </div>
       </div>
     </section>
