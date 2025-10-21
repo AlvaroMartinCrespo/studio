@@ -32,6 +32,7 @@ export function ContactForm() {
       name: '',
       email: '',
       message: '',
+      honeypot: '',
     },
   });
 
@@ -50,7 +51,6 @@ export function ContactForm() {
         description: state.message,
       });
     }
-
   }, [state, toast, form]);
 
   return (
