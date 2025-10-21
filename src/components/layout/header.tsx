@@ -37,10 +37,14 @@ export function Header({
     label: string;
     className?: string;
   }) => {
-    const isActive = pathname === `/${lang}${href === '/' ? '' : href}`;
+    // Construct the full path with the current language, and handle the root path.
+    const fullPath = `/${lang}${href === '/' ? '' : href}`;
+    // Check for exact match or if it's the homepage for the current locale.
+    const isActive = pathname === fullPath || (pathname === `/${lang}` && href === '/');
+
     return (
       <Link
-        href={`/${lang}${href === '/' ? '' : href}`}
+        href={fullPath}
         className={cn(
           'text-sm font-medium transition-colors hover:text-primary',
           isActive ? 'text-primary' : 'text-muted-foreground',
