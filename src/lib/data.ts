@@ -20,7 +20,7 @@ export const profile = {
   },
   contactLinks: [
     { icon: Mail, value: "alvaro.martin.crespo.00@gmail.com", href: "mailto:alvaro.martin.crespo.00@gmail.com" },
-    { icon: Phone, value: "660 12 12 45", href: "tel:+34660121245" },
+    { icon: Phone, value: "660 12 12 45 (solo whatsapp)", href: "tel:+34660121245" },
     { icon: MapPin, value: "Sevilla, España" },
   ],
 };
