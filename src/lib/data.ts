@@ -1,5 +1,5 @@
 import { PlaceHolderImages, type ImagePlaceholder } from "./placeholder-images";
-import { Github, Linkedin, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 
 const getImage = (id: string): ImagePlaceholder | undefined => PlaceHolderImages.find(img => img.id === id);
 
@@ -105,84 +105,22 @@ export const projects = [
 
 export const blogPosts = [
   {
-    slug: 'mastering-nextjs-performance',
-    title: 'Dominando el Rendimiento en Next.js: Una Guía Práctica',
-    date: '2024-05-15',
-    excerpt: 'Sumérgete en técnicas prácticas para optimizar tus aplicaciones Next.js, desde importaciones dinámicas y división de código hasta optimización de imágenes y estrategias de caché.',
+    slug: 'hola-mundo-nuevo-espacio-digital',
+    title: '¡Hola, Mundo! Estrenando mi nuevo espacio digital',
+    date: '2024-07-26',
+    excerpt: 'Una breve introducción a mi nuevo portfolio, mi motivación y mi pasión por el desarrollo web.',
     image: getImage('blog-post-1'),
     content: `
-## Introducción
-El rendimiento no es una característica, es una necesidad. En esta guía, exploraremos...
-
-### 1. División de Código con \`dynamic()\`
-\`\`\`javascript
-import dynamic from 'next/dynamic'
-
-const HeavyComponent = dynamic(() => import('../components/HeavyComponent'))
-
-function HomePage() {
-  return (
-    <div>
-      <p>Esta es la página de inicio.</p>
-      <HeavyComponent />
-    </div>
-  )
-}
-\`\`\`
+      <p>¡Bienvenido a mi nuevo rincón en la web!</p>
+      <p>Con mucha ilusión y ganas, doy el primer paso para crear este portfolio. Es más que una simple página; es un lienzo en blanco donde planeo plasmar mi pasión por la creación de experiencias web y compartir un poco sobre mí.</p>
+      
+      <h3>Mi camino hasta aquí</h3>
+      <p>Soy desarrollador frontend, una profesión que descubrí después de completar mi Grado Superior en Desarrollo de Aplicaciones Web. Aunque actualmente trabajo en proyectos para el sector bancario, mi curiosidad y mis ganas de aprender no se detienen ahí. Este espacio es mi válvula de escape creativa, un lugar donde puedo experimentar, construir y, sobre todo, disfrutar de lo que más me gusta: programar.</p>
+      
+      <h3>¿Qué esperar de este sitio?</h3>
+      <p>Esto es solo el comienzo. Estoy muy motivado y con muchas ganas de seguir construyendo más páginas y proyectos personales. Aquí encontrarás una muestra de mi trabajo, mis habilidades y, con el tiempo, un blog donde compartiré reflexiones y aprendizajes, no solo técnicos, sino también personales.</p>
+      <p>Este proyecto es un reflejo de mi pasión y de mi hobby. Espero que disfrutes explorándolo tanto como yo he disfrutado creándolo.</p>
+      <p>¡Gracias por pasarte!</p>
     `
-  },
-  {
-    slug: 'advanced-tailwind-css-patterns',
-    title: 'Patrones Avanzados de Tailwind CSS para Componentes Reutilizables',
-    date: '2024-04-22',
-    excerpt: 'Ve más allá de las clases de utilidad básicas. Aprende a crear estilos de componentes escalables y mantenibles en Tailwind CSS usando plugins, variantes y composición.',
-    image: getImage('blog-post-2'),
-    content: `
-## El Problema de la Repetición
-Escribir la misma combinación de clases de utilidad una y otra vez puede ser tedioso.
-
-### Creando un Plugin
-\`\`\`javascript
-// tailwind.config.js
-const plugin = require('tailwindcss/plugin')
-
-module.exports = {
-  plugins: [
-    plugin(function({ addComponents, theme }) {
-      const buttons = {
-        '.btn-primary': {
-          backgroundColor: theme('colors.primary'),
-          color: theme('colors.white'),
-          // ...
-        }
-      }
-      addComponents(buttons)
-    })
-  ]
-}
-\`\`\`
-    `
-  },
-  {
-    slug: 'react-state-management-2024',
-    title: 'El Estado de la Gestión de Estado en React en 2024',
-    date: '2024-03-10',
-    excerpt: 'useState, useReducer, Context API, Zustand, Redux Toolkit... Las opciones son infinitas. Este post analiza los pros y contras de las soluciones de gestión de estado más populares.',
-    image: getImage('blog-post-3'),
-    content: `
-## Zustand: La Elección Minimalista
-Zustand ofrece una forma sencilla y sin opiniones de gestionar el estado.
-
-### Uso Básico
-\`\`\`javascript
-import { create } from 'zustand'
-
-const useStore = create((set) => ({
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
-}))
-\`\`\`
-    `
-  },
+  }
 ];
