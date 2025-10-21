@@ -13,8 +13,8 @@ import { Analytics } from '@vercel/analytics/react';
 import { CookieConsent } from '@/components/layout/cookie-consent';
 import { profile } from '@/lib/data';
 import Script from 'next/script';
-import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { PageLoader } from '@/components/layout/page-loader';
+import { FirebaseClientProvider } from '@/firebase';
 
 const inter = Inter({
   subsets: ['latin'],
