@@ -1,5 +1,5 @@
 import 'server-only';
-import type { Locale } from '../../i18n-config';
+import type { Locale } from '@/i18n-config';
 
 // The 'any' type is used here to dynamically import the dictionaries, 
 // which is a common practice in i18n setups.
