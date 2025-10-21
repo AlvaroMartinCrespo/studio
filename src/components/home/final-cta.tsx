@@ -5,6 +5,7 @@ import { Download, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useLoading } from '../providers/loading-provider';
 import { usePathname } from 'next/navigation';
+import { profile } from '@/lib/data';
 
 export function FinalCta() {
     const { setIsPageLoading } = useLoading();
@@ -33,7 +34,7 @@ export function FinalCta() {
             </Link>
           </Button>
           <Button asChild variant="outline" size="lg">
-            <a href="/placeholder-cv.pdf" download>
+            <a href={profile.cvUrl} target="_blank" rel="noopener noreferrer">
               Descargar CV
               <Download className="ml-2" />
             </a>

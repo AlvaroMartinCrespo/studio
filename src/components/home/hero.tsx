@@ -40,7 +40,7 @@ export function Hero() {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <a href={profile.cvUrl} download>
+              <a href={profile.cvUrl} target="_blank" rel="noopener noreferrer">
                 Descargar CV
                 <Download className="ml-2" />
               </a>

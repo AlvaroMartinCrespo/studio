@@ -9,7 +9,7 @@ export const profile = {
   title: "Desarrollador Frontend",
   bio: "Desarrollador frontend especializado en páginas web modernas utilizando frameworks de JavaScript, HTML y CSS.",
   image: getImage('portada'),
-  cvUrl: "/placeholder-cv.pdf",
+  cvUrl: "https://www.linkedin.com/in/alvaromartincrespo/overlay/1741013461746/single-media-viewer/?profileId=ACoAAD0Hqn0BjOTYp3HNks1A9oUeu0mvWyNStww",
   socials: {
     github: "https://github.com/AlvaroMartinCrespo",
     linkedin: "https://www.linkedin.com/in/alvaromartincrespo/",
@@ -93,7 +93,7 @@ export const blogPosts = [
   {
     slug: 'hola-mundo-nuevo-espacio-digital',
     title: '¡Hola, Mundo! Estrenando mi nuevo espacio digital',
-    date: '2024-07-29',
+    date: '2024-07-31',
     excerpt: 'Una breve introducción a mi nuevo portfolio, mi motivación y mi pasión por el desarrollo web.',
     image: getImage('blog-post-1'),
     content: `

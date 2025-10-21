@@ -1,4 +1,3 @@
-
 import Image from 'next/image';
 import { profile, skills } from '@/lib/data';
 import { Button } from '@/components/ui/button';
@@ -47,7 +46,7 @@ export default function AboutPage() {
               </Button>
             </div>
             <Button asChild className="w-full">
-              <a href={profile.cvUrl} download>
+              <a href={profile.cvUrl} target="_blank" rel="noopener noreferrer">
                 Descargar CV <Download className="ml-2" />
               </a>
             </Button>
