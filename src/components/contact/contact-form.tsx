@@ -60,16 +60,9 @@ export function ContactForm() {
   return (
     <Form {...form}>
       <form
-        // We pass the formAction to the form's action attribute.
-        action={formAction}
-        // We use the form's handleSubmit to trigger client-side validation before the action.
-        onSubmit={form.handleSubmit(() => {
-          // The actual form submission is handled by the 'action' prop.
-          // We can still use the `formAction` function directly if we needed to pass more complex data
-          // than what a standard form submission provides.
-          const formData = new FormData(form.control.formValuesRef.current as unknown as HTMLFormElement);
-          formAction(formData);
-        })}
+        action={formData => {
+          form.handleSubmit(() => formAction(formData))();
+        }}
         className="space-y-6"
       >
         <FormField
