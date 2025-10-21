@@ -20,7 +20,7 @@ export function Hero() {
   };
 
   return (
-    <section className="py-12 md:py-24">
+    <section className="py-8 md:py-24">
       <div className="container grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div>
           <p className="text-lg md:text-xl text-primary font-medium mb-4">
