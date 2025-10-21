@@ -1,3 +1,6 @@
+
+'use client';
+
 import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
@@ -10,6 +13,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { CookieConsent } from '@/components/layout/cookie-consent';
 import { profile } from '@/lib/data';
 import Script from 'next/script';
+import { FirebaseClientProvider } from '@/firebase/client-provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,40 +26,6 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const siteUrl = 'https://devalvaro.vercel.app';
-const siteTitle = 'AMC - Álvaro Martín Crespo, Desarrollador Frontend';
-const siteDescription = 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend apasionado por crear experiencias web modernas y accesibles. Descubre mis proyectos, habilidades y contacta conmigo.';
-
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: {
-    default: siteTitle,
-    template: `%s | ${profile.name}`,
-  },
-  description: siteDescription,
-  openGraph: {
-    type: 'website',
-    url: siteUrl,
-    title: siteTitle,
-    description: siteDescription,
-    images: [
-      {
-        url: `/images/portada.webp`,
-        width: 1200,
-        height: 630,
-        alt: 'Imagen de portada del portfolio de Álvaro Martín Crespo',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: siteTitle,
-    description: siteDescription,
-    images: [`${siteUrl}/images/portada.webp`],
-  },
-  alternates: {
-    canonical: '/',
-  },
-};
 
 const navLinks = [
     { href: '/', label: 'Inicio' },
@@ -107,14 +77,10 @@ export default function RootLayout({
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
-          <link
-            rel="preload"
-            href="/images/portada.webp"
-            as="image"
-          />
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-body`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <FirebaseClientProvider>
             <LoadingProvider>
               <Header navLinks={navLinks} />
               <main>{children}</main>
@@ -122,6 +88,7 @@ export default function RootLayout({
               <Toaster />
               <CookieConsent />
             </LoadingProvider>
+          </FirebaseClientProvider>
         </ThemeProvider>
         <Analytics />
       </body>

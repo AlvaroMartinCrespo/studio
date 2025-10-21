@@ -4,7 +4,6 @@ import { profile } from '@/lib/data';
 import Link from 'next/link';
 import Script from 'next/script';
 import type { Metadata } from 'next';
-import { FirebaseClientProvider } from '@/firebase/client-provider';
 
 export const metadata: Metadata = {
   title: 'Contacto',
@@ -47,17 +46,15 @@ export default function ContactPage() {
 
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-12">
           <div className="md:col-span-3">
-            <FirebaseClientProvider>
-                <Card>
-                <CardHeader>
-                    <CardTitle>Envíame un mensaje</CardTitle>
-                    <CardDescription>Te responderé lo antes posible.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <ContactForm />
-                </CardContent>
-                </Card>
-            </FirebaseClientProvider>
+            <Card>
+              <CardHeader>
+                  <CardTitle>Envíame un mensaje</CardTitle>
+                  <CardDescription>Te responderé lo antes posible.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                  <ContactForm />
+              </CardContent>
+            </Card>
           </div>
           <div className="md:col-span-2 space-y-6">
             <h3 className="font-headline text-xl font-semibold">Otras formas de conectar</h3>
