@@ -5,7 +5,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { LoadingProvider } from '@/components/providers/loading-provider';
 import { Analytics } from '@vercel/analytics/react';
 import { CookieConsent } from '@/components/layout/cookie-consent';
@@ -108,10 +107,14 @@ export default function RootLayout({
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
           />
+          <link
+            rel="preload"
+            href="/images/portada.webp"
+            as="image"
+          />
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-body`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <FirebaseClientProvider>
             <LoadingProvider>
               <Header navLinks={navLinks} />
               <main>{children}</main>
@@ -119,7 +122,6 @@ export default function RootLayout({
               <Toaster />
               <CookieConsent />
             </LoadingProvider>
-          </FirebaseClientProvider>
         </ThemeProvider>
         <Analytics />
       </body>

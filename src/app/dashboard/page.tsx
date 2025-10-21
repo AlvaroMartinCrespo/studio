@@ -4,13 +4,14 @@ import { useUser, useAuth, useFirestore, useCollection, useMemoFirebase } from '
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { collection, query, orderBy, where } from 'firebase/firestore';
+import { collection, query, orderBy } from 'firebase/firestore';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Loader2, LogOut, Inbox } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { FirebaseClientProvider } from '@/firebase/client-provider';
 
 type Submission = {
   id: string;
@@ -20,7 +21,7 @@ type Submission = {
   submissionDate: string;
 };
 
-export default function DashboardPage() {
+function DashboardContent() {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const firestore = useFirestore();
@@ -115,4 +116,13 @@ export default function DashboardPage() {
       </Card>
     </div>
   );
+}
+
+
+export default function DashboardPage() {
+    return (
+        <FirebaseClientProvider>
+            <DashboardContent />
+        </FirebaseClientProvider>
+    )
 }
