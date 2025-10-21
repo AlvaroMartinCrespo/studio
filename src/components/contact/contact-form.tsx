@@ -65,7 +65,7 @@ export function ContactForm() {
         });
         form.reset();
       })
-      .catch((serverError) => {
+      .catch(() => {
         const permissionError = new FirestorePermissionError({
             path: submissionsCollection.path,
             operation: 'create',
