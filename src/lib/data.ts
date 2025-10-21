@@ -76,6 +76,16 @@ export const projects = [
     image: getImage('project-weather-app'),
     liveUrl: '#',
     repoUrl: 'https://github.com/AlvaroMartinCrespo/weather-api',
+  },
+  {
+    slug: 'gym-app',
+    title: 'Aplicación para el gimnasio',
+    isFeatured: false,
+    description: 'Aplicación en la que puedes guardar tu rutina de gimnasio, con un calendario y puedes verlo cuando quieras, repeticiones y pesos. También tiene una pestaña de perfil y una pestaña de ranking para ver qué persona hace más ejercicio.',
+    techStack: ['React', 'Supabase', 'Tailwind CSS'],
+    image: getImage('project-gym-app'),
+    liveUrl: '#',
+    repoUrl: 'https://github.com/AlvaroMartinCrespo/gym-project',
   }
 ];
 
