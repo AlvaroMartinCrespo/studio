@@ -29,7 +29,7 @@ export function CookieConsent() {
       localStorage.setItem(COOKIE_CONSENT_KEY, 'true');
       setConsentGiven(true);
     } catch (error) {
-      console.error('Could not save cookie consent.', error);
+        // It's not critical if this fails, so we won't show a toast.
     }
   };
   

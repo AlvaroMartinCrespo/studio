@@ -66,7 +66,6 @@ export function ContactForm() {
         form.reset();
       })
       .catch((serverError) => {
-        console.error('Error submitting form:', serverError);
         const permissionError = new FirestorePermissionError({
             path: submissionsCollection.path,
             operation: 'create',
