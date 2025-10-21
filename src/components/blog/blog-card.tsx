@@ -6,6 +6,7 @@ import type { blogPosts } from '@/lib/data';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowUpRight, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import { Button } from '../ui/button';
 import { useLoading } from '../providers/loading-provider';
 import { usePathname } from 'next/navigation';
@@ -44,7 +45,7 @@ export function BlogCard({ post }: BlogCardProps) {
       <CardHeader>
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           <Calendar className="h-4 w-4" />
-          <time dateTime={post.date}>{format(new Date(post.date), 'MMMM d, yyyy')}</time>
+          <time dateTime={post.date}>{format(new Date(post.date), "d 'de' MMMM 'de' yyyy", { locale: es })}</time>
         </div>
         <CardTitle className="font-headline text-xl">
           <Link href={href} onClick={handleClick} className="hover:text-primary transition-colors">

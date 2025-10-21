@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { blogPosts } from '@/lib/data';
 import { Calendar } from 'lucide-react';
 import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 import type { Metadata } from 'next';
 
 type Props = {
@@ -51,7 +52,7 @@ export default function BlogPostPage({ params }: Props) {
           <h1 className="font-headline text-4xl md:text-5xl font-bold mb-4">{post.title}</h1>
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <Calendar className="h-4 w-4" />
-            <time dateTime={post.date}>{format(new Date(post.date), 'MMMM d, yyyy')}</time>
+            <time dateTime={post.date}>{format(new Date(post.date), "d 'de' MMMM 'de' yyyy", { locale: es })}</time>
           </div>
         </header>
 

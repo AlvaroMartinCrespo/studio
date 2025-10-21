@@ -10,6 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { Loader2, LogOut, Inbox } from 'lucide-react';
 import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 type Submission = {
   id: string;
@@ -93,7 +94,7 @@ export default function DashboardPage() {
                   <TableRow key={submission.id}>
                     <TableCell>
                       <Badge variant="outline">
-                        {format(new Date(submission.submissionDate), 'dd MMM, yyyy - HH:mm')}
+                        {format(new Date(submission.submissionDate), 'dd MMM, yyyy - HH:mm', { locale: es })}
                       </Badge>
                     </TableCell>
                     <TableCell className="font-medium">{submission.name}</TableCell>
