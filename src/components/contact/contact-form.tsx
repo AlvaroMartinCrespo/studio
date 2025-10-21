@@ -36,17 +36,13 @@ export function ContactForm() {
   });
 
   useEffect(() => {
-    // We only react to the 'success' state from the server action.
-    // Errors are now handled by the global FirebaseErrorListener, so we don't need to show a toast for them here.
     if (state.status === 'success' && state.message) {
       toast({
         title: '¡Mensaje Enviado!',
         description: state.message,
       });
-      form.reset(); // Reset form fields on successful submission
+      form.reset();
     }
-    // A specific error message from the server action (e.g. validation) can still be shown if needed,
-    // but Firestore permission errors are now handled globally.
     if (state.status === 'error' && state.message) {
        toast({
         variant: "destructive",
@@ -60,9 +56,15 @@ export function ContactForm() {
   return (
     <Form {...form}>
       <form
-        action={formData => {
-          form.handleSubmit(() => formAction(formData))();
-        }}
+        onSubmit={form.handleSubmit(data => {
+            const formData = new FormData();
+            Object.entries(data).forEach(([key, value]) => {
+                if (value) {
+                    formData.append(key, value);
+                }
+            });
+            formAction(formData);
+        })}
         className="space-y-6"
       >
         <FormField
