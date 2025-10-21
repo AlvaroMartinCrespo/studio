@@ -95,31 +95,6 @@ export default function ProjectDetailPage({ params }: Props) {
 
         {/* Content */}
         <div className="prose dark:prose-invert max-w-none">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <Card>
-              <CardHeader><CardTitle>El Problema</CardTitle></CardHeader>
-              <CardContent><p>{project.problem}</p></CardContent>
-            </Card>
-            <Card>
-              <CardHeader><CardTitle>La Solución</CardTitle></CardHeader>
-              <CardContent><p>{project.solution}</p></CardContent>
-            </Card>
-          </div>
-
-          <Card className="bg-primary/5 border-primary/20">
-            <CardHeader><CardTitle>Resultados e Impacto</CardTitle></CardHeader>
-            <CardContent><p>{project.result}</p></CardContent>
-          </Card>
-
-          {project.codeSnippet && (
-            <div className="mt-12">
-              <h3 className="font-headline text-2xl font-bold mb-4">Fragmento de Código</h3>
-              <pre className="rounded-2xl p-4 bg-secondary overflow-x-auto">
-                <code>{project.codeSnippet}</code>
-              </pre>
-            </div>
-          )}
-
           <div className="mt-12 text-center">
             <Button variant="link" asChild>
                 <Link href={contactHref} onClick={handleContactClick}>

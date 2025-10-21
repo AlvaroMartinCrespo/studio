@@ -41,21 +41,10 @@ export const projects = [
     title: 'Tablao Flamenco Las Setas',
     isFeatured: true,
     description: 'Página web para un tablao flamenco, uno de mis primeros proyectos en la empresa DSS Network.',
-    problem: 'El tablao necesitaba una presencia online profesional para atraer turistas y clientes locales, permitiendo la consulta de espectáculos y la reserva de entradas.',
-    solution: 'Desarrollé un sitio web completo utilizando HTML, CSS y PHP. La web se centró en un diseño visualmente atractivo, con una galería de imágenes y un sistema sencillo para mostrar la programación de eventos.',
-    result: 'El proyecto permitió al cliente digitalizar su oferta, aumentando la visibilidad del tablao y facilitando el acceso a la información para potenciales clientes, lo que derivó en un incremento de las reservas.',
     techStack: ['HTML', 'CSS', 'PHP'],
     image: getImage('project-tablao-flamenco'),
-    liveUrl: '#',
+    liveUrl: 'https://tablaoflamencolassetas.com/',
     repoUrl: '#',
-    codeSnippet: `<?php
-    // Ejemplo de cómo se podría manejar la carga de eventos
-    function get_shows() {
-        // Conectar a la base de datos y obtener los espectáculos
-        $shows = $db->query("SELECT * FROM shows WHERE date >= CURDATE() ORDER BY date ASC");
-        return $shows;
-    }
-?>`,
   },
 ];
 
