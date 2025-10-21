@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import type { blogPosts, profile } from '@/lib/data';
+import { type blogPosts, profile } from '@/lib/data';
 import { Calendar, ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
