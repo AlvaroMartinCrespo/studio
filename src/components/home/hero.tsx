@@ -57,7 +57,7 @@ export function Hero() {
                 width={400}
                 height={500}
                 priority
-                className="rounded-[50%/35%] shadow-xl object-cover w-72 h-[26rem] md:w-80 md:h-[28rem] border-8 border-background"
+                className="rounded-[50%/35%] shadow-xl object-cover w-80 h-[26rem] md:w-80 md:h-[28rem] border-8 border-background"
                 data-ai-hint={profile.image.imageHint}
             />
             )}
