@@ -21,7 +21,7 @@ export function FirebaseClientProvider({ children }: FirebaseClientProviderProps
   }, []); // Empty dependency array ensures this runs only once
 
   // On the server, you might want to render a loader or nothing
-  if (!isBrowser) {
+  if (!firebaseServices.firebaseApp) {
     // Or just return the children if they don't strictly depend on Firebase for the initial render
     return <>{children}</>;
   }
