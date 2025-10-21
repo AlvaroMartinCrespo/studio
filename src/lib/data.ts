@@ -6,7 +6,7 @@ const getImage = (id: string): ImagePlaceholder | undefined => PlaceHolderImages
 export const profile = {
   name: "Álvaro Martín Crespo",
   title: "Desarrollador Frontend",
-  bio: "Construyo aplicaciones web escalables y mantenibles con un enfoque en la experiencia de usuario y el rendimiento. Mi especialidad es el ecosistema de React, particularmente con Next.js y Tailwind CSS, donde transformo problemas complejos en soluciones elegantes para el mundo real.",
+  bio: "Desarrollador frontend especializado en páginas web modernas utilizando frameworks de JavaScript, HTML y CSS.",
   image: getImage('portada'),
   cvUrl: "/placeholder-cv.pdf",
   socials: {
