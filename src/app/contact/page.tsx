@@ -49,13 +49,6 @@ export default function ContactPage() {
                 </div>
             ))}
           </div>
-          <Separator />
-           <div>
-              <h4 className="font-semibold mb-2">¿Prefieres Calendly?</h4>
-              <p className="text-sm text-muted-foreground">
-                <Link href="#" className="text-primary hover:underline">Agenda una llamada de 30 min</Link>
-              </p>
-           </div>
         </div>
       </div>
     </div>
