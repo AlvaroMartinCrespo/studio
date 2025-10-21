@@ -75,7 +75,7 @@ export const projects = [
     techStack: ['React', 'Tailwind CSS', 'API Rest'],
     image: getImage('project-weather-app'),
     liveUrl: '#',
-    repoUrl: '#',
+    repoUrl: 'https://github.com/AlvaroMartinCrespo/weather-api',
   }
 ];
 
