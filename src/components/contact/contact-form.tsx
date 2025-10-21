@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -25,7 +25,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export function ContactForm() {
-  const [state, formAction] = useFormState(submitContactForm, { message: '', status: 'idle' });
+  const [state, formAction] = useActionState(submitContactForm, { message: '', status: 'idle' });
   const { toast } = useToast();
 
   const form = useForm<FormValues>({
