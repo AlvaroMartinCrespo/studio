@@ -36,9 +36,11 @@ export default function ContactPage() {
         <div className="space-y-6">
           <h3 className="font-headline text-xl font-semibold">Otras formas de conectar</h3>
           <div className="space-y-4">
-            {profile.contactLinks.map((item, index) => (
+            {profile.contactLinks.map((item, index) => {
+              const Icon = item.icon;
+              return (
                 <div key={index} className="flex items-start gap-3">
-                  <item.icon className="h-5 w-5 text-primary mt-1" />
+                  <Icon className="h-5 w-5 text-primary mt-1" />
                   <div>
                     {item.href ? (
                         <Link href={item.href} className="font-medium hover:underline">{item.value}</Link>
@@ -47,7 +49,8 @@ export default function ContactPage() {
                     )}
                   </div>
                 </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
