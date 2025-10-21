@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { projects } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ExternalLink, Github, Tv } from 'lucide-react';
+import { ExternalLink, Github, Tv, ArrowLeft } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLoading } from '@/components/providers/loading-provider';
 
@@ -32,6 +32,14 @@ export default function ProjectDetailPage({ params }: Props) {
 
   return (
     <div className="container py-16 md:py-24">
+       <div className="max-w-4xl mx-auto mb-8">
+          <Button asChild variant="ghost">
+              <Link href="/projects">
+                  <ArrowLeft className="mr-2" />
+                  Volver a Proyectos
+              </Link>
+          </Button>
+        </div>
       <article className="max-w-4xl mx-auto">
         {/* Header */}
         <header className="mb-12">

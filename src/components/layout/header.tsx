@@ -71,33 +71,38 @@ export function Header({
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
+        {/* Desktop Logo */}
         <div className="mr-4 hidden md:flex">
           <Logo />
         </div>
+        
+        {/* Mobile Menu & Logo */}
+        <div className="md:hidden flex-1 flex justify-start">
+          <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left">
+              <div className="py-4">
+                <Logo />
+              </div>
+              <div className="flex flex-col space-y-4">
+                {navLinks.map(link => (
+                  <NavLink key={link.href} {...link} className="text-lg" />
+                ))}
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
 
-        <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-          <SheetTrigger asChild className="md:hidden">
-            <Button variant="outline" size="icon">
-              <Menu className="h-5 w-5" />
-              <span className="sr-only">Open menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left">
-            <div className="py-4">
-              <Logo />
-            </div>
-            <div className="flex flex-col space-y-4">
-              {navLinks.map(link => (
-                <NavLink key={link.href} {...link} className="text-lg" />
-              ))}
-            </div>
-          </SheetContent>
-        </Sheet>
+        <div className="md:hidden flex-1 flex justify-center">
+          <Logo />
+        </div>
 
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            {/* You can add a command menu here if you want */}
-          </div>
+        <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="hidden md:flex md:items-center md:gap-6">
             {navLinks.map(link => (
               <NavLink key={link.href} {...link} />

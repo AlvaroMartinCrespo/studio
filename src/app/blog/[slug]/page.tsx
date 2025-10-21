@@ -1,10 +1,12 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { blogPosts } from '@/lib/data';
-import { Calendar } from 'lucide-react';
+import { Calendar, ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import type { Metadata } from 'next';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 type Props = {
   params: { slug: string };
@@ -48,6 +50,14 @@ export default function BlogPostPage({ params }: Props) {
   return (
     <div className="container py-16 md:py-24">
       <article className="max-w-3xl mx-auto">
+        <div className="mb-8">
+            <Button asChild variant="ghost">
+                <Link href="/blog">
+                    <ArrowLeft className="mr-2" />
+                    Volver al Blog
+                </Link>
+            </Button>
+        </div>
         <header className="mb-12 text-center">
           <h1 className="font-headline text-4xl md:text-5xl font-bold mb-4">{post.title}</h1>
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
