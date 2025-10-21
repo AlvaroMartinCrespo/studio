@@ -55,9 +55,9 @@ export function Hero() {
                 src={profile.image.imageUrl}
                 alt={profile.image.description}
                 width={400}
-                height={400}
+                height={500}
                 priority
-                className="rounded-full shadow-xl object-cover w-80 h-80 md:w-96 md:h-96 border-8 border-background"
+                className="rounded-[50%/25%] shadow-xl object-cover w-64 h-96 md:w-80 border-8 border-background"
                 data-ai-hint={profile.image.imageHint}
             />
             )}
