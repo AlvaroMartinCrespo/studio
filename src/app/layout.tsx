@@ -6,7 +6,7 @@ import { Header } from '@/components/layout/header';
 import { cn } from '@/lib/utils';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { getDictionary } from '@/lib/dictionaries';
-import { Locale, i18n } from '@/i18n-config';
+import { i18n, type Locale } from '@/i18n-config';
 import { Footer } from '@/components/layout/footer';
 
 export const metadata: Metadata = {
