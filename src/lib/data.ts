@@ -5,8 +5,8 @@ const getImage = (id: string): ImagePlaceholder | undefined => PlaceHolderImages
 
 export const profile = {
   name: "Álvaro Martín Crespo",
-  title: "Frontend Developer",
-  bio: "I build scalable and maintainable web applications with a focus on user experience and performance. My expertise lies in the React ecosystem, particularly with Next.js and Tailwind CSS, where I transform complex problems into elegant, real-world solutions.",
+  title: "Desarrollador Frontend",
+  bio: "Construyo aplicaciones web escalables y mantenibles con un enfoque en la experiencia de usuario y el rendimiento. Mi especialidad es el ecosistema de React, particularmente con Next.js y Tailwind CSS, donde transformo problemas complejos en soluciones elegantes para el mundo real.",
   image: getImage('profile-picture'),
   cvUrl: "/placeholder-cv.pdf",
   socials: {
@@ -15,14 +15,14 @@ export const profile = {
     twitter: "https://x.com/tu",
   },
   contact: {
-    email: "your.email@example.com",
-    phone: "+1 (123) 456-7890",
-    address: "Madrid, Spain"
+    email: "tu.email@example.com",
+    phone: "+34 123 456 789",
+    address: "Madrid, España"
   },
   contactLinks: [
-    { icon: Mail, value: "your.email@example.com", href: "mailto:your.email@example.com" },
-    { icon: Phone, value: "+1 (123) 456-7890", href: "tel:+11234567890" },
-    { icon: MapPin, value: "Madrid, Spain" },
+    { icon: Mail, value: "tu.email@example.com", href: "mailto:tu.email@example.com" },
+    { icon: Phone, value: "+34 123 456 789", href: "tel:+34123456789" },
+    { icon: MapPin, value: "Madrid, España" },
   ],
 };
 
@@ -44,12 +44,12 @@ export const skills = [
 export const projects = [
   {
     slug: 'e-commerce-platform',
-    title: 'E-commerce Platform',
+    title: 'Plataforma E-commerce',
     isFeatured: true,
-    description: 'A full-featured e-commerce platform with SSR, a robust product catalog, and a seamless checkout experience.',
-    problem: 'The client needed to migrate their legacy brick-and-mortar store to a modern, fast, and scalable online platform to increase their market reach.',
-    solution: 'Developed a high-performance e-commerce site using Next.js for SSR/SSG, resulting in excellent SEO and fast page loads. Integrated with Stripe for payments and a headless CMS for easy product management.',
-    result: 'Achieved a 40% increase in sales within the first quarter. Lighthouse performance score improved from 55 to 98. Reduced bounce rate by 30%.',
+    description: 'Una plataforma de e-commerce completa con SSR, un robusto catálogo de productos y una experiencia de pago fluida.',
+    problem: 'El cliente necesitaba migrar su tienda física tradicional a una plataforma online moderna, rápida y escalable para aumentar su alcance de mercado.',
+    solution: 'Desarrollé un sitio de e-commerce de alto rendimiento usando Next.js para SSR/SSG, lo que resultó en un excelente SEO y cargas de página rápidas. Se integró con Stripe para los pagos y un CMS headless para una fácil gestión de productos.',
+    result: 'Se logró un aumento del 40% en las ventas durante el primer trimestre. La puntuación de rendimiento de Lighthouse mejoró de 55 a 98. La tasa de rebote se redujo en un 30%.',
     techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Stripe API', 'GraphQL'],
     image: getImage('project-e-commerce'),
     liveUrl: '#',
@@ -65,12 +65,12 @@ export const projects = [
   },
   {
     slug: 'analytics-dashboard',
-    title: 'Analytics Dashboard',
+    title: 'Panel de Analíticas',
     isFeatured: true,
-    description: 'A real-time data analytics dashboard for a SaaS product, providing users with actionable insights.',
-    problem: 'Users lacked visibility into their data, making it difficult to track key metrics and make informed decisions.',
-    solution: 'Built a responsive dashboard with dynamic charts and data visualizations using Recharts and React. Implemented WebSocket for real-time data updates and provided options for custom date-range filtering.',
-    result: 'Increased user engagement by 25%. Customer support tickets related to data queries dropped by 50%.',
+    description: 'Un panel de análisis de datos en tiempo real para un producto SaaS, que proporciona a los usuarios información procesable.',
+    problem: 'Los usuarios carecían de visibilidad sobre sus datos, lo que dificultaba el seguimiento de métricas clave y la toma de decisiones informadas.',
+    solution: 'Construí un panel responsive con gráficos dinámicos y visualizaciones de datos usando Recharts y React. Implementé WebSockets para actualizaciones de datos en tiempo real y proporcioné opciones para filtrar por rango de fechas personalizado.',
+    result: 'Aumentó la participación del usuario en un 25%. Los tickets de soporte al cliente relacionados con consultas de datos disminuyeron en un 50%.',
     techStack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Recharts', 'WebSockets'],
     image: getImage('project-dashboard'),
     liveUrl: '#',
@@ -78,12 +78,12 @@ export const projects = [
   },
   {
     slug: 'saas-landing-page',
-    title: 'SaaS Landing Page',
+    title: 'Landing Page para SaaS',
     isFeatured: true,
-    description: 'A high-converting landing page for a B2B SaaS product, optimized for lead generation.',
-    problem: 'The existing landing page had a high bounce rate and low conversion rate due to poor design and slow load times.',
-    solution: 'Redesigned the entire landing page with a focus on clear messaging and a strong value proposition. Used Next.js for static generation, optimized images with `next/image`, and A/B tested different CTA copies.',
-    result: 'Conversion rate increased by 200%. Page load time decreased by 70%.',
+    description: 'Una landing page de alta conversión para un producto SaaS B2B, optimizada para la generación de leads.',
+    problem: 'La landing page existente tenía una alta tasa de rebote y una baja tasa de conversión debido a un diseño deficiente y tiempos de carga lentos.',
+    solution: 'Rediseñé la landing page por completo con un enfoque en un mensaje claro y una propuesta de valor sólida. Usé Next.js para la generación estática, optimicé las imágenes con `next/image` y realicé pruebas A/B con diferentes copys para los CTA.',
+    result: 'La tasa de conversión aumentó en un 200%. El tiempo de carga de la página disminuyó en un 70%.',
     techStack: ['Next.js', 'React', 'Tailwind CSS', 'Framer Motion'],
     image: getImage('project-saas'),
     liveUrl: '#',
@@ -91,13 +91,13 @@ export const projects = [
   },
     {
     slug: 'mobile-banking-app',
-    title: 'Mobile Banking App Concept',
+    title: 'Concepto de App de Banca Móvil',
     isFeatured: false,
-    description: 'A conceptual design and prototype for a modern mobile banking application.',
-    problem: 'Traditional banking apps are often cluttered and difficult to navigate. The goal was to design a user-centric app that simplifies personal finance management.',
-    solution: 'Designed a clean, intuitive interface in Figma, focusing on a minimalist aesthetic and easy access to common banking tasks like transfers and balance checks. Built a clickable prototype to demonstrate user flows.',
-    result: 'Positive feedback from user testing sessions, with a 95% task completion rate. The design concept was later adopted for a real-world project.',
-    techStack: ['Figma', 'React Native (concept)', 'Storybook'],
+    description: 'Un diseño conceptual y prototipo para una aplicación moderna de banca móvil.',
+    problem: 'Las aplicaciones bancarias tradicionales suelen estar sobrecargadas y ser difíciles de navegar. El objetivo era diseñar una aplicación centrada en el usuario que simplificara la gestión de las finanzas personales.',
+    solution: 'Diseñé una interfaz limpia e intuitiva en Figma, centrándome en una estética minimalista y un fácil acceso a tareas bancarias comunes como transferencias y consulta de saldo. Construí un prototipo clicable para demostrar los flujos de usuario.',
+    result: 'Feedback positivo en las sesiones de prueba con usuarios, con una tasa de finalización de tareas del 95%. El concepto de diseño fue adoptado posteriormente para un proyecto real.',
+    techStack: ['Figma', 'React Native (concepto)', 'Storybook'],
     image: getImage('project-mobile'),
     liveUrl: '#',
     repoUrl: '#',
@@ -107,15 +107,15 @@ export const projects = [
 export const blogPosts = [
   {
     slug: 'mastering-nextjs-performance',
-    title: 'Mastering Next.js Performance: A Practical Guide',
+    title: 'Dominando el Rendimiento en Next.js: Una Guía Práctica',
     date: '2024-05-15',
-    excerpt: 'Dive deep into practical techniques for optimizing your Next.js applications, from dynamic imports and code splitting to image optimization and caching strategies.',
+    excerpt: 'Sumérgete en técnicas prácticas para optimizar tus aplicaciones Next.js, desde importaciones dinámicas y división de código hasta optimización de imágenes y estrategias de caché.',
     image: getImage('blog-post-1'),
     content: `
-## Introduction
-Performance is not a feature, it's a necessity. In this guide, we'll explore...
+## Introducción
+El rendimiento no es una característica, es una necesidad. En esta guía, exploraremos...
 
-### 1. Code Splitting with \`dynamic()\`
+### 1. División de Código con \`dynamic()\`
 \`\`\`javascript
 import dynamic from 'next/dynamic'
 
@@ -124,7 +124,7 @@ const HeavyComponent = dynamic(() => import('../components/HeavyComponent'))
 function HomePage() {
   return (
     <div>
-      <p>This is the home page.</p>
+      <p>Esta es la página de inicio.</p>
       <HeavyComponent />
     </div>
   )
@@ -134,15 +134,15 @@ function HomePage() {
   },
   {
     slug: 'advanced-tailwind-css-patterns',
-    title: 'Advanced Tailwind CSS Patterns for Reusable Components',
+    title: 'Patrones Avanzados de Tailwind CSS para Componentes Reutilizables',
     date: '2024-04-22',
-    excerpt: 'Move beyond basic utility classes. Learn how to create scalable and maintainable component styles in Tailwind CSS using plugins, variants, and composition.',
+    excerpt: 'Ve más allá de las clases de utilidad básicas. Aprende a crear estilos de componentes escalables y mantenibles en Tailwind CSS usando plugins, variantes y composición.',
     image: getImage('blog-post-2'),
     content: `
-## The Problem with Repetition
-Writing the same combination of utility classes over and over can be tedious.
+## El Problema de la Repetición
+Escribir la misma combinación de clases de utilidad una y otra vez puede ser tedioso.
 
-### Creating a Plugin
+### Creando un Plugin
 \`\`\`javascript
 // tailwind.config.js
 const plugin = require('tailwindcss/plugin')
@@ -166,15 +166,15 @@ module.exports = {
   },
   {
     slug: 'react-state-management-2024',
-    title: 'The State of React State Management in 2024',
+    title: 'El Estado de la Gestión de Estado en React en 2024',
     date: '2024-03-10',
-    excerpt: 'useState, useReducer, Context API, Zustand, Redux Toolkit... The choices are endless. This post breaks down the pros and cons of popular state management solutions.',
+    excerpt: 'useState, useReducer, Context API, Zustand, Redux Toolkit... Las opciones son infinitas. Este post analiza los pros y contras de las soluciones de gestión de estado más populares.',
     image: getImage('blog-post-3'),
     content: `
-## Zustand: The Minimalist's Choice
-Zustand offers a simple, unopinionated way to manage state.
+## Zustand: La Elección Minimalista
+Zustand ofrece una forma sencilla y sin opiniones de gestionar el estado.
 
-### Basic Usage
+### Uso Básico
 \`\`\`javascript
 import { create } from 'zustand'
 

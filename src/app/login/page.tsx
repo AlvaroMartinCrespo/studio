@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -43,6 +42,14 @@ export default function LoginPage() {
   }, [user, isUserLoading, router]);
 
   const onSubmit = async (values: FormValues) => {
+    if (!auth) {
+      toast({
+        variant: 'destructive',
+        title: 'Error de autenticación',
+        description: 'El servicio de autenticación no está disponible.',
+      });
+      return;
+    }
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password);
       toast({

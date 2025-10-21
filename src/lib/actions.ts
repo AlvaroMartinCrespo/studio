@@ -53,9 +53,6 @@ export async function submitContactForm(
     return { message: '¡Gracias por tu mensaje! Te responderé pronto.', status: 'success' };
   } catch (error) {
     console.error('Error submitting form:', error);
-    // In a real app, you'd want to log this error to a monitoring service.
-    // For this prototype, we'll return a generic error message.
-    // The detailed error will be visible in the server logs.
     return { message: 'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.', status: 'error' };
   }
 }

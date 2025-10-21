@@ -18,7 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'DevFolio - Álvaro Martín Crespo, Frontend Developer',
+  title: 'DevFolio - Álvaro Martín Crespo, Desarrollador Frontend',
   description: 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend especializado en React, Next.js y Tailwind CSS.',
 };
 

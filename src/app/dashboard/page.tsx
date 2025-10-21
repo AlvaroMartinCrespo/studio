@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useUser, useAuth, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
@@ -26,17 +25,14 @@ export default function DashboardPage() {
   const firestore = useFirestore();
   const router = useRouter();
 
-  // The query is now dependent on `user.uid`.
-  // It will only be created (and run) when the user object is available.
   const submissionsQuery = useMemoFirebase(() => {
-    if (!firestore || !user?.uid) return null; // IMPORTANT: Do not query if no user
+    if (!firestore || !user?.uid) return null;
     return query(collection(firestore, 'contact_form_submissions'), orderBy('submissionDate', 'desc'));
   }, [firestore, user?.uid]);
 
   const { data: submissions, isLoading: submissionsLoading, error } = useCollection<Submission>(submissionsQuery);
 
   useEffect(() => {
-    // If the initial user check is done and there's no user, redirect to login.
     if (!isUserLoading && !user) {
       router.push('/login');
     }
@@ -49,7 +45,6 @@ export default function DashboardPage() {
     router.push('/login');
   };
 
-  // Show a loading spinner while the initial user authentication is in progress.
   if (isUserLoading || !user) {
     return (
       <div className="flex justify-center items-center min-h-[calc(100vh-10rem)]">
@@ -58,7 +53,6 @@ export default function DashboardPage() {
     );
   }
 
-  // At this point, `user` is guaranteed to be non-null.
   return (
     <div className="container py-16 md:py-24">
       <div className="flex justify-between items-center mb-8">
