@@ -1,47 +1,30 @@
-import { notFound } from 'next/navigation';
+'use client';
+
+import { notFound, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { blogPosts } from '@/lib/data';
 import { Calendar, ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import type { Metadata } from 'next';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { useLoading } from '@/components/providers/loading-provider';
 
 type Props = {
   params: { slug: string };
 };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const post = blogPosts.find(p => p.slug === params.slug);
-
-  if (!post) {
-    return {
-      title: 'Post no encontrado',
-    };
-  }
-
-  return {
-    title: `${post.title} | Blog | DevFolio`,
-    description: post.excerpt,
-    openGraph: {
-      title: `${post.title} | Blog | DevFolio`,
-      description: post.excerpt,
-      images: [post.image?.imageUrl || ''],
-      type: 'article',
-      publishedTime: new Date(post.date).toISOString(),
-    },
-  };
-}
-
-export function generateStaticParams() {
-  return blogPosts.map(post => ({
-    slug: post.slug,
-  }));
-}
-
 export default function BlogPostPage({ params }: Props) {
   const post = blogPosts.find(p => p.slug === params.slug);
+  const { setIsPageLoading } = useLoading();
+  const pathname = usePathname();
+  const blogHref = '/blog';
+
+  const handleBlogClick = () => {
+    if (pathname !== blogHref) {
+      setIsPageLoading(true);
+    }
+  };
 
   if (!post) {
     notFound();
@@ -52,7 +35,7 @@ export default function BlogPostPage({ params }: Props) {
       <article className="max-w-3xl mx-auto">
         <div className="mb-8">
             <Button asChild variant="ghost">
-                <Link href="/blog">
+                <Link href={blogHref} onClick={handleBlogClick}>
                     <ArrowLeft className="mr-2" />
                     Volver al Blog
                 </Link>

@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArrowUpRight } from 'lucide-react';
 import { useLoading } from '../providers/loading-provider';
+import { usePathname } from 'next/navigation';
 
 type ProjectCardProps = {
   project: (typeof projects)[0];
@@ -15,10 +16,13 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const { setIsPageLoading } = useLoading();
+  const pathname = usePathname();
   const href = `/projects/${project.slug}`;
 
   const handleClick = () => {
-    setIsPageLoading(true);
+    if (pathname !== href) {
+      setIsPageLoading(true);
+    }
   };
 
   return (

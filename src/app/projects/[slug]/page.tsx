@@ -18,13 +18,22 @@ export default function ProjectDetailPage({ params }: Props) {
   const project = projects.find(p => p.slug === params.slug);
   const { setIsPageLoading } = useLoading();
   const pathname = usePathname();
-  const href = '/contact';
+  const contactHref = '/contact';
+  const projectsHref = '/projects';
 
-  const handleClick = () => {
-    if (pathname !== href) {
+
+  const handleContactClick = () => {
+    if (pathname !== contactHref) {
       setIsPageLoading(true);
     }
   };
+
+  const handleProjectsClick = () => {
+    if (pathname !== projectsHref) {
+      setIsPageLoading(true);
+    }
+  };
+
 
   if (!project) {
     notFound();
@@ -34,7 +43,7 @@ export default function ProjectDetailPage({ params }: Props) {
     <div className="container py-16 md:py-24">
        <div className="max-w-4xl mx-auto mb-8">
           <Button asChild variant="ghost">
-              <Link href="/projects">
+              <Link href={projectsHref} onClick={handleProjectsClick}>
                   <ArrowLeft className="mr-2" />
                   Volver a Proyectos
               </Link>
@@ -113,7 +122,7 @@ export default function ProjectDetailPage({ params }: Props) {
 
           <div className="mt-12 text-center">
             <Button variant="link" asChild>
-                <Link href={href} onClick={handleClick}>
+                <Link href={contactHref} onClick={handleContactClick}>
                     Contáctame para más detalles <ExternalLink className="ml-2 h-4 w-4"/>
                 </Link>
             </Button>
