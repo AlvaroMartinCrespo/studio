@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import type { blogPosts } from '@/lib/data';
@@ -5,24 +7,38 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { ArrowUpRight, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 import { Button } from '../ui/button';
+import { useLoading } from '../providers/loading-provider';
+import { usePathname } from 'next/navigation';
 
 type BlogCardProps = {
   post: (typeof blogPosts)[0];
 };
 
 export function BlogCard({ post }: BlogCardProps) {
+  const { setIsPageLoading } = useLoading();
+  const pathname = usePathname();
+  const href = `/blog/${post.slug}`;
+
+  const handleClick = () => {
+    if (pathname !== href) {
+      setIsPageLoading(true);
+    }
+  };
+
   return (
     <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
       {post.image && (
         <div className="aspect-video overflow-hidden">
-          <Image
-            src={post.image.imageUrl}
-            alt={post.image.description}
-            width={800}
-            height={400}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-            data-ai-hint={post.image.imageHint}
-          />
+          <Link href={href} onClick={handleClick} aria-label={post.title}>
+            <Image
+              src={post.image.imageUrl}
+              alt={post.image.description}
+              width={800}
+              height={400}
+              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              data-ai-hint={post.image.imageHint}
+            />
+          </Link>
         </div>
       )}
       <CardHeader>
@@ -31,7 +47,7 @@ export function BlogCard({ post }: BlogCardProps) {
           <time dateTime={post.date}>{format(new Date(post.date), 'MMMM d, yyyy')}</time>
         </div>
         <CardTitle className="font-headline text-xl">
-          <Link href={`/blog/${post.slug}`} className="hover:text-primary transition-colors">
+          <Link href={href} onClick={handleClick} className="hover:text-primary transition-colors">
             {post.title}
           </Link>
         </CardTitle>
@@ -43,7 +59,7 @@ export function BlogCard({ post }: BlogCardProps) {
       </CardContent>
        <CardFooter>
         <Button asChild variant="outline" className="w-full">
-          <Link href={`/blog/${post.slug}`}>
+          <Link href={href} onClick={handleClick}>
             Leer Más
             <ArrowUpRight className="ml-2 h-4 w-4" />
           </Link>

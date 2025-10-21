@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import type { projects } from '@/lib/data';
@@ -5,12 +7,20 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArrowUpRight } from 'lucide-react';
+import { useLoading } from '../providers/loading-provider';
 
 type ProjectCardProps = {
   project: (typeof projects)[0];
 };
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const { setIsPageLoading } = useLoading();
+  const href = `/projects/${project.slug}`;
+
+  const handleClick = () => {
+    setIsPageLoading(true);
+  };
+
   return (
     <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
       {project.image && (
@@ -42,7 +52,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       </CardContent>
       <CardFooter>
         <Button asChild variant="outline" className="w-full">
-          <Link href={`/projects/${project.slug}`}>
+          <Link href={href} onClick={handleClick}>
             Ver Detalles
             <ArrowUpRight className="ml-2 h-4 w-4" />
           </Link>
