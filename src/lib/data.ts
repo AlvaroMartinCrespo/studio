@@ -66,6 +66,16 @@ export const projects = [
     image: getImage('project-howeb'),
     liveUrl: '#',
     repoUrl: 'https://github.com/AlvaroMartinCrespo/howeb',
+  },
+  {
+    slug: 'weather-app',
+    title: 'Aplicación del Tiempo',
+    isFeatured: true,
+    description: 'Es una aplicación sencilla realizada con React y Tailwind, en la que me lanzo a probar como funcionan las APIs, es una aplicación donde intruduces el lugar y te dice el tiempo, y grados, en tiempo real.',
+    techStack: ['React', 'Tailwind CSS', 'API Rest'],
+    image: getImage('project-weather-app'),
+    liveUrl: '#',
+    repoUrl: '#',
   }
 ];
 
