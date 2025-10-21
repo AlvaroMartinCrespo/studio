@@ -12,6 +12,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
+
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'El nombre debe tener al menos 2 caracteres.' }),
@@ -47,29 +50,38 @@ export function ContactForm() {
       setIsPending(false);
       return;
     }
+    
+    const submissionsCollection = collection(firestore, 'contact_form_submissions');
+    const submissionData = {
+      ...values,
+      submissionDate: new Date().toISOString(),
+    };
 
-    try {
-      const submissionsCollection = collection(firestore, 'contact_form_submissions');
-      await addDoc(submissionsCollection, {
-        ...values,
-        submissionDate: new Date().toISOString(),
+    addDoc(submissionsCollection, submissionData)
+      .then(() => {
+        toast({
+          title: '¡Mensaje Enviado!',
+          description: 'Gracias por tu mensaje. Te responderé pronto.',
+        });
+        form.reset();
+      })
+      .catch((serverError) => {
+        console.error('Error submitting form:', serverError);
+        const permissionError = new FirestorePermissionError({
+            path: submissionsCollection.path,
+            operation: 'create',
+            requestResourceData: submissionData,
+        });
+        errorEmitter.emit('permission-error', permissionError);
+        toast({
+            variant: "destructive",
+            title: 'Error al enviar',
+            description: 'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.',
+        });
+      })
+      .finally(() => {
+        setIsPending(false);
       });
-      
-      toast({
-        title: '¡Mensaje Enviado!',
-        description: 'Gracias por tu mensaje. Te responderé pronto.',
-      });
-      form.reset();
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      toast({
-        variant: "destructive",
-        title: 'Error al enviar',
-        description: 'Ocurrió un error inesperado. Por favor, inténtalo de nuevo más tarde.',
-      });
-    }
-
-    setIsPending(false);
   };
 
   return (
