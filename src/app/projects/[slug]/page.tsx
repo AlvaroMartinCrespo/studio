@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from 'react';
 import { notFound, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,7 +8,6 @@ import { projects } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Github, Tv, ArrowLeft } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLoading } from '@/components/providers/loading-provider';
 
 type Props = {
@@ -15,7 +15,8 @@ type Props = {
 };
 
 export default function ProjectDetailPage({ params }: Props) {
-  const project = projects.find(p => p.slug === params.slug);
+  const { slug } = use(params);
+  const project = projects.find(p => p.slug === slug);
   const { setIsPageLoading } = useLoading();
   const pathname = usePathname();
   const contactHref = '/contact';

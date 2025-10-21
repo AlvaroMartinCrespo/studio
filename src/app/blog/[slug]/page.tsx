@@ -1,5 +1,6 @@
 'use client';
 
+import { use } from 'react';
 import { notFound, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { blogPosts } from '@/lib/data';
@@ -15,7 +16,8 @@ type Props = {
 };
 
 export default function BlogPostPage({ params }: Props) {
-  const post = blogPosts.find(p => p.slug === params.slug);
+  const { slug } = use(params);
+  const post = blogPosts.find(p => p.slug === slug);
   const { setIsPageLoading } = useLoading();
   const pathname = usePathname();
   const blogHref = '/blog';
