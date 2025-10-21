@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
+import { LoadingProvider } from '@/components/providers/loading-provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -40,13 +41,15 @@ export default function RootLayout({
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-body`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <FirebaseClientProvider>
-            <Header navLinks={navLinks} />
-            <main>{children}</main>
-            <Footer 
-              text="Desarrollador Frontend especializado en crear experiencias web modernas."
-              copyright="© 2025 Álvaro Martín Crespo. Todos los derechos reservados."
-            />
-            <Toaster />
+            <LoadingProvider>
+              <Header navLinks={navLinks} />
+              <main>{children}</main>
+              <Footer 
+                text="Desarrollador Frontend especializado en crear experiencias web modernas."
+                copyright="© 2025 Álvaro Martín Crespo. Todos los derechos reservados."
+              />
+              <Toaster />
+            </LoadingProvider>
           </FirebaseClientProvider>
         </ThemeProvider>
       </body>

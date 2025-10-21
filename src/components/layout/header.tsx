@@ -3,13 +3,14 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/shared/logo';
 import { ThemeToggle } from '@/components/shared/theme-toggle';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { useLoading } from '../providers/loading-provider';
 
 type NavLinkData = {
   href: string;
@@ -23,9 +24,15 @@ export function Header({
 }) {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { setIsPageLoading } = useLoading();
 
   // Strip language prefix from pathname for active link checking
   const activePathname = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/');
+  
+  useEffect(() => {
+    setIsPageLoading(false);
+  }, [pathname, setIsPageLoading]);
+
 
   const NavLink = ({
     href,
@@ -38,6 +45,13 @@ export function Header({
   }) => {
     // Check if the current path is the exact href or a sub-route for active state
     const isActive = href === '/' ? activePathname === href : activePathname.startsWith(href);
+    
+    const handleClick = () => {
+      if (pathname !== href) {
+        setIsPageLoading(true);
+      }
+      setIsMobileMenuOpen(false);
+    };
 
     return (
       <Link
@@ -47,7 +61,7 @@ export function Header({
           isActive ? 'text-primary' : 'text-muted-foreground',
           className
         )}
-        onClick={() => setIsMobileMenuOpen(false)}
+        onClick={handleClick}
       >
         {label}
       </Link>
