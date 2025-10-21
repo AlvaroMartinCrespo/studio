@@ -8,17 +8,29 @@ interface FirebaseClientProviderProps {
   children: ReactNode;
 }
 
+const isBrowser = typeof window !== 'undefined';
+
 export function FirebaseClientProvider({ children }: FirebaseClientProviderProps) {
   const firebaseServices = useMemo(() => {
-    // Initialize Firebase on the client side, once per component mount.
-    return initializeFirebase();
-  }, []); // Empty dependency array ensures this runs only once on mount
+    // Only initialize Firebase on the client-side
+    if (isBrowser) {
+      return initializeFirebase();
+    }
+    // Return dummy/null services for server-side rendering
+    return { firebaseApp: null, auth: null, firestore: null };
+  }, []); // Empty dependency array ensures this runs only once
+
+  // On the server, you might want to render a loader or nothing
+  if (!isBrowser) {
+    // Or just return the children if they don't strictly depend on Firebase for the initial render
+    return <>{children}</>;
+  }
 
   return (
     <FirebaseProvider
-      firebaseApp={firebaseServices.firebaseApp}
-      auth={firebaseServices.auth}
-      firestore={firebaseServices.firestore}
+      firebaseApp={firebaseServices.firebaseApp!}
+      auth={firebaseServices.auth!}
+      firestore={firebaseServices.firestore!}
     >
       {children}
     </FirebaseProvider>

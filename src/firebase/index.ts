@@ -17,16 +17,7 @@ export function initializeFirebase() {
 
   if (!getApps().length) {
     // In a browser environment, we can safely initialize.
-    // The previous logic for App Hosting vs. config object is fine here.
-    let firebaseApp;
-    try {
-      // Attempt to initialize via Firebase App Hosting environment variables (if they exist)
-      firebaseApp = initializeApp();
-    } catch (e) {
-      // Fallback for local development or other hosting environments like Vercel
-      firebaseApp = initializeApp(firebaseConfig);
-    }
-    return getSdks(firebaseApp);
+    return getSdks(initializeApp(firebaseConfig));
   }
 
   // If already initialized, return the SDKs with the already initialized App
