@@ -45,7 +45,7 @@ export const projects = [
     techStack: ['HTML', 'CSS', 'PHP'],
     image: getImage('project-tablao-flamenco'),
     liveUrl: 'https://tablaoflamencolassetas.com/',
-    repoUrl: 'https://github.com/AlvaroMartinCrespo',
+    repoUrl: '#',
   },
   {
     slug: 'lunar-red-social',
@@ -64,7 +64,7 @@ export const projects = [
     description: 'Es una pagina de reserva de hoteles, donde se pueden publicar anuncios de hoteles o de habitaciones para alquilar. Tiene sistema de usuarios, sistema de pagos, web responsive y esta hecho en laravel y sql.',
     techStack: ['Laravel', 'SQL', 'Responsive Design'],
     image: getImage('project-howeb'),
-    liveUrl: 'https://github.com/AlvaroMartinCrespo/howeb',
+    liveUrl: '#',
     repoUrl: 'https://github.com/AlvaroMartinCrespo/howeb',
   },
   {
@@ -74,7 +74,7 @@ export const projects = [
     description: 'Es una aplicación sencilla realizada con React y Tailwind, en la que me lanzo a probar como funcionan las APIs, es una aplicación donde intruduces el lugar y te dice el tiempo, y grados, en tiempo real.',
     techStack: ['React', 'Tailwind CSS', 'API Rest'],
     image: getImage('project-weather-app'),
-    liveUrl: 'https://github.com/AlvaroMartinCrespo/weather-api',
+    liveUrl: '#',
     repoUrl: 'https://github.com/AlvaroMartinCrespo/weather-api',
   },
   {
@@ -84,7 +84,7 @@ export const projects = [
     description: 'Aplicación en la que puedes guardar tu rutina de gimnasio, con un calendario y puedes verlo cuando quieras, repeticiones y pesos. También tiene una pestaña de perfil y una pestaña de ranking para ver qué persona hace más ejercicio.',
     techStack: ['React', 'Supabase', 'Tailwind CSS'],
     image: getImage('project-gym-app'),
-    liveUrl: 'https://github.com/AlvaroMartinCrespo/gym-project',
+    liveUrl: '#',
     repoUrl: 'https://github.com/AlvaroMartinCrespo/gym-project',
   }
 ];
@@ -93,7 +93,7 @@ export const blogPosts = [
   {
     slug: 'hola-mundo-nuevo-espacio-digital',
     title: '¡Hola, Mundo! Estrenando mi nuevo espacio digital',
-    date: '2024-07-26',
+    date: '2024-07-29',
     excerpt: 'Una breve introducción a mi nuevo portfolio, mi motivación y mi pasión por el desarrollo web.',
     image: getImage('blog-post-1'),
     content: `
