@@ -5,12 +5,10 @@ import Link from 'next/link';
 import { profile } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { Download, Send } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useLoading } from '../providers/loading-provider';
 import { usePathname } from 'next/navigation';
 
 export function Hero() {
-  const coverImage = PlaceHolderImages.find(img => img.id === 'portada');
   const { setIsPageLoading } = useLoading();
   const pathname = usePathname();
   const projectsHref = '/projects';
@@ -23,14 +21,14 @@ export function Hero() {
 
   return (
     <section className="relative w-full h-[60vh] md:h-[70vh] flex items-center justify-center text-center text-white overflow-hidden">
-      {coverImage && (
+      {profile.image && (
         <Image
-          src={coverImage.imageUrl}
-          alt={coverImage.description}
+          src={profile.image.imageUrl}
+          alt={profile.image.description}
           fill
           priority
           className="object-cover z-0"
-          data-ai-hint={coverImage.imageHint}
+          data-ai-hint={profile.image.imageHint}
         />
       )}
       <div className="absolute inset-0 bg-black/60 z-10" />
