@@ -46,6 +46,16 @@ export const projects = [
     liveUrl: 'https://tablaoflamencolassetas.com/',
     repoUrl: '#',
   },
+  {
+    slug: 'lunar-red-social',
+    title: 'Lunar - Una Red Social',
+    isFeatured: true,
+    description: 'Una red social 100% funcional, donde los usuarios pueden publicar, ver contenido, editar su perfil y donde los administradores acceden a estadísticas en tiempo real. Construida con React, Firebase y diseño responsive.',
+    techStack: ['React', 'Firebase', 'Responsive Design'],
+    image: getImage('project-lunar'),
+    liveUrl: '#',
+    repoUrl: '#',
+  }
 ];
 
 export const blogPosts = [
