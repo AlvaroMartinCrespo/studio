@@ -8,6 +8,7 @@ import { Footer } from '@/components/layout/footer';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { LoadingProvider } from '@/components/providers/loading-provider';
 import { Analytics } from '@vercel/analytics/react';
+import { CookieConsent } from '@/components/layout/cookie-consent';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -74,6 +75,7 @@ export default function RootLayout({
                 copyright="© 2025 Álvaro Martín Crespo. Todos los derechos reservados."
               />
               <Toaster />
+              <CookieConsent />
             </LoadingProvider>
           </FirebaseClientProvider>
         </ThemeProvider>
