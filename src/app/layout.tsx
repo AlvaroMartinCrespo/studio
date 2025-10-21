@@ -18,7 +18,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'DevFolio - Álvaro Martín Crespo, Desarrollador Frontend',
+  title: 'AMC - Álvaro Martín Crespo, Desarrollador Frontend',
   description: 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend especializado en React, Next.js y Tailwind CSS.',
 };
 
@@ -44,7 +44,7 @@ export default function RootLayout({
             <main>{children}</main>
             <Footer 
               text="Desarrollador Frontend especializado en crear experiencias web modernas."
-              copyright="© 2024 Álvaro Martín Crespo. Todos los derechos reservados."
+              copyright="© 2025 Álvaro Martín Crespo. Todos los derechos reservados."
             />
             <Toaster />
           </FirebaseClientProvider>

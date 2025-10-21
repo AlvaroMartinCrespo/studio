@@ -8,9 +8,9 @@ export function Footer({ text, copyright }: { text: string, copyright: string}) 
     <footer className="border-t">
       <div className="container py-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex flex-col gap-4 items-center md:items-start">
+          <div className="flex flex-col gap-4 items-center md:items-start text-center md:text-left">
             <Logo />
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground max-w-sm">
               {text}
             </p>
           </div>
@@ -27,8 +27,8 @@ export function Footer({ text, copyright }: { text: string, copyright: string}) 
             </Button>
           </div>
         </div>
-        <div className="mt-8 text-center text-sm text-muted-foreground flex justify-between items-center">
-          <span>{copyright}</span>
+        <div className="mt-8 text-center text-sm text-muted-foreground flex flex-col md:flex-row justify-between items-center gap-4">
+          <span>© 2025 Álvaro Martín Crespo. Todos los derechos reservados.</span>
           <Button variant="link" size="sm" asChild className="text-muted-foreground">
             <Link href="/login">
               <KeyRound className="mr-2 h-4 w-4" />
