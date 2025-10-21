@@ -42,17 +42,15 @@ export function Hero() {
           </div>
         </div>
         <div className="order-1 md:order-2">
-          {profile.image && (
-            <Image
-              src="/images/portada.webp"
-              alt="Imagen de portada del portfolio de Álvaro Martín Crespo"
-              width={600}
-              height={400}
-              priority
-              className="rounded-2xl shadow-xl object-cover w-full h-auto"
-              data-ai-hint="developer workspace"
-            />
-          )}
+          <Image
+            src="/images/portada.webp"
+            alt="Imagen de portada del portfolio de Álvaro Martín Crespo"
+            width={600}
+            height={400}
+            priority
+            className="rounded-2xl shadow-xl object-cover w-full h-auto"
+            data-ai-hint="developer workspace"
+          />
         </div>
       </div>
     </section>
