@@ -14,14 +14,14 @@ export const profile = {
     linkedin: "https://www.linkedin.com/in/alvaromartincrespo/",
   },
   contact: {
-    email: "tu.email@example.com",
-    phone: "+34 123 456 789",
-    address: "Madrid, España"
+    email: "alvaro.martin.crespo.00@gmail.com",
+    phone: "+34 660 12 12 45",
+    address: "Sevilla, España"
   },
   contactLinks: [
-    { icon: Mail, value: "tu.email@example.com", href: "mailto:tu.email@example.com" },
-    { icon: Phone, value: "+34 123 456 789", href: "tel:+34123456789" },
-    { icon: MapPin, value: "Madrid, España" },
+    { icon: Mail, value: "alvaro.martin.crespo.00@gmail.com", href: "mailto:alvaro.martin.crespo.00@gmail.com" },
+    { icon: Phone, value: "660 12 12 45", href: "tel:+34660121245" },
+    { icon: MapPin, value: "Sevilla, España" },
   ],
 };
 
