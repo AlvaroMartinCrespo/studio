@@ -20,8 +20,8 @@ export default function ContactPage() {
         </p>
       </div>
 
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-        <div className="md:col-span-2">
+      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-12">
+        <div className="md:col-span-3">
           <Card>
             <CardHeader>
               <CardTitle>Envíame un mensaje</CardTitle>
@@ -32,7 +32,7 @@ export default function ContactPage() {
             </CardContent>
           </Card>
         </div>
-        <div className="space-y-6">
+        <div className="md:col-span-2 space-y-6">
           <h3 className="font-headline text-xl font-semibold">Otras formas de conectar</h3>
           <div className="space-y-4">
             {profile.contactLinks.map((item, index) => {
