@@ -3,33 +3,47 @@
  *
  * Core Philosophy:
  * This ruleset prioritizes security by enforcing strict access controls.
+ * Contact form submissions are publicly accessible for reading (get, list),
+ * but only authenticated users can create submissions, and only if the submission ID matches their UID.
+ * Updates and deletes are explicitly denied.
  *
  * Data Structure:
- * - `/contact_form_submissions/{contactFormSubmissionId}`: Stores contact form submissions.
+ * - /contact_form_submissions/{contactFormSubmissionId}: Stores contact form submissions.
  *
  * Key Security Decisions:
- * - Contact form submissions are publicly accessible for reading but require authentication for creation.
+ * - Contact form submissions are publicly readable.
+ * - Only authenticated users can create contact form submissions.
+ * - Updates and deletes are not allowed on contact form submissions.
+ *
+ * Denormalization for Authorization:
+ *  N/A
+ *
+ * Structural Segregation:
+ * N/A
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Allows reading any contact form submissions, but requires authentication to create, update, or delete.
+     * @description Allows anyone to read contact form submissions, but only authenticated users to create. Updates and deletes are not allowed.
      * @path /contact_form_submissions/{contactFormSubmissionId}
-     * @allow (get, list) Anyone can read contact form submissions to allow public display.
-     * @allow (create) Authenticated users can submit new contact forms.
-     * @deny (update, delete) Updates and deletes are not allowed, preserving submission integrity.
-     * @principle Allows public reads for contact submissions, but protects write operations by requiring authentication.
+     * @allow (get, list) - Anyone can read contact form submissions.
+     * @allow (create) - An authenticated user can create a contact form submission with an ID that matches their UID.
+     * @deny (create) - An unauthenticated user attempts to create a contact form submission.
+     * @deny (update) - Any user attempts to update a contact form submission.
+     * @deny (delete) - Any user attempts to delete a contact form submission.
+     * @principle Allows public read access to contact form submissions, restricts creation to authenticated users, and disallows updates and deletes.
      */
     match /contact_form_submissions/{contactFormSubmissionId} {
       allow get: if true;
       allow list: if true;
-      allow create: if isSignedIn();
+      allow create: if isSignedIn() && request.resource.data.id == contactFormSubmissionId;
       allow update: if false;
       allow delete: if false;
     }
 
+    // Define helper functions here
     function isSignedIn() {
       return request.auth != null;
     }
