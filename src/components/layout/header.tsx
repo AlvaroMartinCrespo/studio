@@ -2,9 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import type { Locale } from '../../../i18n-config';
+import { Menu } from 'lucide-react';
+import { useState } from 'react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -20,13 +19,14 @@ type NavLinkData = {
 
 export function Header({
   navLinks,
-  lang,
 }: {
   navLinks: NavLinkData[];
-  lang: Locale;
 }) {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Extract locale from pathname, e.g., "/en/about" -> "en"
+  const lang = pathname.split('/')[1];
 
   const NavLink = ({
     href,
@@ -37,10 +37,10 @@ export function Header({
     label: string;
     className?: string;
   }) => {
-    // Construct the full path with the current language, and handle the root path.
+    // Construct the full path with the current language, handling the root path.
     const fullPath = `/${lang}${href === '/' ? '' : href}`;
-    // Check for exact match or if it's the homepage for the current locale.
-    const isActive = pathname === fullPath || (pathname === `/${lang}` && href === '/');
+    // Check if the current pathname matches the link's href for the active state
+    const isActive = pathname === fullPath;
 
     return (
       <Link
