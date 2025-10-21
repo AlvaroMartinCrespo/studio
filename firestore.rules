@@ -1,45 +1,46 @@
 /**
- * @fileoverview Firestore Security Rules for Prototyping.
+ * @file Firestore Security Rules
+ * @description This ruleset is in "Prototyping Mode," prioritizing strict authorization and rapid iteration. Data schema validation is minimized.
  *
  * Core Philosophy:
- * This ruleset is designed for rapid prototyping. It prioritizes secure authorization
- * based on identity (authentication) but relaxes data validation to allow for schema flexibility.
- * It grants read access to all authenticated users for all collections, while restricting write access.
+ *   - Secure all data based on user identity (authentication).
+ *   - Protect user data and prevent unauthorized access.
+ *   - Explicitly deny any access not specifically granted.
  *
  * Data Structure:
- * - /contact_form_submissions/{contactFormSubmissionId}: Stores contact form submissions.
+ *   - `/contact_form_submissions/{contactFormSubmissionId}`: Stores contact form submissions.  Intended to be only writeable by the application for demo purposes.
  *
  * Key Security Decisions:
- * - Public listing of contact form submissions is explicitly disallowed as anonymous users are submitting the forms, instead backend services should be used.
- *
- * Denormalization for Authorization:
- *   N/A - Not applicable in this simplified model.
- *
- * Structural Segregation:
- *   N/A - Not applicable in this simplified model.
+ *   - Listing of contact form submissions is explicitly denied.
+ *   - Minimal schema validation is performed in this prototyping phase.
+ *   - No public data access is allowed.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Restricts access to contact form submissions. Only authenticated users can create contact form submissions, listing is disallowed.
+     * @description Protects contact form submissions.
      * @path /contact_form_submissions/{contactFormSubmissionId}
-     * @allow (create) - Authenticated user can create a contact form submission.
-     * @deny (list) - Any user (authenticated or not) cannot list contact form submissions.
-     * @principle Authentication required for data submission; listing is disallowed for all users.
+     * @allow (create) - Not applicable, writes only from backend
+     * @deny (list) - Any user attempting to list submissions
+     * @principle Prevents unauthorized access to contact form submissions. Only the backend should create resources in this collection.
      */
     match /contact_form_submissions/{contactFormSubmissionId} {
-      allow get: if false;
+      // Anyone cannot list contact form submissions.
       allow list: if false;
-      allow create: if isSignedIn();
-      allow update: if false;
-      allow delete: if false;
-    }
 
-    // --- Helper Functions ---
-    function isSignedIn() {
-      return request.auth != null;
+      // Nobody can get a contact form submission.
+      allow get: if false;
+
+      // Nobody can create contact form submissions.
+      allow create: if false;
+
+      // Nobody can update contact form submissions.
+      allow update: if false;
+
+      // Nobody can delete contact form submissions.
+      allow delete: if false;
     }
   }
 }
