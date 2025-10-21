@@ -1,20 +1,15 @@
 
-'use client';
-
 import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
-import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
-import { LoadingProvider } from '@/components/providers/loading-provider';
 import { Analytics } from '@vercel/analytics/react';
 import { CookieConsent } from '@/components/layout/cookie-consent';
 import { profile } from '@/lib/data';
 import Script from 'next/script';
-import { PageLoader } from '@/components/layout/page-loader';
-import { FirebaseClientProvider } from '@/firebase';
+import { GlobalProviders } from '@/components/providers/global-providers';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -27,6 +22,39 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const siteUrl = 'https://devalvaro.vercel.app';
+
+export const metadata: Metadata = {
+  title: {
+    default: 'Álvaro Martín Crespo - Desarrollador Frontend',
+    template: '%s | Álvaro Martín Crespo',
+  },
+  description: 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend especializado en crear experiencias web modernas y accesibles.',
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'es_ES',
+    url: siteUrl,
+    title: 'Álvaro Martín Crespo - Desarrollador Frontend',
+    description: 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend especializado en crear experiencias web modernas y accesibles.',
+    images: [
+      {
+        url: `${siteUrl}/images/portada.webp`,
+        width: 1200,
+        height: 630,
+        alt: 'Imagen de portada del portfolio de Álvaro Martín Crespo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Álvaro Martín Crespo - Desarrollador Frontend',
+    description: 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend especializado en crear experiencias web modernas y accesibles.',
+    images: [`${siteUrl}/images/portada.webp`],
+  },
+};
 
 const navLinks = [
     { href: '/', label: 'Inicio' },
@@ -69,7 +97,6 @@ export default function RootLayout({
     }
   };
 
-
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
@@ -81,17 +108,13 @@ export default function RootLayout({
           />
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-body`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <FirebaseClientProvider>
-            <LoadingProvider>
-              <Header navLinks={navLinks} />
-              <main>{children}</main>
-              <Footer />
-              <Toaster />
-              <CookieConsent />
-            </LoadingProvider>
-          </FirebaseClientProvider>
-        </ThemeProvider>
+        <GlobalProviders>
+          <Header navLinks={navLinks} />
+          <main>{children}</main>
+          <Footer />
+          <Toaster />
+          <CookieConsent />
+        </GlobalProviders>
         <Analytics />
       </body>
     </html>
