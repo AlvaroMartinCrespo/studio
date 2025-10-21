@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
-import { i18n, type Locale } from '../../../i18n-config';
+import { i18n, type Locale } from '@/i18n-config';
 import {
   Select,
   SelectContent,
