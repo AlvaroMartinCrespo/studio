@@ -2,7 +2,6 @@ import { ContactForm } from '@/components/contact/contact-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { profile } from '@/lib/data';
 import Link from 'next/link';
-import { Separator } from '@/components/ui/separator';
 
 export const metadata = {
   title: 'Contacto | DevFolio',
@@ -40,10 +39,10 @@ export default function ContactPage() {
               const Icon = item.icon;
               return (
                 <div key={index} className="flex items-start gap-3">
-                  <Icon className="h-5 w-5 text-primary mt-1" />
+                  <Icon className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
                   <div>
                     {item.href ? (
-                        <Link href={item.href} className="font-medium hover:underline">{item.value}</Link>
+                        <Link href={item.href} className="font-medium hover:underline break-all">{item.value}</Link>
                     ) : (
                         <span className="font-medium">{item.value}</span>
                     )}
