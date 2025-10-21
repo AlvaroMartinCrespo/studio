@@ -25,10 +25,10 @@ export function Skills() {
       <div className="container">
         <div className="text-center mb-12">
           <h2 className="font-headline text-3xl md:text-4xl font-bold">
-            My Technical Skills
+            Mis Habilidades Técnicas
           </h2>
           <p className="text-lg text-muted-foreground mt-2 max-w-2xl mx-auto">
-            A snapshot of the technologies and tools I work with regularly.
+            Una instantánea de las tecnologías y herramientas con las que trabajo regularmente.
           </p>
         </div>
         

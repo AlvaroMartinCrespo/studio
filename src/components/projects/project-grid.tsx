@@ -27,7 +27,7 @@ export function ProjectGrid() {
           variant={activeFilter === null ? 'default' : 'outline'}
           onClick={() => handleFilter(null)}
         >
-          All
+          Todos
         </Button>
         {allTechs.map(tech => (
           <Button

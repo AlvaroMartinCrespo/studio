@@ -21,13 +21,13 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button asChild size="lg">
               <Link href="/projects">
-                View My Work
+                Ver Mi Trabajo
                 <Send className="ml-2" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg">
               <a href={profile.cvUrl} download>
-                Download CV
+                Descargar CV
                 <Download className="ml-2" />
               </a>
             </Button>

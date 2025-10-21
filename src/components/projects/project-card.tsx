@@ -43,7 +43,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <CardFooter>
         <Button asChild variant="outline" className="w-full">
           <Link href={`/projects/${project.slug}`}>
-            View Details
+            Ver Detalles
             <ArrowUpRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>

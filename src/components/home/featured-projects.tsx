@@ -12,10 +12,10 @@ export function FeaturedProjects() {
       <div className="container">
         <div className="text-center mb-12">
           <h2 className="font-headline text-3xl md:text-4xl font-bold">
-            Featured Projects
+            Proyectos Destacados
           </h2>
           <p className="text-lg text-muted-foreground mt-2 max-w-2xl mx-auto">
-            A selection of my work. See the problems I've solved and the tech I've used.
+            Una selección de mi trabajo. Mira los problemas que he resuelto y la tecnología que he usado.
           </p>
         </div>
 
@@ -28,7 +28,7 @@ export function FeaturedProjects() {
         <div className="mt-12 text-center">
           <Button asChild size="lg" variant="outline">
             <Link href="/projects">
-              View All Projects
+              Ver Todos los Proyectos
               <ArrowRight className="ml-2" />
             </Link>
           </Button>

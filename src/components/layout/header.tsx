@@ -10,7 +10,6 @@ import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/shared/logo';
 import { ThemeToggle } from '@/components/shared/theme-toggle';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { LanguageSwitcher } from '@/components/shared/language-switcher';
 
 type NavLinkData = {
   href: string;
@@ -24,9 +23,6 @@ export function Header({
 }) {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  // Extract locale from pathname, e.g., "/en/about" -> "en"
-  const lang = pathname.split('/')[1];
 
   const NavLink = ({
     href,
@@ -37,14 +33,12 @@ export function Header({
     label: string;
     className?: string;
   }) => {
-    // Construct the full path with the current language, handling the root path.
-    const fullPath = `/${lang}${href === '/' ? '' : href}`;
-    // Check if the current pathname matches the link's href for the active state
-    const isActive = pathname === fullPath;
+    // Check if the current path is the exact href or a sub-route for active state
+    const isActive = href === '/' ? pathname === href : pathname.startsWith(href);
 
     return (
       <Link
-        href={fullPath}
+        href={href}
         className={cn(
           'text-sm font-medium transition-colors hover:text-primary',
           isActive ? 'text-primary' : 'text-muted-foreground',
@@ -93,7 +87,6 @@ export function Header({
             ))}
           </nav>
           <div className="flex items-center gap-2">
-            <LanguageSwitcher />
             <ThemeToggle />
           </div>
         </div>
