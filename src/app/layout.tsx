@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
-import '@/app/globals.css';
+import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { Header } from '@/components/layout/header';
-import { Footer } from '@/components/layout/footer';
 import { cn } from '@/lib/utils';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import { getDictionary } from '@/lib/dictionaries';
 import { Locale, i18n } from '@/i18n-config';
+import { Footer } from '@/components/layout/footer';
 
 export const metadata: Metadata = {
   title: 'DevFolio - Álvaro Martín Crespo, Frontend Developer',
