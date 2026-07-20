@@ -2,8 +2,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import type { blogPosts } from '@/lib/data';
+import type { BlogPost } from '@/lib/types';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { ArrowUpRight, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -12,7 +13,7 @@ import { useLoading } from '../providers/loading-provider';
 import { usePathname } from 'next/navigation';
 
 type BlogCardProps = {
-  post: (typeof blogPosts)[0];
+  post: BlogPost;
 };
 
 export function BlogCard({ post }: BlogCardProps) {
@@ -28,16 +29,16 @@ export function BlogCard({ post }: BlogCardProps) {
 
   return (
     <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-      {post.image && (
+      {post.image_url && (
         <div className="aspect-video overflow-hidden">
           <Link href={href} onClick={handleClick} aria-label={post.title}>
             <Image
-              src={post.image.imageUrl}
-              alt={post.image.description}
+              src={post.image_url}
+              alt={post.image_alt}
               width={800}
               height={400}
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              data-ai-hint={post.image.imageHint}
             />
           </Link>
         </div>
@@ -53,10 +54,21 @@ export function BlogCard({ post }: BlogCardProps) {
           </Link>
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex-grow">
+      <CardContent className="flex-grow space-y-3">
         <p className="text-sm text-muted-foreground line-clamp-3">
           {post.excerpt}
         </p>
+        {post.tags?.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {post.tags.slice(0, 3).map((tag) => (
+              <Link key={tag} href={`/blog?tag=${encodeURIComponent(tag)}`}>
+                <Badge variant="secondary" className="hover:bg-primary/20 transition-colors">
+                  {tag}
+                </Badge>
+              </Link>
+            ))}
+          </div>
+        )}
       </CardContent>
        <CardFooter>
         <Button asChild variant="outline" className="w-full">

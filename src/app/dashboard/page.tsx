@@ -6,6 +6,10 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Dashboard',
   description: 'Acceso al panel de administración.',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 

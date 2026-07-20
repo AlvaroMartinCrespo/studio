@@ -8,6 +8,20 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Sobre mí',
   description: 'Conoce más sobre la trayectoria profesional, habilidades y filosofía de desarrollo de Álvaro Martín Crespo.',
+  alternates: {
+    canonical: '/about',
+  },
+  openGraph: {
+    title: 'Sobre mí | Álvaro Martín Crespo',
+    description: 'Conoce más sobre la trayectoria profesional, habilidades y filosofía de desarrollo de Álvaro Martín Crespo.',
+    url: '/about',
+    type: 'profile',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sobre mí | Álvaro Martín Crespo',
+    description: 'Conoce más sobre la trayectoria profesional, habilidades y filosofía de desarrollo de Álvaro Martín Crespo.',
+  },
 };
 
 
@@ -98,7 +112,15 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {skills.map(skill => (
                <Card key={skill.name} className="flex flex-col items-center justify-center p-4 text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
-                <img src={skill.logo} alt={`${skill.name} logo`} className="h-10 w-10 mb-2 dark:invert" />
+                <img
+                  src={skill.logo}
+                  alt={`${skill.name} logo`}
+                  width={40}
+                  height={40}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-10 w-10 mb-2 dark:invert"
+                />
                 <span className="text-sm font-medium text-muted-foreground">{skill.name}</span>
               </Card>
             ))}

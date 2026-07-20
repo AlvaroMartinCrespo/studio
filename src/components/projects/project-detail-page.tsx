@@ -33,25 +33,39 @@ export function ProjectDetailPageClient({ project }: ProjectDetailPageClientProp
     }
   };
 
+  const siteUrl = 'https://devalvaro.vercel.app';
+
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: project.title,
-    description: project.description,
-    image: `https://devalvaro.vercel.app${project.image?.imageUrl}`,
-    author: {
-      '@type': 'Person',
-      name: profile.name,
-      url: 'https://devalvaro.vercel.app',
-    },
-    publisher: {
-      '@type': 'Person',
-      name: profile.name,
-    },
-     mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `https://devalvaro.vercel.app/projects/${project.slug}`
-    }
+    '@graph': [
+      {
+        '@type': 'Article',
+        headline: project.title,
+        description: project.description,
+        image: `${siteUrl}${project.image?.imageUrl}`,
+        author: {
+          '@type': 'Person',
+          name: profile.name,
+          url: siteUrl,
+        },
+        publisher: {
+          '@type': 'Person',
+          name: profile.name,
+        },
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': `${siteUrl}/projects/${project.slug}`,
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Inicio', item: siteUrl },
+          { '@type': 'ListItem', position: 2, name: 'Proyectos', item: `${siteUrl}/projects` },
+          { '@type': 'ListItem', position: 3, name: project.title, item: `${siteUrl}/projects/${project.slug}` },
+        ],
+      },
+    ],
   };
 
   return (
@@ -62,6 +76,15 @@ export function ProjectDetailPageClient({ project }: ProjectDetailPageClientProp
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="container py-16 md:py-24">
+        <nav aria-label="Breadcrumb" className="max-w-4xl mx-auto mb-2 text-sm text-muted-foreground">
+          <ol className="flex items-center gap-2">
+            <li><Link href="/" className="hover:text-primary">Inicio</Link></li>
+            <li aria-hidden="true">/</li>
+            <li><Link href={projectsHref} onClick={handleProjectsClick} className="hover:text-primary">Proyectos</Link></li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" className="text-foreground truncate max-w-[200px]">{project.title}</li>
+          </ol>
+        </nav>
         <div className="max-w-4xl mx-auto mb-8">
           <Button asChild variant="ghost">
             <Link href={projectsHref} onClick={handleProjectsClick}>
@@ -88,6 +111,8 @@ export function ProjectDetailPageClient({ project }: ProjectDetailPageClientProp
                 alt={project.image.description}
                 width={1200}
                 height={675}
+                sizes="(max-width: 896px) 100vw, 896px"
+                priority
                 className="w-full h-auto"
                 data-ai-hint={project.image.imageHint}
               />

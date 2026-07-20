@@ -5,6 +5,20 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Proyectos',
   description: 'Un escaparate de proyectos de Álvaro Martín Crespo, que demuestran habilidades en el desarrollo frontend y backend.',
+  alternates: {
+    canonical: '/projects',
+  },
+  openGraph: {
+    title: 'Proyectos | Álvaro Martín Crespo',
+    description: 'Un escaparate de proyectos de Álvaro Martín Crespo, que demuestran habilidades en el desarrollo frontend y backend.',
+    url: '/projects',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Proyectos | Álvaro Martín Crespo',
+    description: 'Un escaparate de proyectos de Álvaro Martín Crespo, que demuestran habilidades en el desarrollo frontend y backend.',
+  },
 };
 
 export default function ProjectsPage() {

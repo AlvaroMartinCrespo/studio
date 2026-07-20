@@ -6,6 +6,10 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Login',
   description: 'Inicia sesión para acceder al panel de administración.',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function LoginPage() {

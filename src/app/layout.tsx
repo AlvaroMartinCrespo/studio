@@ -1,5 +1,5 @@
 
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
@@ -33,6 +33,17 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   openGraph: {
     type: 'website',
     locale: 'es_ES',
@@ -56,6 +67,16 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#F5F5F5' },
+    { media: '(prefers-color-scheme: dark)', color: '#0a0a0a' },
+  ],
+  colorScheme: 'light dark',
+};
+
 const navLinks = [
     { href: '/', label: 'Inicio' },
     { href: '/about', label: 'Sobre mí' },
@@ -72,35 +93,44 @@ export default function RootLayout({
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'ProfilePage',
-    mainEntity: {
-      '@type': 'Person',
-      name: profile.name,
-      alternateName: 'AMC',
-      url: siteUrl,
-      image: `${siteUrl}${profile.image?.imageUrl}`,
-      jobTitle: profile.title,
-      worksFor: {
-        '@type': 'Organization',
-        name: 'DSS Network',
+    '@graph': [
+      {
+        '@type': 'ProfilePage',
+        mainEntity: {
+          '@type': 'Person',
+          name: profile.name,
+          alternateName: 'AMC',
+          url: siteUrl,
+          image: `${siteUrl}${profile.image?.imageUrl}`,
+          jobTitle: profile.title,
+          worksFor: {
+            '@type': 'Organization',
+            name: 'DSS Network',
+          },
+          sameAs: [
+            profile.socials.github,
+            profile.socials.linkedin,
+          ],
+          email: profile.contact.email,
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Sevilla',
+            addressCountry: 'ES'
+          }
+        },
       },
-      sameAs: [
-        profile.socials.github,
-        profile.socials.linkedin,
-      ],
-      email: profile.contact.email,
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Sevilla',
-        addressCountry: 'ES'
-      }
-    }
+      {
+        '@type': 'WebSite',
+        name: 'Álvaro Martín Crespo - Portfolio',
+        url: siteUrl,
+        inLanguage: 'es-ES',
+      },
+    ],
   };
 
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
-          <link rel="preload" href="/images/portada.webp" as="image"/>
           <Script
             id="json-ld-profile"
             type="application/ld+json"

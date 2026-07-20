@@ -1,9 +1,11 @@
 import { MetadataRoute } from 'next';
-import { projects, blogPosts } from '@/lib/data';
+import { projects } from '@/lib/data';
+import { getAllPosts } from '@/lib/blog';
 
 const siteUrl = 'https://devalvaro.vercel.app';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const blogPosts = await getAllPosts();
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: siteUrl,

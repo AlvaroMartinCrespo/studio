@@ -99,24 +99,7 @@ export const projects = [
   }
 ];
 
-export const blogPosts = [
-  {
-    slug: 'hola-mundo-nuevo-espacio-digital',
-    title: '¡Hola, Mundo! Estrenando mi nuevo espacio digital',
-    date: '2024-07-31',
-    excerpt: 'Una breve introducción a mi nuevo portfolio, mi motivación y mi pasión por el desarrollo web.',
-    image: getImage('blog-post-1'),
-    content: `
-      <p>¡Bienvenido a mi nuevo rincón en la web!</p>
-      <p>Con mucha ilusión y ganas, doy el primer paso para crear este portfolio. Es más que una simple página; es un lienzo en blanco donde planeo plasmar mi pasión por la creación de experiencias web y compartir un poco sobre mí.</p>
-      
-      <h3>Mi camino hasta aquí</h3>
-      <p>Soy desarrollador frontend, una profesión que descubrí después de completar mi Grado Superior en Desarrollo de Aplicaciones Web. Aunque actualmente trabajo en proyectos para el sector bancario, mi curiosidad y mis ganas de aprender no se detienen ahí. Este espacio es mi válvula de escape creativa, un lugar donde puedo experimentar, construir y, sobre todo, disfrutar de lo que más me gusta: programar.</p>
-      
-      <h3>¿Qué esperar de este sitio?</h3>
-      <p>Esto es solo el comienzo. Estoy muy motivado y con muchas ganas de seguir construyendo más páginas y proyectos personales. Aquí encontrarás una muestra de mi trabajo, mis habilidades y, con el tiempo, un blog donde compartiré reflexiones y aprendizajes, no solo técnicos, sino también personales.</p>
-      <p>Este proyecto es un reflejo de mi pasión y de mi hobby. Espero que disfrutes explorándolo tanto como yo he disfrutado creándolo.</p>
-      <p>¡Gracias por pasarte!</p>
-    `
-  }
-];
+// Los posts del blog se generan automáticamente (Groq + Pexels) y se sirven
+// desde Supabase. Ver src/lib/blog.ts y src/lib/ai/generate-post.ts.
+// El post original "¡Hola, Mundo!" se inserta como semilla en
+// supabase/seed.sql para no perderlo al migrar.

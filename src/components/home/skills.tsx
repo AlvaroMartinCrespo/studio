@@ -45,7 +45,15 @@ export function Skills() {
                 <div className="p-1">
                   <Card className="transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
                     <CardContent className="flex flex-col items-center justify-center p-4 aspect-square">
-                      <img src={skill.logo} alt={`${skill.name} logo`} className="h-12 w-12 dark:invert" />
+                      <img
+                        src={skill.logo}
+                        alt={`${skill.name} logo`}
+                        width={48}
+                        height={48}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-12 w-12 dark:invert"
+                      />
                       <p className="mt-2 text-sm font-medium text-center">{skill.name}</p>
                     </CardContent>
                   </Card>
