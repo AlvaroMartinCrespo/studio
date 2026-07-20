@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { profile, skills } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { Download, Github, Linkedin, Briefcase, Code, Coffee } from 'lucide-react';
+import { BlueskyIcon } from '@/components/shared/bluesky-icon';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Metadata } from 'next';
 
@@ -56,6 +57,11 @@ export default function AboutPage() {
               <Button variant="outline" size="icon" asChild>
                 <a href={profile.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                   <Linkedin />
+                </a>
+              </Button>
+              <Button variant="outline" size="icon" asChild>
+                <a href={profile.socials.bluesky} target="_blank" rel="noopener noreferrer" aria-label="Bluesky">
+                  <BlueskyIcon className="h-4 w-4" />
                 </a>
               </Button>
             </div>

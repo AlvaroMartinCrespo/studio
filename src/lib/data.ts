@@ -13,6 +13,7 @@ export const profile = {
   socials: {
     github: "https://github.com/AlvaroMartinCrespo",
     linkedin: "https://www.linkedin.com/in/alvaromartincrespo/",
+    bluesky: "https://bsky.app/profile/alvaromartincrespo.bsky.social",
   },
   contact: {
     email: "alvaro.martin.crespo.00@gmail.com",

@@ -110,6 +110,7 @@ export default function RootLayout({
           sameAs: [
             profile.socials.github,
             profile.socials.linkedin,
+            profile.socials.bluesky,
           ],
           email: profile.contact.email,
           address: {

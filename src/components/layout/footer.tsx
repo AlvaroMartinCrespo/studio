@@ -1,6 +1,7 @@
 'use client';
 
 import { Github, Linkedin, KeyRound } from 'lucide-react';
+import { BlueskyIcon } from '@/components/shared/bluesky-icon';
 import { Logo } from '@/components/shared/logo';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -39,6 +40,11 @@ export function Footer() {
               <Button variant="ghost" size="icon" asChild>
                 <a href={profile.socials.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                   <Linkedin className="h-5 w-5" />
+                </a>
+              </Button>
+              <Button variant="ghost" size="icon" asChild>
+                <a href={profile.socials.bluesky} target="_blank" rel="noopener noreferrer" aria-label="Bluesky">
+                  <BlueskyIcon className="h-5 w-5" />
                 </a>
               </Button>
             </div>
