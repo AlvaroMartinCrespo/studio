@@ -70,5 +70,38 @@ export default async function BlogPostPage({ params }: Props) {
 
   const relatedPosts = await getRelatedPosts(post);
 
-  return <BlogPostPageClient post={post} relatedPosts={relatedPosts} />;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt,
+    image: post.image_url,
+    datePublished: new Date(post.date).toISOString(),
+    dateModified: new Date(post.date).toISOString(),
+    author: {
+      '@type': 'Person',
+      name: profile.name,
+      url: siteUrl,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: profile.name,
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/blog/${post.slug}`,
+    },
+    keywords: post.tags.join(', '),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <BlogPostPageClient post={post} relatedPosts={relatedPosts} />
+    </>
+  );
 }
