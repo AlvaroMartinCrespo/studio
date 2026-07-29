@@ -1,24 +1,12 @@
 
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { profile } from '@/lib/data';
 import { Button } from '@/components/ui/button';
 import { Download, Send } from 'lucide-react';
-import { useLoading } from '../providers/loading-provider';
-import { usePathname } from 'next/navigation';
 
 export function Hero() {
-  const { setIsPageLoading } = useLoading();
-  const pathname = usePathname();
   const projectsHref = '/projects';
-
-  const handleProjectsClick = () => {
-    if (pathname !== projectsHref) {
-      setIsPageLoading(true);
-    }
-  };
 
   return (
     <section className="py-8 md:py-24">
@@ -35,7 +23,7 @@ export function Hero() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Button asChild size="lg">
-              <Link href={projectsHref} onClick={handleProjectsClick}>
+              <Link href={projectsHref}>
                 Ver Mi Trabajo
                 <Send className="ml-2" />
               </Link>
@@ -58,6 +46,9 @@ export function Hero() {
                 width={400}
                 height={500}
                 priority
+                fetchPriority="high"
+                sizes="320px"
+                quality={70}
                 className="rounded-[50%/35%] shadow-xl object-cover w-80 h-[26rem] md:w-80 md:h-[28rem] border-8 border-background"
                 data-ai-hint={profile.image.imageHint}
             />

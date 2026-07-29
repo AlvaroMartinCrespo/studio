@@ -1,24 +1,12 @@
-'use client';
-
-import { Github, Linkedin, KeyRound } from 'lucide-react';
+import { Github, Instagram, Linkedin, KeyRound } from 'lucide-react';
 import { BlueskyIcon } from '@/components/shared/bluesky-icon';
 import { Logo } from '@/components/shared/logo';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { useLoading } from '../providers/loading-provider';
-import { usePathname } from 'next/navigation';
 import { profile } from '@/lib/data';
 
 export function Footer() {
-  const { setIsPageLoading } = useLoading();
-  const pathname = usePathname();
   const href = '/login';
-
-  const handleClick = () => {
-    if (pathname !== href) {
-      setIsPageLoading(true);
-    }
-  };
 
   return (
     <footer className="border-t">
@@ -47,13 +35,18 @@ export function Footer() {
                   <BlueskyIcon className="h-5 w-5" />
                 </a>
               </Button>
+              <Button variant="ghost" size="icon" asChild>
+                <a href={profile.socials.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <Instagram className="h-5 w-5" />
+                </a>
+              </Button>
             </div>
           </nav>
         </div>
         <div className="mt-8 text-center text-sm text-muted-foreground flex flex-col justify-between items-center gap-4">
           <p>© {new Date().getFullYear()} Álvaro Martín Crespo. Todos los derechos reservados.</p>
           <Button variant="link" size="sm" asChild className="text-muted-foreground">
-            <Link href={href} onClick={handleClick}>
+            <Link href={href}>
               <KeyRound className="mr-2 h-4 w-4" />
               Admin
             </Link>

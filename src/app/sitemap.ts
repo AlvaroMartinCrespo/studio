@@ -4,6 +4,8 @@ import { getAllPosts } from '@/lib/blog';
 
 const siteUrl = 'https://devalvaro.vercel.app';
 
+export const revalidate = 1800;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogPosts = await getAllPosts();
   const staticPages: MetadataRoute.Sitemap = [
@@ -37,6 +39,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'yearly',
       priority: 0.5,
     },
+    {
+      url: `${siteUrl}/certifications`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
   ];
 
   const projectPages = projects.map((project) => ({
@@ -48,9 +56,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogPages = blogPosts.map((post) => ({
     url: `${siteUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
+    lastModified: new Date(post.created_at || post.date),
     changeFrequency: 'weekly' as const,
     priority: 0.9,
+    images: post.image_url ? [post.image_url] : undefined,
   }));
 
   return [...staticPages, ...projectPages, ...blogPages];

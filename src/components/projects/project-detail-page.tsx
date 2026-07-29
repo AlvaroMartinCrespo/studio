@@ -1,13 +1,9 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import type { projects } from '@/lib/data';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Github, Tv, ArrowLeft } from 'lucide-react';
-import { useLoading } from '@/components/providers/loading-provider';
-import { usePathname } from 'next/navigation';
 import Script from 'next/script';
 import { profile } from '@/lib/data';
 
@@ -16,22 +12,8 @@ type ProjectDetailPageClientProps = {
 };
 
 export function ProjectDetailPageClient({ project }: ProjectDetailPageClientProps) {
-  const { setIsPageLoading } = useLoading();
-  const pathname = usePathname();
   const contactHref = '/contact';
   const projectsHref = '/projects';
-
-  const handleContactClick = () => {
-    if (pathname !== contactHref) {
-      setIsPageLoading(true);
-    }
-  };
-
-  const handleProjectsClick = () => {
-    if (pathname !== projectsHref) {
-      setIsPageLoading(true);
-    }
-  };
 
   const siteUrl = 'https://devalvaro.vercel.app';
 
@@ -73,21 +55,21 @@ export function ProjectDetailPageClient({ project }: ProjectDetailPageClientProp
        <Script
         id="json-ld-project"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
       <div className="container py-16 md:py-24">
         <nav aria-label="Breadcrumb" className="max-w-4xl mx-auto mb-2 text-sm text-muted-foreground">
           <ol className="flex items-center gap-2">
             <li><Link href="/" className="hover:text-primary">Inicio</Link></li>
             <li aria-hidden="true">/</li>
-            <li><Link href={projectsHref} onClick={handleProjectsClick} className="hover:text-primary">Proyectos</Link></li>
+            <li><Link href={projectsHref} className="hover:text-primary">Proyectos</Link></li>
             <li aria-hidden="true">/</li>
             <li aria-current="page" className="text-foreground truncate max-w-[200px]">{project.title}</li>
           </ol>
         </nav>
         <div className="max-w-4xl mx-auto mb-8">
           <Button asChild variant="ghost">
-            <Link href={projectsHref} onClick={handleProjectsClick}>
+            <Link href={projectsHref}>
               <ArrowLeft className="mr-2" />
               Volver a Proyectos
             </Link>
@@ -139,7 +121,7 @@ export function ProjectDetailPageClient({ project }: ProjectDetailPageClientProp
           <div className="prose dark:prose-invert max-w-none">
             <div className="mt-12 text-center">
               <Button variant="link" asChild>
-                  <Link href={contactHref} onClick={handleContactClick}>
+                  <Link href={contactHref}>
                       Contáctame para más detalles <ExternalLink className="ml-2 h-4 w-4"/>
                   </Link>
               </Button>

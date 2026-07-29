@@ -29,10 +29,28 @@ export const metadata: Metadata = {
     template: '%s | Álvaro Martín Crespo',
   },
   description: 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend especializado en crear experiencias web modernas y accesibles.',
+  applicationName: 'Portfolio de Álvaro Martín Crespo',
+  authors: [{ name: 'Álvaro Martín Crespo', url: siteUrl }],
+  creator: 'Álvaro Martín Crespo',
+  publisher: 'Álvaro Martín Crespo',
+  category: 'technology',
+  keywords: [
+    'Álvaro Martín Crespo',
+    'desarrollador frontend',
+    'desarrollador web Sevilla',
+    'React',
+    'LitElement',
+    'JavaScript',
+    'Python',
+    'portfolio desarrollo web',
+  ],
   metadataBase: new URL(siteUrl),
+  manifest: '/manifest.webmanifest',
+  verification: {
+    google: 'a67bdaf5c6e96c8a',
+  },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
       { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
       { url: '/icon-512.png', type: 'image/png', sizes: '512x512' },
     ],
@@ -40,6 +58,10 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: '/',
+    languages: {
+      'es-ES': '/',
+      'x-default': '/',
+    },
   },
   robots: {
     index: true,
@@ -73,6 +95,9 @@ export const metadata: Metadata = {
     description: 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend especializado en crear experiencias web modernas y accesibles.',
     images: [`${siteUrl}/images/portada.webp`],
   },
+  other: {
+    'google-site-verification': 'a67bdaf5c6e96c8a',
+  },
 };
 
 export const viewport: Viewport = {
@@ -90,6 +115,7 @@ const navLinks = [
     { href: '/about', label: 'Sobre mí' },
     { href: '/projects', label: 'Proyectos' },
     { href: '/blog', label: 'Blog' },
+    { href: '/certifications', label: 'Certificaciones' },
     { href: '/contact', label: 'Contacto' },
 ];
 
@@ -103,36 +129,38 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'ProfilePage',
-        mainEntity: {
-          '@type': 'Person',
-          name: profile.name,
-          alternateName: 'AMC',
-          url: siteUrl,
-          image: `${siteUrl}${profile.image?.imageUrl}`,
-          jobTitle: profile.title,
-          worksFor: {
-            '@type': 'Organization',
-            name: 'DSS Network',
-          },
-          sameAs: [
-            profile.socials.github,
-            profile.socials.linkedin,
-            profile.socials.bluesky,
-          ],
-          email: profile.contact.email,
-          address: {
-            '@type': 'PostalAddress',
-            addressLocality: 'Sevilla',
-            addressCountry: 'ES'
-          }
+        '@type': 'Person',
+        '@id': `${siteUrl}/#person`,
+        name: profile.name,
+        alternateName: 'AMC',
+        url: siteUrl,
+        image: `${siteUrl}${profile.image?.imageUrl}`,
+        jobTitle: profile.title,
+        knowsAbout: ['React', 'LitElement', 'JavaScript', 'Python', 'HTML', 'CSS', 'Angular'],
+        worksFor: {
+          '@type': 'Organization',
+          name: 'DSS Network',
         },
+        sameAs: [
+          profile.socials.github,
+          profile.socials.linkedin,
+          profile.socials.bluesky,
+          profile.socials.instagram,
+        ],
+        email: profile.contact.email,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Sevilla',
+          addressCountry: 'ES'
+        }
       },
       {
         '@type': 'WebSite',
+        '@id': `${siteUrl}/#website`,
         name: 'Álvaro Martín Crespo - Portfolio',
         url: siteUrl,
         inLanguage: 'es-ES',
+        publisher: { '@id': `${siteUrl}/#person` },
       },
     ],
   };
@@ -143,8 +171,9 @@ export default function RootLayout({
           <Script
             id="json-ld-profile"
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
           />
+          <link rel="alternate" type="application/rss+xml" title="Blog de Álvaro Martín Crespo" href="/feed.xml" />
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-body`}>
         <GlobalProviders>
@@ -154,7 +183,7 @@ export default function RootLayout({
           <Toaster />
           <CookieConsent />
         </GlobalProviders>
-        <Analytics />
+        {process.env.VERCEL && <Analytics />}
       </body>
     </html>
   );

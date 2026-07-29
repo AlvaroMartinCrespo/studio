@@ -1,22 +1,10 @@
-'use client';
-
 import { Button } from '@/components/ui/button';
 import { Download, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
-import { useLoading } from '../providers/loading-provider';
-import { usePathname } from 'next/navigation';
 import { profile } from '@/lib/data';
 
 export function FinalCta() {
-    const { setIsPageLoading } = useLoading();
-    const pathname = usePathname();
     const href = '/contact';
-
-    const handleClick = () => {
-        if (pathname !== href) {
-        setIsPageLoading(true);
-        }
-    };
   return (
     <section className="py-16 md:py-24">
       <div className="container text-center">
@@ -28,7 +16,7 @@ export function FinalCta() {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild size="lg">
-            <Link href={href} onClick={handleClick}>
+            <Link href={href}>
               Ponte en Contacto
               <MessageCircle className="ml-2" />
             </Link>

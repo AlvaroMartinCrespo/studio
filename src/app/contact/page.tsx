@@ -1,11 +1,11 @@
 
-import { FirebaseClientProvider } from '@/firebase';
-import { ContactLoader } from '@/components/contact/contact-loader';
+import { ContactPageClient } from '@/components/contact/contact-page-client';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Contacto',
-  description: '¿Tienes un proyecto, una pregunta o quieres saludar? Ponte en contacto con Álvaro Martín Crespo.',
+  description: 'Contacta con Álvaro Martín Crespo, desarrollador frontend en Sevilla, por email, LinkedIn, GitHub, Bluesky o Instagram.',
+  keywords: ['contacto desarrollador frontend', 'desarrollador web Sevilla', 'Álvaro Martín Crespo', 'React', 'LitElement'],
   alternates: {
     canonical: '/contact',
   },
@@ -23,9 +23,5 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return (
-    <FirebaseClientProvider>
-      <ContactLoader />
-    </FirebaseClientProvider>
-  );
+  return <ContactPageClient />;
 }

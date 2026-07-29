@@ -21,6 +21,7 @@ diariamente. Contenido en español de España, dirigido a desarrolladores.
 - [Sobre mí](${siteUrl}/about): trayectoria y stack técnico.
 - [Proyectos](${siteUrl}/projects): proyectos personales y profesionales.
 - [Blog](${siteUrl}/blog): listado completo de artículos.
+- [Licencias y certificaciones](${siteUrl}/certifications): formación acreditada en desarrollo web, programación, IA e idiomas.
 - [Contacto](${siteUrl}/contact)
 
 ## Proyectos

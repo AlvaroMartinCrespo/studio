@@ -1,11 +1,15 @@
 
-'use client';
-
-import { ContactForm } from '@/components/contact/contact-form';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { profile } from '@/lib/data';
-import Link from 'next/link';
-import Script from 'next/script';
+import { Github, Instagram, Linkedin, Mail, MapPin } from 'lucide-react';
+import { BlueskyIcon } from '@/components/shared/bluesky-icon';
+
+const socialLinks = [
+  { name: 'GitHub', href: profile.socials.github, icon: Github },
+  { name: 'LinkedIn', href: profile.socials.linkedin, icon: Linkedin },
+  { name: 'Bluesky', href: profile.socials.bluesky, icon: BlueskyIcon },
+  { name: 'Instagram', href: profile.socials.instagram, icon: Instagram },
+];
 
 export function ContactPageClient() {
 
@@ -26,10 +30,9 @@ export function ContactPageClient() {
 
   return (
     <>
-      <Script
-        id="json-ld-contact"
+      <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
       <div className="container py-16 md:py-24">
         <div className="text-center mb-12">
@@ -37,43 +40,52 @@ export function ContactPageClient() {
             Ponte en contacto
           </h1>
           <p className="text-lg text-muted-foreground mt-2 max-w-2xl mx-auto">
-            ¿Tienes un proyecto en mente, una pregunta o simplemente quieres saludar? Me encantaría saber de ti.
+            ¿Tienes un proyecto en mente, buscas un desarrollador frontend o quieres conectar? Puedes encontrarme en cualquiera de estos canales.
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-12">
-          <div className="md:col-span-3">
-            <Card>
-              <CardHeader>
-                  <CardTitle>Envíame un mensaje</CardTitle>
-                  <CardDescription>Te responderé lo antes posible.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                  <ContactForm />
-              </CardContent>
-            </Card>
-          </div>
-          <div className="md:col-span-2 space-y-6">
-            <h3 className="font-headline text-xl font-semibold">Otras formas de conectar</h3>
-            <div className="space-y-4">
-              {profile.contactLinks.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <div key={index} className="flex items-start gap-3">
-                    <Icon className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      {item.href ? (
-                          <Link href={item.href} className="font-medium hover:underline break-all">{item.value}</Link>
-                      ) : (
-                          <span className="font-medium">{item.value}</span>
-                      )}
-                    </div>
+        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
+          <Card className="md:col-span-2 overflow-hidden border-primary/20 bg-gradient-to-br from-primary/10 via-background to-background">
+            <CardHeader>
+              <CardTitle className="text-2xl">Contacto directo</CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-4 sm:grid-cols-2">
+              <a
+                href={`mailto:${profile.contact.email}`}
+                className="flex items-center gap-4 rounded-xl border bg-background/80 p-4 transition-colors hover:border-primary"
+              >
+                <Mail className="h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
+                <span className="break-all font-medium">{profile.contact.email}</span>
+              </a>
+              <div className="flex items-center gap-4 rounded-xl border bg-background/80 p-4">
+                <MapPin className="h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
+                <span className="font-medium">{profile.contact.address}</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          {socialLinks.map(({ name, href, icon: Icon }) => (
+            <a key={name} href={href} target="_blank" rel="me noopener noreferrer" className="group">
+              <Card className="h-full transition-all duration-300 group-hover:-translate-y-1 group-hover:border-primary group-hover:shadow-lg">
+                <CardContent className="flex items-center gap-5 p-6">
+                  <span className="rounded-xl bg-primary/10 p-3 text-primary">
+                    <Icon className="h-7 w-7" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="font-headline text-xl font-semibold">{name}</p>
+                    <p className="text-sm text-muted-foreground">Conectar en {name}</p>
                   </div>
-                );
-              })}
-            </div>
-          </div>
+                </CardContent>
+              </Card>
+            </a>
+          ))}
         </div>
+
+        <div className="mx-auto mt-12 max-w-2xl text-center">
+          <p className="text-muted-foreground">
+            Disponible para colaborar en proyectos de React, LitElement, JavaScript, Python y desarrollo web frontend.
+          </p>
+          </div>
       </div>
     </>
   );

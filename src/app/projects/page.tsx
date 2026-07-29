@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Proyectos',
   description: 'Un escaparate de proyectos de Álvaro Martín Crespo, que demuestran habilidades en el desarrollo frontend y backend.',
+  keywords: ['proyectos desarrollo web', 'portfolio frontend', 'React', 'Firebase', 'Laravel', 'Tailwind CSS'],
   alternates: {
     canonical: '/projects',
   },

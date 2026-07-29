@@ -1,6 +1,3 @@
-'use client';
-
-import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { BlogPost } from '@/lib/types';
@@ -11,7 +8,6 @@ import { es } from 'date-fns/locale';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useLoading } from '@/components/providers/loading-provider';
 import Script from 'next/script';
 
 const siteUrl = 'https://devalvaro.vercel.app';
@@ -22,15 +18,7 @@ type BlogPostPageClientProps = {
 };
 
 export function BlogPostPageClient({ post, relatedPosts }: BlogPostPageClientProps) {
-  const { setIsPageLoading } = useLoading();
-  const pathname = usePathname();
   const blogHref = '/blog';
-
-  const handleNavClick = (href: string) => {
-    if (pathname !== href) {
-      setIsPageLoading(true);
-    }
-  };
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -41,7 +29,10 @@ export function BlogPostPageClient({ post, relatedPosts }: BlogPostPageClientPro
         description: post.excerpt,
         image: post.image_url,
         datePublished: new Date(post.date).toISOString(),
+        dateModified: new Date(post.created_at || post.date).toISOString(),
         keywords: post.tags?.join(', '),
+        articleSection: post.topic,
+        inLanguage: 'es-ES',
         author: {
           '@type': 'Person',
           name: profile.name,
@@ -72,7 +63,7 @@ export function BlogPostPageClient({ post, relatedPosts }: BlogPostPageClientPro
       <Script
         id="json-ld-blog-post"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
       <div className="container py-16 md:py-24">
         <article className="max-w-3xl mx-auto">
@@ -80,14 +71,14 @@ export function BlogPostPageClient({ post, relatedPosts }: BlogPostPageClientPro
             <ol className="flex items-center gap-2">
               <li><Link href="/" className="hover:text-primary">Inicio</Link></li>
               <li aria-hidden="true">/</li>
-              <li><Link href={blogHref} onClick={() => handleNavClick(blogHref)} className="hover:text-primary">Blog</Link></li>
+              <li><Link href={blogHref} className="hover:text-primary">Blog</Link></li>
               <li aria-hidden="true">/</li>
               <li aria-current="page" className="text-foreground truncate max-w-[200px]">{post.title}</li>
             </ol>
           </nav>
           <div className="mb-8">
               <Button asChild variant="ghost">
-                  <Link href={blogHref} onClick={() => handleNavClick(blogHref)}>
+                  <Link href={blogHref}>
                       <ArrowLeft className="mr-2" />
                       Volver al Blog
                   </Link>
@@ -154,7 +145,7 @@ export function BlogPostPageClient({ post, relatedPosts }: BlogPostPageClientPro
                   const relatedHref = `/blog/${related.slug}`;
                   return (
                     <Card key={related.slug} className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                      <Link href={relatedHref} onClick={() => handleNavClick(relatedHref)}>
+                      <Link href={relatedHref}>
                         <CardHeader>
                           <CardTitle className="font-headline text-base leading-snug">
                             {related.title}

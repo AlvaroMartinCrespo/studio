@@ -1,8 +1,21 @@
 import { getSupabaseServerClient } from './supabase/server';
 import type { BlogPost } from './types';
 
+function getBlogClient() {
+  try {
+    return getSupabaseServerClient();
+  } catch (error) {
+    console.error(
+      'El blog no está disponible porque faltan las variables públicas de Supabase.',
+      error instanceof Error ? error.message : error
+    );
+    return null;
+  }
+}
+
 export async function getAllPosts(): Promise<BlogPost[]> {
-  const supabase = getSupabaseServerClient();
+  const supabase = getBlogClient();
+  if (!supabase) return [];
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')
@@ -16,7 +29,8 @@ export async function getAllPosts(): Promise<BlogPost[]> {
 }
 
 export async function getPostsByTag(tag: string): Promise<BlogPost[]> {
-  const supabase = getSupabaseServerClient();
+  const supabase = getBlogClient();
+  if (!supabase) return [];
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')
@@ -31,7 +45,8 @@ export async function getPostsByTag(tag: string): Promise<BlogPost[]> {
 }
 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
-  const supabase = getSupabaseServerClient();
+  const supabase = getBlogClient();
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')
@@ -56,7 +71,8 @@ export async function getRelatedPosts(
 ): Promise<BlogPost[]> {
   if (!post.tags?.length) return [];
 
-  const supabase = getSupabaseServerClient();
+  const supabase = getBlogClient();
+  if (!supabase) return [];
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')

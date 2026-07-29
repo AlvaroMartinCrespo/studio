@@ -4,7 +4,8 @@ import { profile } from '@/lib/data';
 import type { Metadata } from 'next';
 import { BlogPostPageClient } from '@/components/blog/blog-post-page';
 
-export const revalidate = 3600;
+export const revalidate = 1800;
+export const dynamicParams = true;
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -31,8 +32,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: post.title,
     description: post.excerpt,
     keywords: post.tags,
+    authors: [{ name: profile.name, url: siteUrl }],
+    creator: profile.name,
+    publisher: profile.name,
+    category: post.topic,
     alternates: {
       canonical: `/blog/${post.slug}`,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
     openGraph: {
       title: post.title,
@@ -40,22 +55,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `${siteUrl}/blog/${post.slug}`,
       type: 'article',
       publishedTime: new Date(post.date).toISOString(),
+      modifiedTime: new Date(post.created_at || post.date).toISOString(),
       authors: [profile.name],
       tags: post.tags,
-      images: [
-        {
-          url: post.image_url,
-          width: 1200,
-          height: 600,
-          alt: post.image_alt,
-        },
-      ],
+      images: post.image_url
+        ? [
+            {
+              url: post.image_url,
+              width: 1200,
+              height: 600,
+              alt: post.image_alt,
+            },
+          ]
+        : undefined,
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
-      images: [post.image_url],
+      images: post.image_url ? [post.image_url] : undefined,
     },
   };
 }

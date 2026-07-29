@@ -1,11 +1,17 @@
 import { notFound } from 'next/navigation';
-import { projects } from '@/lib/data';
+import { profile, projects } from '@/lib/data';
 import type { Metadata } from 'next';
 import { ProjectDetailPageClient } from '@/components/projects/project-detail-page';
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return projects.map((project) => ({ slug: project.slug }));
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -22,6 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: project.title,
     description: project.description,
+    keywords: [...project.techStack, 'proyecto desarrollo web', profile.name],
     alternates: {
       canonical: `/projects/${project.slug}`,
     },

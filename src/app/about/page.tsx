@@ -1,14 +1,15 @@
 import Image from 'next/image';
 import { profile, skills } from '@/lib/data';
 import { Button } from '@/components/ui/button';
-import { Download, Github, Linkedin, Briefcase, Code, Coffee } from 'lucide-react';
+import { Download, Github, Instagram, Linkedin, Briefcase, Code, Coffee } from 'lucide-react';
 import { BlueskyIcon } from '@/components/shared/bluesky-icon';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Sobre mí',
-  description: 'Conoce más sobre la trayectoria profesional, habilidades y filosofía de desarrollo de Álvaro Martín Crespo.',
+  description: 'Conoce la experiencia, habilidades técnicas y filosofía de Álvaro Martín Crespo, desarrollador frontend especializado en React, LitElement y JavaScript.',
+  keywords: ['Álvaro Martín Crespo', 'desarrollador frontend Sevilla', 'React', 'LitElement', 'JavaScript', 'Python'],
   alternates: {
     canonical: '/about',
   },
@@ -62,6 +63,11 @@ export default function AboutPage() {
               <Button variant="outline" size="icon" asChild>
                 <a href={profile.socials.bluesky} target="_blank" rel="noopener noreferrer" aria-label="Bluesky">
                   <BlueskyIcon className="h-4 w-4" />
+                </a>
+              </Button>
+              <Button variant="outline" size="icon" asChild>
+                <a href={profile.socials.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <Instagram className="h-4 w-4" />
                 </a>
               </Button>
             </div>

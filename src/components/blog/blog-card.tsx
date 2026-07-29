@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
 import type { BlogPost } from '@/lib/types';
@@ -9,29 +7,19 @@ import { ArrowUpRight, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { Button } from '../ui/button';
-import { useLoading } from '../providers/loading-provider';
-import { usePathname } from 'next/navigation';
 
 type BlogCardProps = {
   post: BlogPost;
 };
 
 export function BlogCard({ post }: BlogCardProps) {
-  const { setIsPageLoading } = useLoading();
-  const pathname = usePathname();
   const href = `/blog/${post.slug}`;
-
-  const handleClick = () => {
-    if (pathname !== href) {
-      setIsPageLoading(true);
-    }
-  };
 
   return (
     <Card className="flex flex-col h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
       {post.image_url && (
         <div className="aspect-video overflow-hidden">
-          <Link href={href} onClick={handleClick} aria-label={post.title}>
+          <Link href={href} aria-label={post.title}>
             <Image
               src={post.image_url}
               alt={post.image_alt}
@@ -49,7 +37,7 @@ export function BlogCard({ post }: BlogCardProps) {
           <time dateTime={post.date}>{format(new Date(post.date), "d 'de' MMMM 'de' yyyy", { locale: es })}</time>
         </div>
         <CardTitle className="font-headline text-xl">
-          <Link href={href} onClick={handleClick} className="hover:text-primary transition-colors">
+          <Link href={href} className="hover:text-primary transition-colors">
             {post.title}
           </Link>
         </CardTitle>
@@ -72,7 +60,7 @@ export function BlogCard({ post }: BlogCardProps) {
       </CardContent>
        <CardFooter>
         <Button asChild variant="outline" className="w-full">
-          <Link href={href} onClick={handleClick}>
+          <Link href={href}>
             Leer Más
             <ArrowUpRight className="ml-2 h-4 w-4" />
           </Link>

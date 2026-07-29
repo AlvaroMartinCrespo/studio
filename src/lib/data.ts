@@ -1,6 +1,6 @@
 
 import { PlaceHolderImages, type ImagePlaceholder } from "./placeholder-images";
-import { Github, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, MapPin } from 'lucide-react';
 
 const getImage = (id: string): ImagePlaceholder | undefined => PlaceHolderImages.find(img => img.id === id);
 
@@ -14,6 +14,7 @@ export const profile = {
     github: "https://github.com/AlvaroMartinCrespo",
     linkedin: "https://www.linkedin.com/in/alvaromartincrespo/",
     bluesky: "https://bsky.app/profile/alvaromartincrespo.bsky.social",
+    instagram: "https://www.instagram.com/alvaro.martin.crespo.00/",
   },
   contact: {
     email: "alvaro.martin.crespo.00@gmail.com",
@@ -35,7 +36,67 @@ export const skills = [
   { name: 'Tailwind CSS', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
   { name: 'Git', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg' },
   { name: 'GitHub', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg' },
+  { name: 'LitElement', logo: 'https://cdn.simpleicons.org/lit/324FFF' },
+  { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
 ];
+
+export const certifications = [
+  {
+    title: 'React - The Complete Guide',
+    issuer: 'Udemy',
+    skills: ['React Hooks', 'React.js'],
+  },
+  {
+    title: 'Complete Python Bootcamp From Zero to Hero in Python',
+    issuer: 'Udemy',
+    skills: ['Python'],
+  },
+  {
+    title: 'Inglés B1',
+    issuer: 'Fundae Fundación Estatal para la Formación en el Empleo',
+    skills: ['Inglés'],
+  },
+  {
+    title: 'Elements of AI',
+    issuer: 'University of Helsinki',
+    skills: ['Inteligencia artificial'],
+  },
+  {
+    title: 'Prompt Engineering for Everyone',
+    issuer: 'Cognitive Class',
+    skills: ['Inteligencia artificial'],
+  },
+  {
+    title: 'IA Generativa',
+    issuer: 'Massachusetts Institute of Technology',
+    skills: ['IA', 'Inteligencia artificial'],
+  },
+  {
+    title: 'Google: Inteligencia Artificial y Productividad',
+    issuer: 'Google',
+    skills: ['IA', 'Inteligencia artificial'],
+  },
+  {
+    title: 'Front End Development Libraries',
+    issuer: 'freeCodeCamp',
+    skills: ['CSS', 'JavaScript'],
+  },
+  {
+    title: 'Fundamentos profesionales del desarrollo de software',
+    issuer: 'Microsoft',
+    skills: ['Desarrollo de software', 'Programación'],
+  },
+  {
+    title: 'Responsive Web Design',
+    issuer: 'freeCodeCamp',
+    skills: ['Diseño web', 'Visual Studio'],
+  },
+  {
+    title: 'JavaScript Algorithms and Data Structures',
+    issuer: 'freeCodeCamp',
+    skills: ['Bibliotecas de JavaScript', 'Visual Studio'],
+  },
+] as const;
 
 export const projects = [
   {

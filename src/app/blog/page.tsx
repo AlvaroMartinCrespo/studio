@@ -1,16 +1,26 @@
 import Link from 'next/link';
 import { getAllPosts, getPostsByTag, getAllTags } from '@/lib/blog';
+import { BlogPostList } from '@/components/blog/blog-post-list';
 import { BlogCard } from '@/components/blog/blog-card';
 import { Badge } from '@/components/ui/badge';
 import type { Metadata } from 'next';
 
-export const revalidate = 3600; // 1 hora: se refresca solo sin necesitar redeploy
+export const revalidate = 1800;
+
+const siteUrl = 'https://devalvaro.vercel.app';
 
 export const metadata: Metadata = {
   title: 'Blog',
-  description: 'Un espacio personal para compartir ideas, reflexiones y proyectos de Álvaro Martín Crespo.',
+  description: 'Artículos sobre desarrollo frontend, React, JavaScript, inteligencia artificial, rendimiento web y programación escritos por Álvaro Martín Crespo.',
+  keywords: ['blog desarrollo web', 'React', 'JavaScript', 'frontend', 'inteligencia artificial', 'programación'],
   alternates: {
     canonical: '/blog',
+  },
+  openGraph: {
+    title: 'Blog de desarrollo web | Álvaro Martín Crespo',
+    description: 'Artículos sobre frontend, React, JavaScript, IA, rendimiento web y programación.',
+    url: '/blog',
+    type: 'website',
   },
 };
 
@@ -25,8 +35,29 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     getAllTags(),
   ]);
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    '@id': `${siteUrl}/blog#blog`,
+    url: `${siteUrl}/blog`,
+    name: 'Blog de Álvaro Martín Crespo',
+    description: metadata.description,
+    inLanguage: 'es-ES',
+    author: { '@id': `${siteUrl}/#person` },
+    blogPost: posts.map((post) => ({
+      '@type': 'BlogPosting',
+      headline: post.title,
+      url: `${siteUrl}/blog/${post.slug}`,
+      datePublished: new Date(post.date).toISOString(),
+    })),
+  };
+
   return (
     <div className="container py-16 md:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+      />
       <div className="text-center mb-12">
         <h1 className="font-headline text-4xl md:text-5xl font-bold">
           Mi Blog Personal
@@ -54,11 +85,11 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
       )}
 
       {posts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map(post => (
+        <BlogPostList>
+          {posts.map((post) => (
             <BlogCard key={post.slug} post={post} />
           ))}
-        </div>
+        </BlogPostList>
       ) : (
         <p className="text-center text-muted-foreground">
           {tag ? `Todavía no hay posts con el tag "${tag}".` : 'Todavía no hay posts publicados.'}

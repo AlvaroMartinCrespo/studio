@@ -1,6 +1,0 @@
-# https://www.robotstxt.org/robotstxt.html
-User-agent: *
-Disallow: /dashboard
-Disallow: /login
-
-Sitemap: https://devalvaro.vercel.app/sitemap.xml
