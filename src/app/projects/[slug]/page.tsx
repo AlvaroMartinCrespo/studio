@@ -37,20 +37,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: project.description,
       url: `${siteUrl}/projects/${project.slug}`,
       type: 'website',
-      images: [
-        {
-          url: `${siteUrl}${project.image?.imageUrl}`,
-          width: 1200,
-          height: 675,
-          alt: project.title,
-        },
-      ],
+      images: project.image
+        ? [
+            {
+              url: `${siteUrl}${project.image.imageUrl}`,
+              width: 1200,
+              height: 675,
+              alt: project.title,
+            },
+          ]
+        : undefined,
     },
     twitter: {
         card: 'summary_large_image',
         title: project.title,
         description: project.description,
-        images: [`${siteUrl}${project.image?.imageUrl}`],
+        images: project.image ? [`${siteUrl}${project.image.imageUrl}`] : undefined,
     }
   };
 }

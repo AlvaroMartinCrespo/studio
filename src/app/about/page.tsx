@@ -6,6 +6,8 @@ import { BlueskyIcon } from '@/components/shared/bluesky-icon';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Metadata } from 'next';
 
+const siteUrl = 'https://devalvaro.vercel.app';
+
 export const metadata: Metadata = {
   title: 'Sobre mí',
   description: 'Conoce la experiencia, habilidades técnicas y filosofía de Álvaro Martín Crespo, desarrollador frontend especializado en React, LitElement y JavaScript.',
@@ -28,8 +30,51 @@ export const metadata: Metadata = {
 
 
 export default function AboutPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ProfilePage',
+        '@id': `${siteUrl}/about#webpage`,
+        url: `${siteUrl}/about`,
+        name: 'Sobre mí | Álvaro Martín Crespo',
+        description: metadata.description,
+        inLanguage: 'es-ES',
+        mainEntity: { '@id': `${siteUrl}/#person` },
+      },
+      {
+        '@type': 'Person',
+        '@id': `${siteUrl}/#person`,
+        name: profile.name,
+        url: siteUrl,
+        image: profile.image ? `${siteUrl}${profile.image.imageUrl}` : undefined,
+        jobTitle: profile.title,
+        description: profile.bio,
+        knowsAbout: skills.map((skill) => skill.name),
+        sameAs: Object.values(profile.socials),
+        email: profile.contact.email,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Sevilla',
+          addressCountry: 'ES',
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Inicio', item: siteUrl },
+          { '@type': 'ListItem', position: 2, name: 'Sobre mí', item: `${siteUrl}/about` },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="container py-16 md:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+      />
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="font-headline text-4xl md:text-5xl font-bold">Sobre mí</h1>

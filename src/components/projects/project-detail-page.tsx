@@ -21,18 +21,20 @@ export function ProjectDetailPageClient({ project }: ProjectDetailPageClientProp
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'Article',
+        '@type': 'CreativeWork',
+        '@id': `${siteUrl}/projects/${project.slug}#project`,
         headline: project.title,
+        name: project.title,
         description: project.description,
-        image: `${siteUrl}${project.image?.imageUrl}`,
+        image: project.image ? `${siteUrl}${project.image.imageUrl}` : undefined,
+        url: `${siteUrl}/projects/${project.slug}`,
+        keywords: project.techStack.join(', '),
+        programmingLanguage: project.techStack,
         author: {
+          '@id': `${siteUrl}/#person`,
           '@type': 'Person',
           name: profile.name,
           url: siteUrl,
-        },
-        publisher: {
-          '@type': 'Person',
-          name: profile.name,
         },
         mainEntityOfPage: {
           '@type': 'WebPage',
@@ -104,14 +106,14 @@ export function ProjectDetailPageClient({ project }: ProjectDetailPageClientProp
           <div className="flex gap-4 mb-12">
             {project.liveUrl && project.liveUrl !== '#' && (
               <Button asChild>
-                <Link href={project.liveUrl} target="_blank">
+                <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                   <Tv className="mr-2" /> Demo en vivo
                 </Link>
               </Button>
             )}
             {project.repoUrl && project.repoUrl !== '#' && (
               <Button variant="outline" asChild>
-                <Link href={project.repoUrl} target="_blank">
+                <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer">
                   <Github className="mr-2" /> Ver Código
                 </Link>
               </Button>

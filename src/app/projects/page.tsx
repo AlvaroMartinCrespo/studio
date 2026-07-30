@@ -1,6 +1,9 @@
 
 import { ProjectGrid } from '@/components/projects/project-grid';
 import type { Metadata } from 'next';
+import { projects } from '@/lib/data';
+
+const siteUrl = 'https://devalvaro.vercel.app';
 
 export const metadata: Metadata = {
   title: 'Proyectos',
@@ -23,8 +26,46 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        '@id': `${siteUrl}/projects#webpage`,
+        url: `${siteUrl}/projects`,
+        name: 'Proyectos de Álvaro Martín Crespo',
+        description: metadata.description,
+        inLanguage: 'es-ES',
+        mainEntity: { '@id': `${siteUrl}/projects#itemlist` },
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${siteUrl}/projects#itemlist`,
+        name: 'Proyectos de desarrollo web',
+        numberOfItems: projects.length,
+        itemListElement: projects.map((project, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          url: `${siteUrl}/projects/${project.slug}`,
+          name: project.title,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Inicio', item: siteUrl },
+          { '@type': 'ListItem', position: 2, name: 'Proyectos', item: `${siteUrl}/projects` },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="container py-16 md:py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+      />
       <div className="text-center mb-12">
         <h1 className="font-headline text-4xl md:text-5xl font-bold">
           Mis Proyectos

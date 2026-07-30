@@ -37,19 +37,30 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Blog',
-    '@id': `${siteUrl}/blog#blog`,
-    url: `${siteUrl}/blog`,
-    name: 'Blog de Álvaro Martín Crespo',
-    description: metadata.description,
-    inLanguage: 'es-ES',
-    author: { '@id': `${siteUrl}/#person` },
-    blogPost: posts.map((post) => ({
-      '@type': 'BlogPosting',
-      headline: post.title,
-      url: `${siteUrl}/blog/${post.slug}`,
-      datePublished: new Date(post.date).toISOString(),
-    })),
+    '@graph': [
+      {
+        '@type': 'Blog',
+        '@id': `${siteUrl}/blog#blog`,
+        url: `${siteUrl}/blog`,
+        name: 'Blog de Álvaro Martín Crespo',
+        description: metadata.description,
+        inLanguage: 'es-ES',
+        author: { '@id': `${siteUrl}/#person` },
+        blogPost: posts.map((post) => ({
+          '@type': 'BlogPosting',
+          headline: post.title,
+          url: `${siteUrl}/blog/${post.slug}`,
+          datePublished: new Date(post.date).toISOString(),
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Inicio', item: siteUrl },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteUrl}/blog` },
+        ],
+      },
+    ],
   };
 
   return (

@@ -25,22 +25,25 @@ export function BlogPostPageClient({ post, relatedPosts }: BlogPostPageClientPro
     '@graph': [
       {
         '@type': 'BlogPosting',
+        '@id': `${siteUrl}/blog/${post.slug}#article`,
         headline: post.title,
         description: post.excerpt,
         image: post.image_url,
+        url: `${siteUrl}/blog/${post.slug}`,
         datePublished: new Date(post.date).toISOString(),
         dateModified: new Date(post.created_at || post.date).toISOString(),
         keywords: post.tags?.join(', '),
         articleSection: post.topic,
         inLanguage: 'es-ES',
+        articleBody: post.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(),
         author: {
+          '@id': `${siteUrl}/#person`,
           '@type': 'Person',
           name: profile.name,
           url: siteUrl,
         },
         publisher: {
-          '@type': 'Person',
-          name: profile.name,
+          '@id': `${siteUrl}/#person`,
         },
         mainEntityOfPage: {
           '@type': 'WebPage',
