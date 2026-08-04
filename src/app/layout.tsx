@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: 'Álvaro Martín Crespo - Desarrollador Frontend',
     template: '%s | Álvaro Martín Crespo',
   },
-  description: 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend especializado en crear experiencias web modernas y accesibles.',
+  description: 'Portfolio de Álvaro Martín Crespo, desarrollador frontend en Sevilla especializado en React, LitElement, JavaScript e interfaces web accesibles.',
   applicationName: 'Portfolio de Álvaro Martín Crespo',
   authors: [{ name: 'Álvaro Martín Crespo', url: siteUrl }],
   creator: 'Álvaro Martín Crespo',
@@ -51,6 +51,9 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
       { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
       { url: '/icon-512.png', type: 'image/png', sizes: '512x512' },
     ],
@@ -76,16 +79,17 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
+    siteName: 'Álvaro Martín Crespo - Portfolio',
     locale: 'es_ES',
     url: siteUrl,
     title: 'Álvaro Martín Crespo - Desarrollador Frontend',
     description: 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend especializado en crear experiencias web modernas y accesibles.',
     images: [
       {
-        url: `${siteUrl}/images/portada.webp`,
+        url: `${siteUrl}/images/og-cover.webp`,
         width: 1200,
         height: 630,
-        alt: 'Imagen de portada del portfolio de Álvaro Martín Crespo',
+        alt: 'Álvaro Martín Crespo - Desarrollador Frontend',
       },
     ],
   },
@@ -93,7 +97,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Álvaro Martín Crespo - Desarrollador Frontend',
     description: 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend especializado en crear experiencias web modernas y accesibles.',
-    images: [`${siteUrl}/images/portada.webp`],
+    images: [`${siteUrl}/images/og-cover.webp`],
   },
   other: {
     'google-site-verification': 'a67bdaf5c6e96c8a',
