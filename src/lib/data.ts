@@ -158,6 +158,16 @@ export const projects = [
     image: getImage('project-gym-app'),
     liveUrl: '#',
     repoUrl: 'https://github.com/AlvaroMartinCrespo/gym-project',
+  },
+  {
+    slug: 'iris-buscador-viajes',
+    title: 'Iris',
+    isFeatured: true,
+    description: 'Buscador inverso de viajes: en vez de elegir un destino, indicas origen, fechas, viajeros y presupuesto, y la aplicación compara vuelos y alojamiento con Duffel, además de rutas en coche o transporte público con Google Routes, para mostrar primero las escapadas con mejor relación entre coste, distancia y tiempo.',
+    techStack: ['React', 'TypeScript', 'Node.js', 'Express'],
+    image: getImage('project-iris'),
+    liveUrl: '#',
+    repoUrl: 'https://github.com/AlvaroMartinCrespo/iris',
   }
 ];
 
