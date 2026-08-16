@@ -1,8 +1,7 @@
-import Link from 'next/link';
 import { getAllPosts, getPostsByTag, getAllTags } from '@/lib/blog';
 import { BlogPostList } from '@/components/blog/blog-post-list';
 import { BlogCard } from '@/components/blog/blog-card';
-import { Badge } from '@/components/ui/badge';
+import { BlogTagFilter } from '@/components/blog/blog-tag-filter';
 import type { Metadata } from 'next';
 
 export const revalidate = 1800;
@@ -78,22 +77,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         </p>
       </div>
 
-      {tags.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
-          <Link href="/blog">
-            <Badge variant={!tag ? 'default' : 'outline'} className="cursor-pointer">
-              Todos
-            </Badge>
-          </Link>
-          {tags.map(({ tag: t, count }) => (
-            <Link key={t} href={`/blog?tag=${encodeURIComponent(t)}`}>
-              <Badge variant={tag === t ? 'default' : 'outline'} className="cursor-pointer">
-                {t} ({count})
-              </Badge>
-            </Link>
-          ))}
-        </div>
-      )}
+      {tags.length > 0 && <BlogTagFilter tags={tags} activeTag={tag} />}
 
       {posts.length > 0 ? (
         <BlogPostList>
