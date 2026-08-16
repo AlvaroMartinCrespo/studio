@@ -9,7 +9,7 @@ const siteUrl = 'https://devalvaro.vercel.app';
 export const metadata: Metadata = {
   title: 'Desarrollador Frontend en Sevilla | React, LitElement y JavaScript',
   description:
-    'Portfolio de Álvaro Martín Crespo, desarrollador frontend en Sevilla especializado en React, LitElement, JavaScript, interfaces accesibles y aplicaciones web modernas.',
+    'Portfolio de Álvaro Martín Crespo, desarrollador frontend en Sevilla especializado en React, LitElement y JavaScript. Interfaces web accesibles y modernas.',
   alternates: { canonical: '/' },
 };
 

@@ -95,6 +95,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@ReactAlvaro',
+    creator: '@ReactAlvaro',
     title: 'Álvaro Martín Crespo - Desarrollador Frontend',
     description: 'Portfolio de Álvaro Martín Crespo, un desarrollador frontend especializado en crear experiencias web modernas y accesibles.',
     images: [`${siteUrl}/images/og-cover.webp`],
@@ -150,6 +152,7 @@ export default function RootLayout({
           profile.socials.linkedin,
           profile.socials.bluesky,
           profile.socials.instagram,
+          profile.socials.twitter,
         ],
         email: profile.contact.email,
         address: {

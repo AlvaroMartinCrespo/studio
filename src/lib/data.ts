@@ -15,6 +15,7 @@ export const profile = {
     linkedin: "https://www.linkedin.com/in/alvaromartincrespo/",
     bluesky: "https://bsky.app/profile/alvaromartincrespo.bsky.social",
     instagram: "https://www.instagram.com/alvaro.martin.crespo.00/",
+    twitter: "https://x.com/ReactAlvaro",
   },
   contact: {
     email: "alvaro.martin.crespo.00@gmail.com",
