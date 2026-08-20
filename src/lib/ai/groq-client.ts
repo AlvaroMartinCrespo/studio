@@ -21,7 +21,7 @@ export async function groqChat(
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: process.env.GROQ_MODEL || 'llama-3.3-70b-versatile',
+      model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
       messages,
       temperature: options?.temperature ?? 0.8,
       ...(options?.jsonMode ? { response_format: { type: 'json_object' } } : {}),
