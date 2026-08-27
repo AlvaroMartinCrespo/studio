@@ -169,6 +169,16 @@ export const projects = [
     image: getImage('project-iris'),
     liveUrl: '#',
     repoUrl: 'https://github.com/AlvaroMartinCrespo/iris',
+  },
+  {
+    slug: 'alejandria-biblioteca-personal',
+    title: 'Alejandría',
+    isFeatured: true,
+    description: 'Aplicación web personal de gestión de biblioteca y seguimiento de lectura. Permite organizar libros por leer, en curso y leídos, llevar estadísticas de lectura, hacer backups en JSON e importar datos desde la API de Google Books. Funciona como PWA instalable, sin necesidad de login.',
+    techStack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Appwrite'],
+    image: getImage('project-alejandria'),
+    liveUrl: 'https://github.com/AlvaroMartinCrespo/alejandria',
+    repoUrl: 'https://github.com/AlvaroMartinCrespo/alejandria',
   }
 ];
 
