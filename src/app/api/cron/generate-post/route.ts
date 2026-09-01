@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateAndPublishPost } from '@/lib/ai/generate-post';
+import { reportBlogPostSuccess, reportBlogPostError } from '@/lib/monitoring/bots-monitor';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -18,6 +19,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const post = await generateAndPublishPost();
+    await reportBlogPostSuccess({ slug: post.slug, title: post.title, tags: post.tags });
     return NextResponse.json({
       ok: true,
       post: { slug: post.slug, title: post.title, tags: post.tags },
@@ -25,6 +27,7 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     console.error('Error generando el post automático:', error);
     const message = error instanceof Error ? error.message : 'Error desconocido';
+    await reportBlogPostError(message);
     return NextResponse.json({ ok: false, error: message }, { status: 500 });
   }
 }
