@@ -1,8 +1,14 @@
 import { getSupabaseAdminClient, getSupabaseServerClient } from '@/lib/supabase/server';
 import { groqChat } from './groq-client';
 import { fetchPexelsImage } from './pexels-client';
-import { TOPIC_POOL, type TopicCandidate } from './topic-pool';
+import { TOPIC_POOL, CURIOSITY_TOPIC_POOL, type TopicCandidate } from './topic-pool';
 import type { BlogPost } from '@/lib/types';
+
+/**
+ * Probabilidad de elegir un tema del pool de curiosidades en vez del técnico.
+ * Deliberadamente baja: son un complemento ocasional, no el grueso del blog.
+ */
+const CURIOSITY_PROBABILITY = 0.12;
 
 const AUTHOR_CONTEXT =
   'Escribes para el blog personal de Álvaro Martín Crespo, desarrollador frontend de Sevilla, España. ' +
@@ -28,7 +34,35 @@ function jaccardSimilarity(a: string, b: string): number {
   return union.size === 0 ? 0 : intersection.size / union.size;
 }
 
-/** Elige un tema del pool que no se haya usado todavía (por `topic`). */
+/** Elige un tema no usado todavía (por `topic`) dentro de un pool concreto. */
+function pickFromPool(
+  pool: TopicCandidate[],
+  usedTopics: Set<string>,
+  recentTitles: string[]
+): TopicCandidate {
+  let candidates = pool.filter((c) => !usedTopics.has(c.topic));
+
+  // Pool agotado: se reutiliza, pero evitando el tema usado más recientemente
+  // (mejor repetir algo de hace meses que algo de ayer).
+  if (candidates.length === 0) {
+    candidates = pool;
+  }
+
+  // Evita elegir un candidato cuyo título semilla se parezca demasiado
+  // (por si acaso) a un título ya publicado recientemente.
+  const filtered = candidates.filter((c) =>
+    recentTitles.every((title) => jaccardSimilarity(c.seedTitle, title) < 0.5)
+  );
+
+  const finalPool = filtered.length > 0 ? filtered : candidates;
+  return finalPool[Math.floor(Math.random() * finalPool.length)];
+}
+
+/**
+ * Elige un tema para el próximo post. La mayoría de las veces sale del pool
+ * técnico; con probabilidad CURIOSITY_PROBABILITY sale del pool de
+ * curiosidades, para dar variedad sin que dominen el blog.
+ */
 async function pickUnusedTopic(): Promise<TopicCandidate> {
   const supabase = getSupabaseServerClient();
   const { data, error } = await supabase.from('blog_posts').select('topic, title');
@@ -39,22 +73,8 @@ async function pickUnusedTopic(): Promise<TopicCandidate> {
   const usedTopics = new Set((data ?? []).map((p) => p.topic));
   const recentTitles = (data ?? []).map((p) => p.title as string);
 
-  let candidates = TOPIC_POOL.filter((c) => !usedTopics.has(c.topic));
-
-  // Pool agotado: se reutiliza, pero evitando el tema usado más recientemente
-  // (mejor repetir algo de hace meses que algo de ayer).
-  if (candidates.length === 0) {
-    candidates = TOPIC_POOL;
-  }
-
-  // Evita elegir un candidato cuyo título semilla se parezca demasiado
-  // (por si acaso) a un título ya publicado recientemente.
-  const filtered = candidates.filter((c) =>
-    recentTitles.every((title) => jaccardSimilarity(c.seedTitle, title) < 0.5)
-  );
-
-  const pool = filtered.length > 0 ? filtered : candidates;
-  return pool[Math.floor(Math.random() * pool.length)];
+  const pool = Math.random() < CURIOSITY_PROBABILITY ? CURIOSITY_TOPIC_POOL : TOPIC_POOL;
+  return pickFromPool(pool, usedTopics, recentTitles);
 }
 
 interface GeneratedArticle {
@@ -64,40 +84,107 @@ interface GeneratedArticle {
   tags: string[];
 }
 
+/**
+ * Escapa caracteres especiales de HTML para meter texto/código dentro de un
+ * <pre><code> sin que `<`, `>` o `&` rompan el marcado de la página.
+ */
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/**
+ * Red de seguridad: aunque el prompt pide HTML con <pre>/<code>, los modelos
+ * a veces "recaen" en el hábito de Markdown y sueltan bloques ```lang ... ```
+ * o `inline code` como texto plano. Eso es justo lo que se veía mal en la
+ * página (sin resaltado, con saltos de línea colapsados). Aquí convertimos
+ * cualquier resto de sintaxis Markdown que se haya colado a HTML real antes
+ * de guardar el post, y escapamos el contenido de código para que un `<` o
+ * `>` dentro de un ejemplo no rompa el HTML de la página.
+ */
+function normalizeContentHtml(html: string): string {
+  let result = html;
+
+  // Bloques de código ```lang\n...\n``` -> <pre><code class="language-lang">...</code></pre>
+  result = result.replace(
+    /```(\w+)?\n?([\s\S]*?)```/g,
+    (_match, lang: string | undefined, code: string) => {
+      const cls = lang ? ` class="language-${lang}"` : '';
+      return `<pre><code${cls}>${escapeHtml(code.trim())}</code></pre>`;
+    }
+  );
+
+  // Código inline `algo` -> <code>algo</code> (evitando tocar lo ya convertido arriba)
+  result = result.replace(/`([^`\n]+)`/g, (_match, code: string) => `<code>${escapeHtml(code)}</code>`);
+
+  // Negrita/cursiva Markdown residual, por si se cuela junto al resto
+  result = result.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  result = result.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, '<em>$1</em>');
+
+  return result;
+}
+
 async function generateArticle(
   candidate: TopicCandidate,
-  recentTitles: string[]
+  recentTitles: string[],
+  attempt = 1
 ): Promise<GeneratedArticle> {
   const system = `${AUTHOR_CONTEXT}
 Devuelves SIEMPRE un JSON válido con esta forma exacta, sin texto adicional fuera del JSON:
 {
   "title": string,
   "excerpt": string (máximo 160 caracteres, resumen para SEO),
-  "contentHtml": string (HTML del cuerpo del artículo, usando <p>, <h3>, <ul>/<li>, <code>/<pre> cuando aplique; 500-800 palabras, sin <html>/<body>, sin el título repetido dentro),
+  "contentHtml": string (HTML del cuerpo del artículo; 500-800 palabras, sin <html>/<body>, sin el título repetido dentro),
   "tags": string[] (3 a 5 tags cortos en minúscula, en español o el nombre técnico habitual)
-}`;
+}
 
-  const user = `Escribe un artículo de blog técnico sobre: "${candidate.seedTitle}".
+Reglas estrictas para "contentHtml" (esto es HTML real que se inserta tal cual en la página, NUNCA Markdown):
+- Párrafos con <p>, subtítulos con <h3>, listas con <ul>/<li>.
+- Para código, usa EXCLUSIVAMENTE <pre><code>...</code></pre>. Prohibido usar los tres backticks (\`\`\`) de Markdown para bloques de código: no se renderizan como código en esta web, salen como texto plano.
+- Para código inline dentro de un párrafo, usa EXCLUSIVAMENTE <code>...</code>. Prohibido usar backtick simple (\`palabra\`).
+- Dentro de <pre><code>, escapa los símbolos < y > del propio código como &lt; y &gt; (por ejemplo un genérico Array<string> se escribe Array&lt;string&gt;).
+- Para negrita usa <strong>, para cursiva <em>. Nunca ** ni * de Markdown.`;
+
+  const isCuriosity = candidate.tags.includes('curiosidades');
+  const user = `Escribe un artículo de blog sobre: "${candidate.seedTitle}".
 Tema base: ${candidate.topic}. Tags orientativos: ${candidate.tags.join(', ')}.
 
 Para no repetirte, estos son los títulos ya publicados en el blog (evita enfoques y ejemplos casi idénticos a estos, aunque el tema de fondo se repita):
 ${recentTitles.length ? recentTitles.map((t) => `- ${t}`).join('\n') : '(todavía no hay posts publicados)'}
 
-Escribe el artículo en español de España, con un ejemplo de código cuando tenga sentido, tono cercano y práctico.`;
+Escribe el artículo en español de España, tono cercano y práctico.${
+    isCuriosity
+      ? ' Este es un post de curiosidades/cultura, no técnico: no fuerces ningún ejemplo de código.'
+      : ' Incluye un ejemplo de código cuando tenga sentido, siguiendo las reglas de formato de HTML indicadas arriba.'
+  }`;
 
-  const raw = await groqChat(
-    [
-      { role: 'system', content: system },
-      { role: 'user', content: user },
-    ],
-    { temperature: 0.85, jsonMode: true }
-  );
+  let parsed: { title: string; excerpt: string; contentHtml: string; tags?: string[] };
+  try {
+    const raw = await groqChat(
+      [
+        { role: 'system', content: system },
+        { role: 'user', content: user },
+      ],
+      { temperature: 0.85, jsonMode: true, maxTokens: 4000 }
+    );
+    parsed = JSON.parse(raw);
+  } catch (err) {
+    // Fallo probabilístico del modelo generando JSON (respuesta cortada,
+    // finish_reason=length, o JSON mal cerrado). Se reintenta un par de
+    // veces antes de rendirse.
+    if (attempt < 3) {
+      console.warn(`Fallo generando el artículo (intento ${attempt}): ${(err as Error).message}. Reintentando...`);
+      return generateArticle(candidate, recentTitles, attempt + 1);
+    }
+    throw new Error(`No se pudo generar el artículo tras ${attempt} intentos: ${(err as Error).message}`);
+  }
 
-  const parsed = JSON.parse(raw);
   return {
     title: parsed.title,
     excerpt: parsed.excerpt,
-    contentHtml: parsed.contentHtml,
+    contentHtml: normalizeContentHtml(parsed.contentHtml),
     tags: Array.isArray(parsed.tags) && parsed.tags.length ? parsed.tags : candidate.tags,
   };
 }

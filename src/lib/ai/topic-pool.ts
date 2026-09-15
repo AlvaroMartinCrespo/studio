@@ -65,3 +65,19 @@ export const TOPIC_POOL: TopicCandidate[] = [
   { topic: 'code-review', seedTitle: 'Cómo dar y recibir code reviews sin dramas', tags: ['carrera', 'buenas-practicas'] },
   { topic: 'proyectos-personales', seedTitle: 'Por qué merece la pena tener proyectos personales', tags: ['carrera', 'reflexion'] },
 ];
+
+/**
+ * Pool de temas "de interés general" (curiosidades de países, comida, cultura...).
+ * No son técnicos: sirven para dar variedad al blog de vez en cuando.
+ * Se seleccionan con muy baja probabilidad, ver CURIOSITY_PROBABILITY en generate-post.ts.
+ * Pocos y cuidados a propósito (calidad antes que cantidad): amplía esta lista
+ * poco a poco si quieres más variedad, no hace falta rellenarla de golpe.
+ */
+export const CURIOSITY_TOPIC_POOL: TopicCandidate[] = [
+  { topic: 'curiosidad-trabajo-remoto-paises', seedTitle: 'Cómo se vive el trabajo remoto como programador en distintos países', tags: ['curiosidades', 'cultura'] },
+  { topic: 'curiosidad-comida-programadores-mundo', seedTitle: 'Qué come un programador en su descanso en distintos países del mundo', tags: ['curiosidades', 'comida'] },
+  { topic: 'curiosidad-jornada-laboral-paises', seedTitle: 'Jornadas laborales curiosas en el mundo tech: de Japón a los países nórdicos', tags: ['curiosidades', 'cultura'] },
+  { topic: 'curiosidad-origen-lenguajes-programacion', seedTitle: 'Historias curiosas detrás del nombre de lenguajes de programación', tags: ['curiosidades', 'historia'] },
+  { topic: 'curiosidad-cafe-mundo', seedTitle: 'La cultura del café alrededor del mundo (y por qué el programador vive de él)', tags: ['curiosidades', 'comida'] },
+  { topic: 'curiosidad-festivales-tech-mundo', seedTitle: 'Festivales y tradiciones curiosas relacionadas con la tecnología por el mundo', tags: ['curiosidades', 'cultura'] },
+];
